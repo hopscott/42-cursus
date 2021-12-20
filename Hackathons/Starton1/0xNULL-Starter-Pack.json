@@ -1,0 +1,11 @@
+{
+	"name": "0xNULL Mission #1 Trophy",
+	"description": "Reward for completing Mission #1",
+	"image": "ipfs://ipfs/QmeQqCczSbY6MmwSoHd6AsbVsuesnsN4oBTGiXTgjEwM41",
+	"attributes": [{
+		"key": "Rank",
+		"trait_type": "string",
+		"value": "New kid on the block"
+	}]
+}
+
