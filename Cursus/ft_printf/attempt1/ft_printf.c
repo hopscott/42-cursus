@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:26:15 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/17 20:25:24 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/03 14:54:38 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,46 +41,56 @@ int	ft_varcheck(const char *str)
 	return (0);
 }
 
-void	ft_putvar(const char c, va_list vars)
+int	ft_putvar(const char c, va_list vars)
 {
-		if (c == 'c')
-			ft_putchar(va_arg(vars, int));
-		else if (c == 's')
-			ft_putstr(va_arg(vars, char *));
-		else if (c == 'p')
-			ft_putptr(va_arg(vars, unsigned long long), "0123456789abcdef");
-		else if (c == 'd')
-			ft_putbase(va_arg(vars, int), "0123456789");
-		else if (c == 'i')
-			ft_putnbr(va_arg(vars, int));
-		else if (c == 'u')
-			ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789");
-		else if (c == 'x')
-			ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789");
-		else if (c == 'X')
-			ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789");
-		else if (c == '%')
-			ft_putchar('%');
+	char	*str;
+	int		len;
+
+	if (c == 'c')
+		str = ft_putchar(va_arg(vars, int));
+	else if (c == 's')
+		str = ft_putstr(va_arg(vars, char *));
+	else if (c == 'p')
+		str = ft_putptr(va_arg(vars, unsigned long long), "0123456789abcdef");
+	else if (c == 'd')
+		str = ft_putbase(va_arg(vars, int), "0123456789");
+	else if (c == 'i')
+		str = ft_putnbr(va_arg(vars, int));
+	else if (c == 'u')
+		str = ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789");
+	else if (c == 'x')
+		str = ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789abcdef");
+	else if (c == 'X')
+		str = ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789ABCDEF");
+	else if (c == '%')
+		str = ft_putchar('%');
+	len = ft_strlen(str);
+	ft_putstr(str);
+	free(str);
+	return (len);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	va_list	vars;
 	int		i;
+	int		count;
 
 	va_start(vars, str);
 	i = 0;
+	count = 0;
 	while (str && str[i])
 	{
 		if (ft_varcheck(&str[i]))
 		{
 			i++;
-			ft_putvar(str[i], vars);
+			count += ft_putvar(str[i], vars);
 		}
 		else
 			ft_putchar(str[i]);
 		i++;
 	}
+	count += i;
 	va_end(vars);
-	return (0);
+	return (count);
 }

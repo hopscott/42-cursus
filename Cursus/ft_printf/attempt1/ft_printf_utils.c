@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:23:34 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/17 18:43:30 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/03 14:35:38 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,16 @@ void	ft_putbase(int n, char *base)
 {
 	char			*str;
 	unsigned int	nb;
+	int				digits;
 	int				i;
 
 	str = malloc(sizeof(char) * (ft_finddigits_int(n, ft_strlen(base)) + 1));
+	digits = ft_finddigits_int(n, ft_strlen(base)) - 1;
 	if (n < 0)
 		nb = -n;
 	else
 		nb = n;
-	i = ft_finddigits_int(n, ft_strlen(base)) - 1;
+	i = digits;
 	while (i >= 0)
 	{
 		str[i] = base[nb % ft_strlen(base)];
@@ -93,7 +95,7 @@ void	ft_putbase(int n, char *base)
 	}
 	if (n < 0)
 		str[0] = '-';
-	str[ft_finddigits_int(n, ft_strlen(base))] = '\0';
+	str[digits] = '\0';
 	ft_putstr(str);
 	free(str);
 }

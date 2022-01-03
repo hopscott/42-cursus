@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 15:50:12 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/17 19:53:26 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/03 14:10:23 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ void	ft_putstr(char *s);
 void	ft_putnbr(int n);
 void	ft_putbase(int n, char *base);
 void    ft_putptr(unsigned long long add, char *base);
+void	ft_putbase_unsign(unsigned int n, char *base);
 int		ft_varcheck(const char *str);
 int		ft_finddigits_int(int n, int len_base);
 int		ft_finddigits_ull(unsigned long long add, int len_base);
+int		ft_finddigits_unsign(unsigned int n, int len_base);
 int		ft_strlen(char *str);
 int		ft_printf(const char *str, ...);
 
