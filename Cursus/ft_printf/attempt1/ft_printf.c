@@ -6,12 +6,11 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:26:15 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/03 15:56:32 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/03 18:46:01 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	ft_varcheck(const char *str)
 {

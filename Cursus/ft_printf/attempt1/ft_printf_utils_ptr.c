@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_printf_utils_ptr.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:23:34 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/03 15:18:52 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/03 17:28:52 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	ft_putptr(unsigned long long add, char *base)
 	int		digits;
 	int		lenbase;
 
+	if (add == 0)
+		return (ft_putstr("(nil)"));
 	lenbase = ft_strlen(base);
 	digits = ft_finddigits_ull(add, lenbase);
 	str = malloc(sizeof(char) * (digits + 1));

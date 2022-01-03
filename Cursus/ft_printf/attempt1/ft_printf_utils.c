@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:23:34 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/03 16:10:33 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/03 18:45:43 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	ft_putchar(char c)
 		return (1);
 	}
 	else if (c == 0)
+	{
+		write(1, "\0", 1);
 		return (1);
+	}
 	return (0);
 }
 
@@ -31,6 +34,8 @@ int	ft_putstr(char *s)
 		write(1, s, ft_strlen(s));
 		return (ft_strlen(s));
 	}
+	else if (s == NULL)
+		return (ft_putstr("(null)"));
 	return (0);
 }
 
@@ -76,19 +81,20 @@ int	ft_putbase(int n, char *base)
 
 	digits = ft_finddigits_int(n, ft_strlen(base));
 	str = malloc(sizeof(char) * (digits + 1));
+	nb = n;
 	if (n < 0)
 		nb = -n;
-	else
-		nb = n;
 	str[digits] = '\0';
 	i = digits - 1;
 	while (i >= 0)
 	{
 		if ((i == 0) && (n < 0))
 			str[i--] = '-';
-		str[i] = base[nb % ft_strlen(base)];
-		nb /= ft_strlen(base);
-		i--;
+		else
+		{
+			str[i--] = base[nb % ft_strlen(base)];
+			nb /= ft_strlen(base);
+		}
 	}
 	ft_putstr(str);
 	free(str);
