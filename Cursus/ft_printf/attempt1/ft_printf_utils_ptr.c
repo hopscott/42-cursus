@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:23:34 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/17 20:21:45 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/03 15:18:52 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_finddigits_ull(unsigned long long add, int len_base)
 {
 	int	digits;
-	
+
 	if (add == 0)
 		return (1);
 	digits = 0;
@@ -27,7 +27,7 @@ int	ft_finddigits_ull(unsigned long long add, int len_base)
 	return (digits);
 }
 
-void	ft_putptr(unsigned long long add, char *base)
+int	ft_putptr(unsigned long long add, char *base)
 {
 	char	*str;
 	int		i;
@@ -48,4 +48,5 @@ void	ft_putptr(unsigned long long add, char *base)
 	ft_putstr("0x");
 	ft_putstr(str);
 	free(str);
+	return (2 + digits);
 }

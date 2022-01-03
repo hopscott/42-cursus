@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:23:34 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/17 20:27:16 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/03 15:19:02 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_finddigits_unsign(unsigned int n, int len_base)
 {
 	int	digits;
-	
+
 	if (n == 0)
 		return (1);
 	digits = 0;
@@ -27,7 +27,7 @@ int	ft_finddigits_unsign(unsigned int n, int len_base)
 	return (digits);
 }
 
-void	ft_putbase_unsign(unsigned int n, char *base)
+int	ft_putbase_unsign(unsigned int n, char *base)
 {
 	char	*str;
 	int		i;
@@ -47,4 +47,5 @@ void	ft_putbase_unsign(unsigned int n, char *base)
 	str[digits] = '\0';
 	ft_putstr(str);
 	free(str);
+	return (digits);
 }

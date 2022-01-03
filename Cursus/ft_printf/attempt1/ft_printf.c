@@ -6,11 +6,12 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:26:15 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/03 14:54:38 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/03 15:56:32 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 int	ft_varcheck(const char *str)
 {
@@ -43,30 +44,27 @@ int	ft_varcheck(const char *str)
 
 int	ft_putvar(const char c, va_list vars)
 {
-	char	*str;
 	int		len;
 
+	len = 0;
 	if (c == 'c')
-		str = ft_putchar(va_arg(vars, int));
+		len = ft_putchar(va_arg(vars, int));
 	else if (c == 's')
-		str = ft_putstr(va_arg(vars, char *));
+		len = ft_putstr(va_arg(vars, char *));
 	else if (c == 'p')
-		str = ft_putptr(va_arg(vars, unsigned long long), "0123456789abcdef");
+		len = ft_putptr(va_arg(vars, unsigned long long), "0123456789abcdef");
 	else if (c == 'd')
-		str = ft_putbase(va_arg(vars, int), "0123456789");
+		len = ft_putbase(va_arg(vars, int), "0123456789");
 	else if (c == 'i')
-		str = ft_putnbr(va_arg(vars, int));
+		len = ft_putbase(va_arg(vars, int), "0123456789");
 	else if (c == 'u')
-		str = ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789");
+		len = ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789");
 	else if (c == 'x')
-		str = ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789abcdef");
+		len = ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789abcdef");
 	else if (c == 'X')
-		str = ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789ABCDEF");
+		len = ft_putbase_unsign(va_arg(vars, unsigned int), "0123456789ABCDEF");
 	else if (c == '%')
-		str = ft_putchar('%');
-	len = ft_strlen(str);
-	ft_putstr(str);
-	free(str);
+		len = ft_putchar('%');
 	return (len);
 }
 
@@ -87,10 +85,12 @@ int	ft_printf(const char *str, ...)
 			count += ft_putvar(str[i], vars);
 		}
 		else
+		{
 			ft_putchar(str[i]);
+			count++;
+		}
 		i++;
 	}
-	count += i;
 	va_end(vars);
 	return (count);
 }

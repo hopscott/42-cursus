@@ -6,38 +6,30 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:23:34 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/03 14:35:38 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/03 15:17:30 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar(char c)
+int	ft_putchar(char c)
 {
 	if (c)
+	{
 		write(1, &c, 1);
+		return (1);
+	}
+	return (0);
 }
 
-void	ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
 	if (s)
-		write(1, s, ft_strlen(s));
-}
-
-void	ft_putnbr(int n)
-{
-	unsigned int	nb;
-
-	if (n < 0)
 	{
-		ft_putchar('-');
-		nb = -n;
+		write(1, s, ft_strlen(s));
+		return (ft_strlen(s));
 	}
-	else
-		nb = n;
-	if (nb > 9)
-		ft_putnbr(nb / 10);
-	ft_putchar((nb % 10) + '0');
+	return (0);
 }
 
 int	ft_finddigits_int(int n, int len_base)
@@ -73,29 +65,30 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-void	ft_putbase(int n, char *base)
+int	ft_putbase(int n, char *base)
 {
 	char			*str;
 	unsigned int	nb;
 	int				digits;
 	int				i;
 
-	str = malloc(sizeof(char) * (ft_finddigits_int(n, ft_strlen(base)) + 1));
-	digits = ft_finddigits_int(n, ft_strlen(base)) - 1;
+	digits = ft_finddigits_int(n, ft_strlen(base));
+	str = malloc(sizeof(char) * (digits + 1));
 	if (n < 0)
 		nb = -n;
 	else
 		nb = n;
-	i = digits;
+	str[digits] = '\0';
+	i = digits - 1;
 	while (i >= 0)
 	{
+		if ((i == 0) && (n < 0))
+			str[i--] = '-';
 		str[i] = base[nb % ft_strlen(base)];
 		nb /= ft_strlen(base);
 		i--;
 	}
-	if (n < 0)
-		str[0] = '-';
-	str[digits] = '\0';
 	ft_putstr(str);
 	free(str);
+	return (digits);
 }
