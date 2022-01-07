@@ -6,11 +6,11 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:40:07 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/16 13:40:10 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/07 18:03:31 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char *str)
 {
