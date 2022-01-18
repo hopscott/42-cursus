@@ -6,14 +6,14 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/17 19:52:39 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/18 15:27:37 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-static int	ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
 	int	i;
 
@@ -23,13 +23,13 @@ static int	ft_strlen(char *str)
 	return (i);
 }
 		
-static void	ft_putstr(char *str)
+void	ft_putstr(char *str)
 {
 	if (str)
 		write(1, str, ft_strlen(str));
 }
 
-static int	ft_isspace(char c)
+int	ft_isspace(char c)
 {
 	if (c == '\t' || c == '\n' || c == '\r')
 		return (1);
@@ -38,11 +38,12 @@ static int	ft_isspace(char c)
 	return (0);
 }
 
-static int	atoi_check(char *str)
+int	atoi_check(char *str)
 {
 	int				i;
 	int				sign;
 	unsigned int	n;
+	int				nb;
 
 	sign = 1;
 	i = 0;
@@ -59,28 +60,28 @@ static int	atoi_check(char *str)
 		n = n * 10 + (str[i] - '0');
 		i++;
 	}
-	if (((n * sign) > INT_MAX) || ((n * sign) < INT_MIN))
+	if (((sign == +1) && (n > INT_MAX)) || ((sign == -1) && (n > -INT_MIN)))
 		return (1);
 	return (0);
 }
 
-static int	*parse_input(int ac, char **av)
+int	*parse_input(int ac, char **av)
 {
 	int	*array;
 	int	i;
 
 	i = 0;
-	while (i++ < ac)
+	while (i++ < ac - 1)
 		if (atoi_check(av[i]))
 			return (0);
 	array = malloc(sizeof(int) * i);
 	i = 0;
-	while (i++ < ac)
+	while (i++ < ac - 1)
 		array[i - 1] = ft_atoi(av[i]);
 	return (array);
 }
 
-static int	ft_puterror()
+int	ft_puterror()
 {
 	ft_putstr("Error\n");
 	return (-1);
@@ -96,8 +97,7 @@ int	main(int ac, char **av)
 		if (!array)
 			return (ft_puterror());		
 	}
-	printf("%d\n", array[0]);
-	printf("%d\n", array[1]);
-	printf("%d\n", array[2]);
+	while (ac-- > 1)
+		printf("array[%d] = %d\n", ac - 1, array[ac - 1]);
 	return (0);
 }
