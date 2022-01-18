@@ -6,18 +6,12 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:13:31 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/18 17:14:19 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/18 18:10:51 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
-
-void	ft_putstr(char *str)
-{
-	if (str)
-		write(1, str, ft_strlen(str));
-}
 
 int	ft_isspace(char c)
 {
@@ -73,6 +67,6 @@ int	*parse_input(int ac, char **av)
 
 int	ft_puterror()
 {
-	ft_putstr("Error\n");
+	ft_putstr_fd("Error\n", 1);
 	return (-1);
 }
