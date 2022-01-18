@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/18 18:32:04 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/18 18:46:04 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 	stack_print(stack);
 	stack_swap(stack);
 	stack_print(stack);
-	stack_swap(stack);
+	stack_rotate(stack);
 	stack_print(stack);
 	return (0);
 }

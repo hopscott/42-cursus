@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:57:03 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/18 18:31:55 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/18 18:52:59 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,21 @@ t_node	*new_node(int n)
 	elem->val = n;
 	elem->next = 0;
 	return (elem);
+}
+
+t_node	*last_node(t_node **stack)
+{
+	t_node	*elem;
+
+	if (*stack)
+	{
+		elem = *stack;
+		while (elem->next)
+			elem = elem->next;
+		return (elem);
+	}
+	else
+		return (0);
 }
 
 void	stack_push(t_node **stack, int n)
@@ -57,7 +72,7 @@ t_node	**stack_init(int *array, int len)
 	t_node	**stack;
 
 	*stack = 0;
-	i = len;
+	i = len - 1;
 	while (i >= 0)
 	{
 		stack_push(stack, array[i]);
@@ -84,6 +99,24 @@ void	stack_swap(t_node **stack)
 		stack_pop(stack);
 		stack_push(stack, n2);
 		stack_push(stack, n1);
+	}
+}
+
+void	stack_rotate(t_node **stack)
+{
+	t_node	*first;
+	t_node	*last;
+	t_node	*new;
+	int		size;
+
+	size = stack_size(stack);
+	if (*stack && size > 1)
+	{
+		first = *stack;
+		new = new_node(first->val);
+		last = last_node(stack);
+		last->next = new;
+		stack_pop(stack);
 	}
 }
 
@@ -115,7 +148,7 @@ void	stack_print(t_node **stack)
 	elem = *stack;
 	ft_printf("\nTOP\t%d\n", elem->val);
 	elem = elem->next;
-	while (elem->next)
+	while (elem)
 	{
 		ft_printf(">\t%d\n", elem->val);
 		elem = elem->next;
