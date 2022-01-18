@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:42 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/18 18:45:37 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/18 19:01:43 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void    stack_push(t_node **stack, int n);
 void    stack_pop(t_node **stack);
 void    stack_swap(t_node **stack);
 void    stack_rotate(t_node **stack);
+void    stack_reverse(t_node **stack);
 void    stack_print(t_node **stack);
 
 #endif
