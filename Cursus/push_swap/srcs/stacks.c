@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:57:03 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/18 20:25:55 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/19 19:47:11 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,21 @@ t_node	*last_node(t_node **stack)
 		return (0);
 }
 
-void	stack_push(t_node **stack, int n)
+int	stack_push(t_node **stack, int n)
 {
 	t_node	*new;
 
 	new = new_node(n);
-	if (*stack && new)
+	if (!new)
+		return (1);
+	if (*stack)
 	{
 		new->next = *stack;
 		*stack = new;
 	}
-	else if (new)
+	else
 		*stack = new;
+	return (0);
 }
 
 void	stack_pop(t_node **stack)
@@ -61,7 +64,7 @@ void	stack_pop(t_node **stack)
 	if (*stack)
 	{
 		temp = *stack;
-		*stack = (*stack)->next;
+		*stack = temp->next;
 		free(temp);
 	}
 }
@@ -69,19 +72,41 @@ void	stack_pop(t_node **stack)
 t_node	**stack_init(int *array, int len)
 {
 	int		i;
+	int		*arr;
 	t_node	**stack;
+	t_node	*elem;
 
-	*stack = 0;
-	i = len - 1;
-	while (i >= 0)
+	i = 0;
+	arr = malloc(sizeof(int) * len);
+	if (!arr)
+		return (0);
+	while (i < len)
 	{
-		stack_push(stack, array[i]);
-		i--;
+		arr[i] = array[i];
+		i++;
 	}
-	return (stack);
+	i = len - 1;
+	if (arr && (len > 0))
+	{
+		printf("%d: %d\n", i, arr[i]);
+		elem = new_node(arr[i]);
+		if (!elem)
+			return (0);
+		*stack = elem;
+		printf("%d: %d\n", i, arr[i]);
+		while (i > 0)
+		{
+			i--;
+			if (stack_push(stack, arr[i]))
+				return (0);
+		}
+		return (stack);
+	}
+	else
+		return (0);
 }
 
-void	stack_swap(t_node **stack)
+int	stack_swap(t_node **stack)
 {
 	t_node	*elem;
 	int		size;
@@ -97,12 +122,15 @@ void	stack_swap(t_node **stack)
 		n1 = elem->val;
 		stack_pop(stack);
 		stack_pop(stack);
-		stack_push(stack, n2);
-		stack_push(stack, n1);
+		if (stack_push(stack, n2))
+			return (1);
+		if (stack_push(stack, n1))
+			return (1);
 	}
+	return (0);
 }
 
-void	stack_rotate(t_node **stack)
+int	stack_rotate(t_node **stack)
 {
 	t_node	*first;
 	t_node	*last;
@@ -114,13 +142,16 @@ void	stack_rotate(t_node **stack)
 	{
 		first = *stack;
 		new = new_node(first->val);
+		if (!new)
+			return (1);
 		last = last_node(stack);
 		last->next = new;
 		stack_pop(stack);
 	}
+	return (0);
 }
 
-void	stack_reverse(t_node **stack)
+int	stack_reverse(t_node **stack)
 {
 	t_node	*elem;
 	t_node	*last;
@@ -130,12 +161,14 @@ void	stack_reverse(t_node **stack)
 	if (*stack && size > 1)
 	{
 		last = last_node(stack);
-		stack_push(stack, last->val);
+		if (stack_push(stack, last->val))
+			return (1);
 		elem = *stack;
 		while (elem->next != last)
 			elem = elem->next;
 		elem->next = 0;
 	}
+	return (0);
 }
 
 int	stack_size(t_node **stack)
@@ -147,8 +180,6 @@ int	stack_size(t_node **stack)
 	if (*stack)
 	{
 		elem = *stack;
-		if (!elem)
-			return (0);
 		i = 1;
 		while (elem->next)
 		{
@@ -163,13 +194,21 @@ void	stack_print(t_node **stack)
 {
 	t_node	*elem;
 
-	elem = *stack;
-	ft_printf("\nTOP\t%d\n", elem->val);
-	elem = elem->next;
-	while (elem)
+	if (*stack)
 	{
-		ft_printf(">\t%d\n", elem->val);
+		elem = *stack;
+		ft_printf("\nTOP\t%d\n", elem->val);
 		elem = elem->next;
+		while (elem)
+		{
+			ft_printf(">\t%d\n", elem->val);
+			elem = elem->next;
+		}
+		ft_printf("BOT\t________\n\n");
 	}
-	ft_printf("BOT\t________\n\n");
+	else
+	{
+		ft_printf("\nTOP\t%c\n", 'X');
+		ft_printf("BOT\t________\n\n");
+	}
 }

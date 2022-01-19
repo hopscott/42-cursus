@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:42 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/18 19:01:43 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/19 16:10:57 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,23 @@ int ft_puterror();
 t_node  *new_node(int n);
 t_node  *last_node(t_node **stack);
 t_node  **stack_init(int *array, int len);
-int stack_size(t_node **stack);
-void    stack_push(t_node **stack, int n);
-void    stack_pop(t_node **stack);
-void    stack_swap(t_node **stack);
-void    stack_rotate(t_node **stack);
-void    stack_reverse(t_node **stack);
-void    stack_print(t_node **stack);
+int	stack_size(t_node **stack);
+int	stack_push(t_node **stack, int n);
+void	stack_pop(t_node **stack);
+int	stack_swap(t_node **stack);
+int	stack_rotate(t_node **stack);
+int	stack_reverse(t_node **stack);
+void	stack_print(t_node **stack);
+int	op_sa(t_node **stackA);
+int	op_sb(t_node **stackB);
+int	op_ss(t_node **stackA, t_node **stackB);
+int	op_pa(t_node **stackA, t_node **stackB);
+int	op_pb(t_node **stackA, t_node **stackB);
+int	op_ra(t_node **stackA);
+int	op_rb(t_node **stackB);
+int	op_rr(t_node **stackA, t_node **stackB);
+int	op_rra(t_node **stackA);
+int	op_rrb(t_node **stackB);
+int	op_rrr(t_node **stackA, t_node **stackB);
 
 #endif

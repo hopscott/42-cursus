@@ -6,13 +6,12 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:13:31 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/19 14:39:34 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/19 19:38:46 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
-#include <stdio.h>
 
 int	ft_isspace(char c)
 {
@@ -78,16 +77,22 @@ int	*parse_input(int ac, char **av)
 	int	*array;
 	int	i;
 
-	i = 0;
-	while (i++ < ac - 1)
+	i = 1;
+	while (i < ac)
+	{
 		if (atoi_check(av[i]))
 			return (0);
-	array = malloc(sizeof(int) * i);
+		i++;
+	}
+	array = malloc(sizeof(int) * (i - 1));
 	if (!array)
 		return (0);
-	i = 0;
-	while (i++ < ac - 1)
+	i = 1;
+	while (i < ac)
+	{
 		array[i - 1] = ft_atoi(av[i]);
+		i++;
+	}
 	if (check_array(array, ac - 1))
 		return (0);
 	return (array);
@@ -96,5 +101,5 @@ int	*parse_input(int ac, char **av)
 int	ft_puterror()
 {
 	ft_putstr_fd("Error\n", 1);
-	return (-1);
+	return (1);
 }
