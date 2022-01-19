@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:57:03 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/18 19:05:37 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/18 20:25:55 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	stack_pop(t_node **stack)
 
 t_node	**stack_init(int *array, int len)
 {
-	int	i;
+	int		i;
 	t_node	**stack;
 
 	*stack = 0;
