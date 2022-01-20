@@ -6,12 +6,13 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:57:03 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/19 19:47:11 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/20 15:20:12 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "push_swap.h"
+#include <stdio.h>
 
 t_node	*new_node(int n)
 {
@@ -72,33 +73,21 @@ void	stack_pop(t_node **stack)
 t_node	**stack_init(int *array, int len)
 {
 	int		i;
-	int		*arr;
 	t_node	**stack;
 	t_node	*elem;
-
-	i = 0;
-	arr = malloc(sizeof(int) * len);
-	if (!arr)
-		return (0);
-	while (i < len)
-	{
-		arr[i] = array[i];
-		i++;
-	}
+	
 	i = len - 1;
-	if (arr && (len > 0))
+	if (len > 1)
 	{
-		printf("%d: %d\n", i, arr[i]);
-		elem = new_node(arr[i]);
-		if (!elem)
+		stack = malloc(sizeof(t_node*));
+		if (!stack)
 			return (0);
-		*stack = elem;
-		printf("%d: %d\n", i, arr[i]);
-		while (i > 0)
+		*stack = 0;
+		while (i >= 0)
 		{
-			i--;
-			if (stack_push(stack, arr[i]))
+			if (stack_push(stack, array[i]))
 				return (0);
+			i--;
 		}
 		return (stack);
 	}

@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/19 19:37:26 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/20 15:14:46 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	main(int ac, char **av)
 		stack = stack_init(array, ac - 1);
 		if (!stack)
 			return (1);
-		free(array);
 		stack_print(stack);
 	//	if (run_algo(stack))
 	//		return (1);
