@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/21 19:44:52 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/21 20:01:36 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,7 @@ int	main(int ac, char **av)
 		printf("=================================\n");
 
 		printf("stack size: %d\n", stack_size(stack));
+
 		if (stack_size(stack) <= 3)
 			run_algo3a(stack);
 		else if ((stack_size(stack) > 3) && (stack_size(stack) <= 5))
@@ -321,6 +322,7 @@ int	main(int ac, char **av)
 
 		free(stack);
 		free(stack2);
+		// need to run clean stack op on both too - free all elems;
 	}
 	return (0);
 }
