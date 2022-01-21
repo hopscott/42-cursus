@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:57:03 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/20 15:46:25 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/21 16:47:25 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,10 @@ int	stack_rotate(t_node **stack)
 		last = last_node(stack);
 		last->next = new;
 		stack_pop(stack);
+		return (0);
 	}
-	return (0);
+	else
+		return (1);
 }
 
 int	stack_reverse(t_node **stack)
@@ -156,8 +158,11 @@ int	stack_reverse(t_node **stack)
 		while (elem->next != last)
 			elem = elem->next;
 		elem->next = 0;
+		free(last);
+		return (0);
 	}
-	return (0);
+	else
+		return (1);
 }
 
 int	stack_size(t_node **stack)
