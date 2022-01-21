@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/21 18:58:39 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/21 19:44:52 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	s_pos(t_node **stack, int target)
 	return (pos);
 }
 
-int	stack_gotoNum(t_node **stack, int target, char t)
+int	stackA_gotoNum(t_node **stack, int target)
 {
 	t_node	*elem;
 	int		steps;
@@ -111,37 +111,47 @@ int	stack_gotoNum(t_node **stack, int target, char t)
 	size = stack_size(stack);
 	while ((size != 0) && (elem->val != target))
 	{
-		steps++;
 		elem = elem->next;
+		steps++;
 	}
-	if (steps < (size / 2))
+	if (steps <= (size / 2))
 		while ((*stack)->val != target)
-		{
-			if (t == 'a')
-				op_ra(stack);
-			else
-				op_rb(stack);
-		}
+			op_ra(stack);
 	else
 		while ((*stack)->val != target)
-		{
-			if (t == 'a')
-				op_rra(stack);
-			else
-				op_rrb(stack);
-		}
+			op_rra(stack);
+	return (0);
+}
+
+int	stackB_gotoNum(t_node **stack, int target)
+{
+	t_node	*elem;
+	int		steps;
+	int		size;
+
+	steps = 0;
+	elem = *stack;
+	size = stack_size(stack);
+	while ((size != 0) && (elem->val != target))
+	{
+		elem = elem->next;
+		steps++;
+	}
+	if (steps <= (size / 2))
+		while ((*stack)->val != target)
+			op_rb(stack);
+	else
+		while ((*stack)->val != target)
+			op_rrb(stack);
 	return (0);
 }
 
 //////////////////////////////////////////////////////////////////////
-
+/*
 int	run_selectionSort(t_node **stack)
 {
 	t_node	**stack2;
 
-	printf("============= START =============\n");
-	stack_print(stack);
-	printf("=================================\n");
 	*stack2 = 0;
 	while (stack_size(stack) != 0)
 	{
@@ -150,12 +160,9 @@ int	run_selectionSort(t_node **stack)
 	}
 	while (stack_size(stack2) != 0)
 		op_pa(stack, stack2);
-	printf("============= END =============\n");
-	stack_print(stack);
-	printf("=================================\n");
 	return (0);	
 }
-
+*/
 //////////////////////////////////////////////////////////////////////
 /*
 void	stack_sortpush(t_node **stack, t_node **stack2, int flag)
@@ -201,7 +208,6 @@ int run_mergeSort(t_node **stack)
 	return (0);
 }
 */
-
 //////////////////////////////////////////////////////////////////////
 
 void	run_algo3a(t_node **st)
@@ -266,34 +272,16 @@ void	run_algo3b(t_node **st)
 
 //////////////////////////////////////////////////////////////////////
 
-void	run_algo5(t_node **st)
+int	run_algo5(t_node **st, t_node **st2)
 {
-
-	int		top;
-	int		mid;
-	int		bot;
-
-	top = stack_findMin(st);
-	mid = stack_findNextMin(st, top);
-	bot = stack_findMax(st);
-	if ((mid == bot) && (s_pos(st, bot) < s_pos(st, top)))
-		op_sa(st);
-	if ((s_pos(st, mid) < s_pos(st, top)) && (s_pos(st, top) < s_pos(st, bot)))
-		op_sa(st);
-	else if ((s_pos(st, bot) < s_pos(st, mid)) && (s_pos(st, mid) < s_pos(st, top)))
-	{
-		op_sa(st);
-		op_rra(st);
-	}
-	else if ((s_pos(st, bot) < s_pos(st, top)) && (s_pos(st, top) < s_pos(st, mid)))
-		op_ra(st);
-	else if ((s_pos(st, top) < s_pos(st, bot)) && (s_pos(st, bot) < s_pos(st, mid)))
-	{
-		op_sa(st);
-		op_ra(st);
-	}
-	else if ((s_pos(st, mid) < s_pos(st, bot)) && (s_pos(st, bot) < s_pos(st, top)))
-		op_rra(st);
+	stackA_gotoNum(st, stack_findMin(st));
+	op_pb(st, st2);
+	stackA_gotoNum(st, stack_findMin(st));
+	op_pb(st, st2);
+	run_algo3a(st);
+	op_pa(st, st2);
+	op_pa(st, st2);
+	return (0);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -302,6 +290,7 @@ int	main(int ac, char **av)
 {
 	int		*array;
 	t_node	**stack;
+	t_node	**stack2;
 
 	if (ac > 1)
 	{
@@ -311,8 +300,10 @@ int	main(int ac, char **av)
 		stack = stack_init(array, ac - 1);
 		if (!stack)
 			return (1);
-//		if (run_mergeSort(stack))
-//		if (run_selectionSort(stack))
+		stack2 = malloc(sizeof(t_node*));
+		if (!stack2)
+			return (1);
+		*stack2 = 0;
 
 		printf("============= START =============\n");
 		stack_print(stack);
@@ -322,12 +313,14 @@ int	main(int ac, char **av)
 		if (stack_size(stack) <= 3)
 			run_algo3a(stack);
 		else if ((stack_size(stack) > 3) && (stack_size(stack) <= 5))
-			run_algo5(stack);
+			run_algo5(stack, stack2);
 
 		printf("============= END =============\n");
 		stack_print(stack);
 		printf("=================================\n");
 
+		free(stack);
+		free(stack2);
 	}
 	return (0);
 }
