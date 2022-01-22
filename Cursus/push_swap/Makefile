@@ -6,43 +6,53 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/01/18 17:46:53 by swillis          ###   ########.fr        #
+#    Updated: 2022/01/22 19:35:32 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBFT = libft/libft.a
+SRC_DIR = src
+INC_DIR = include
+BIN_DIR = .
 
-CFLAGS = -Wall -Wextra -Werror
+EXE =	$(BIN_DIR)/push_swap
+
+SRC = 	$(SRC_DIR)/push_swap.c\
+		$(SRC_DIR)/operations.c\
+		$(SRC_DIR)/parsing.c\
+		$(SRC_DIR)/push_swap.c\
+		$(SRC_DIR)/stacks.c
+#		$(SRC_DIR)/algo.c\
+
+OBJ =	${SRC:.c=.o}
+
+.c.o :
+	cc $(CFLAGS) -o $@ -c $<
+
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
+
+FNAME = libftprintf.a
+
+PRINTF = lib/printf/libftprintf.a
+
+${PRINTF} :
+	make -C lib/printf -f Makefile
 
 NAME = push_swap.a
 
-VPATH = srcs
+${NAME} :	${OBJ} ${PRINTF} 
+	cp $(PRINTF) .
+	ar rcs $(NAME) $(OBJ)
+	cc $(CFLAGS) $(PRINTF) $(NAME) -o $(EXE)
 
-SRCS = push_swap.c
-
-OBJS = $(SRCS:.c=.o)
-
-all = $(NAME)
-
-$(LIBFT) :
-	make -C libft -f Makefile
-
-$(NAME) : $(OBJS) $(LIBFT)
-	cp $(LIBFT) ./$(NAME)
-	ar rcs $(NAME) $(OBJS)
-
-$(OBJS) : push_swap.h libft/libft.h
-
-.c.o :
-	cc $(CFLAGS) -I. -o $@ -c $<
+all:	${NAME}
 
 clean:
-	rm -rf $(OBJS)
-	make -C libft -f Makefile clean
+	make -C lib/printf -f Makefile clean
+	rm -rf $(OBJ)
 
 fclean : clean
-	make -C libft -f Makefile fclean
-	rm -rf $(NAME)
+	make -C lib/printf -f Makefile fclean
+	rm -rf $(NAME) $(FNAME) $(EXE)
 
 re : fclean all
 
