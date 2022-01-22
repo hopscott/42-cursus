@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/21 20:01:36 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/22 18:14:36 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,26 @@ int	stack_findNextMin(t_node **stack, int min)
 	return (nmin);
 }
 
+int	stack_findNextNextMin(t_node **stack, int m1, int m2)
+{
+	t_node	*elem;
+	int		nmin;
+
+	elem = *stack;
+	if ((elem->val == m1) || (elem->val == m1))
+		elem = elem->next;
+	if ((elem->val == m1) || (elem->val == m1))
+		elem = elem->next;
+	nmin = elem->val;
+	while (elem)
+	{
+		if ((elem->val < nmin) && (elem->val != m1) && (elem->val != m2))
+			nmin = elem->val;
+		elem = elem->next;
+	}
+	return (nmin);
+}
+
 int	stack_findMax(t_node **stack)
 {
 	t_node	*elem;
@@ -92,12 +112,24 @@ int	s_pos(t_node **stack, int target)
 
 	elem = *stack;
 	pos = 0;
-	while (elem->val != target)
+	while (elem && (elem->val != target))
 	{
 		pos++;
 		elem = elem->next;
 	}
 	return (pos);
+}
+
+int	s_steps(t_node **stack, int target)
+{
+	int		steps;
+	int		size;
+
+	size = stack_size(stack);
+	steps = s_pos(stack, target);
+	if (steps > ((size - 1) / 2))
+		steps = size - steps;
+	return (steps);
 }
 
 int	stackA_gotoNum(t_node **stack, int target)
@@ -147,68 +179,6 @@ int	stackB_gotoNum(t_node **stack, int target)
 }
 
 //////////////////////////////////////////////////////////////////////
-/*
-int	run_selectionSort(t_node **stack)
-{
-	t_node	**stack2;
-
-	*stack2 = 0;
-	while (stack_size(stack) != 0)
-	{
-		stack_gotoNum(stack, stack_findMin(stack), 'a');
-		op_pb(stack, stack2);
-	}
-	while (stack_size(stack2) != 0)
-		op_pa(stack, stack2);
-	return (0);	
-}
-*/
-//////////////////////////////////////////////////////////////////////
-/*
-void	stack_sortpush(t_node **stack, t_node **stack2, int flag)
-{
-	t_node	*elem;
-	t_node	*next;
-
-	elem = *stack;
-	next = elem->next;
-	if (stack_size(stack) > 1)
-	{
-		if (flag && (elem->val < next->val))
-			op_sa(stack);
-		if (!flag && (elem->val > next->val))
-			op_sa(stack);
-		op_pb(stack, stack2);
-	}
-	op_pb(stack, stack2);
-	stack_print(stack);
-}
-
-int run_mergeSort(t_node **stack)
-{
-	t_node	**stack2;
-	
-	// https://stackoverflow.com/questions/21897184/using-stacks-for-a-non-recursive-mergesort
-	printf("============= START =============\n");
-	stack_print(stack);
-	printf("=================================\n");
-	*stack2 = 0;
-	while (!stack_ascend(stack))
-	{
-//		printf("============ STACK A ==================\n");
-		while (stack_size(stack) > 0)
-			stack_sortpush(stack, stack2, 1);
-//		printf("============ STACK B ==================\n");
-		while (stack_size(stack2) > 0)
-			stack_sortpush(stack2, stack, 0);
-	}
-	printf("============= END =============\n");
-	stack_print(stack);
-	printf("=================================\n");
-	return (0);
-}
-*/
-//////////////////////////////////////////////////////////////////////
 
 void	run_algo3a(t_node **st)
 {
@@ -247,9 +217,9 @@ void	run_algo3b(t_node **st)
 	int		mid;
 	int		bot;
 
-	top = stack_findMin(st);
-	mid = stack_findNextMin(st, top);
-	bot = stack_findMax(st);
+	bot = stack_findMin(st);
+	mid = stack_findNextMin(st, bot);
+	top = stack_findMax(st);
 	if ((mid == bot) && (s_pos(st, bot) < s_pos(st, top)))
 		op_sb(st);
 	if ((s_pos(st, mid) < s_pos(st, top)) && (s_pos(st, top) < s_pos(st, bot)))
@@ -286,6 +256,56 @@ int	run_algo5(t_node **st, t_node **st2)
 
 //////////////////////////////////////////////////////////////////////
 
+int	run_algo3by3(t_node **st, t_node **st2)
+{
+	int	m1;
+	int	m2;
+	int	m3;
+	int	i;
+	int	arr[3];
+
+	while (stack_size(st) > 3)
+	{
+		m1 = stack_findMin(st);
+		m2 = stack_findNextMin(st, m1);
+		m3 = stack_findNextNextMin(st, m1, m2);
+		i = 0;
+		while (i < 3)
+		{
+			if ((s_steps(st, m1) <= s_steps(st, m2)) && (s_steps(st, m1) <= s_steps(st, m3)))
+			{
+				arr[i] = m1;
+				m1 = m2;
+			}
+			else if ((s_steps(st, m2) <= s_steps(st, m1)) && (s_steps(st, m2) <= s_steps(st, m3)))
+			{
+				arr[i] = m2;
+				m2 = m1;
+			}
+			else if ((s_steps(st, m3) <= s_steps(st, m2)) && (s_steps(st, m3) <= s_steps(st, m1)))
+			{
+				arr[i] = m3;
+				m3 = m1;
+			}
+			i++;
+		}
+		i = 0;
+		while (i < 3)
+		{
+			stackA_gotoNum(st, stack_findMin(st));
+			op_pb(st, st2);
+			i++;
+		}
+		run_algo3b(st2);
+	}
+	run_algo3a(st);
+	while (stack_size(st2) > 0)
+		op_pa(st, st2);
+	return (0);
+}
+
+//////////////////////////////////////////////////////////////////////
+
 int	main(int ac, char **av)
 {
 	int		*array;
@@ -307,6 +327,7 @@ int	main(int ac, char **av)
 
 		printf("============= START =============\n");
 		stack_print(stack);
+		stack_print(stack2);
 		printf("=================================\n");
 
 		printf("stack size: %d\n", stack_size(stack));
@@ -315,9 +336,12 @@ int	main(int ac, char **av)
 			run_algo3a(stack);
 		else if ((stack_size(stack) > 3) && (stack_size(stack) <= 5))
 			run_algo5(stack, stack2);
+		else
+			run_algo3by3(stack, stack2);
 
 		printf("============= END =============\n");
 		stack_print(stack);
+		stack_print(stack2);
 		printf("=================================\n");
 
 		free(stack);
