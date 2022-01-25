@@ -6,7 +6,7 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/01/22 19:35:32 by swillis          ###   ########.fr        #
+#    Updated: 2022/01/25 17:19:10 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,13 @@ BIN_DIR = .
 EXE =	$(BIN_DIR)/push_swap
 
 SRC = 	$(SRC_DIR)/push_swap.c\
-		$(SRC_DIR)/operations.c\
 		$(SRC_DIR)/parsing.c\
-		$(SRC_DIR)/push_swap.c\
-		$(SRC_DIR)/stacks.c
-#		$(SRC_DIR)/algo.c\
+		$(SRC_DIR)/stacks.c\
+		$(SRC_DIR)/stacks_utils.c\
+		$(SRC_DIR)/stacks_utils_algo.c\
+		$(SRC_DIR)/operations.c\
+		$(SRC_DIR)/algo.c\
+		$(SRC_DIR)/algo_utils.c\
 
 OBJ =	${SRC:.c=.o}
 

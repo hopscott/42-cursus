@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:42 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/19 16:10:57 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/25 18:23:01 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ int	stack_swap(t_node **stack);
 int	stack_rotate(t_node **stack);
 int	stack_reverse(t_node **stack);
 void	stack_print(t_node **stack);
+int stack_ascend(t_node **stack);
+int stack_findMin(t_node **stack);
+int stack_findNextMin(t_node **stack, int min);
+int stack_findNextNextMin(t_node **stack, int m1, int m2);
+int stack_findMax(t_node **stack);
+int s_pos(t_node **stack, int target);
+int s_steps(t_node **stack, int target);
+int stackA_gotoNum(t_node **stack, int target);
+int stackB_gotoNum(t_node **stack, int target);
 int	op_sa(t_node **stackA);
 int	op_sb(t_node **stackB);
 int	op_ss(t_node **stackA, t_node **stackB);
@@ -49,5 +58,9 @@ int	op_rr(t_node **stackA, t_node **stackB);
 int	op_rra(t_node **stackA);
 int	op_rrb(t_node **stackB);
 int	op_rrr(t_node **stackA, t_node **stackB);
+void    run_algo3a(t_node **st);
+void    run_algo3b(t_node **st);
+int run_algo5(t_node **st, t_node **st2);
+int run_algo2byBin(t_node **st, t_node **st2);
 
 #endif
