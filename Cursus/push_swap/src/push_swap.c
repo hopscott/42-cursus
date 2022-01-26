@@ -6,10 +6,11 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/25 18:21:47 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/26 18:57:42 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "push_swap.h"
 
 int	main(int ac, char **av)
@@ -31,8 +32,10 @@ int	main(int ac, char **av)
 			return (1);
 		*stack2 = 0;
 
-//		stack_print(stack);
-//		stack_print(stack2);
+		printf("======= START =======\n");
+		stack_print(stack);
+		stack_print(stack2);
+		printf("=====================\n");
 
 		if (stack_size(stack) <= 3)
 			run_algo3a(stack);
@@ -40,10 +43,11 @@ int	main(int ac, char **av)
 			run_algo5(stack, stack2);
 		else
 			run_algo2byBin(stack, stack2);
-//			run_algo
 
-//		stack_print(stack);
-//		stack_print(stack2);
+		printf("======== END ========\n");
+		stack_print(stack);
+		stack_print(stack2);
+		printf("=====================\n");
 
 		free(stack);
 		free(stack2);

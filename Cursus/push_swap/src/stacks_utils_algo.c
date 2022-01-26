@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   stacks_utils_algo.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 17:04:36 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/25 20:44:48 by swillis          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -21,11 +10,12 @@ int	stack_ascend(t_node **stack)
 	{
 		elem = *stack;
 		val = elem->val;
-		while (elem->next)
+		while (elem)
 		{
-			elem = elem->next;
 			if (val > elem->val)
 				return (0);
+			val = elem->val;
+			elem = elem->next;
 		}
 		return (1);
 	}
@@ -54,32 +44,10 @@ int	stack_findNextMin(t_node **stack, int min)
 	int		nmin;
 
 	elem = *stack;
-	if (elem->val == min)
-		elem = elem->next;
-	nmin = elem->val;
+	nmin = stack_findMax(stack);
 	while (elem)
 	{
 		if ((elem->val < nmin) && (elem->val > min))
-			nmin = elem->val;
-		elem = elem->next;
-	}
-	return (nmin);
-}
-
-int	stack_findNextNextMin(t_node **stack, int m1, int m2)
-{
-	t_node	*elem;
-	int		nmin;
-
-	elem = *stack;
-	if ((elem->val == m1) || (elem->val == m1))
-		elem = elem->next;
-	if ((elem->val == m1) || (elem->val == m1))
-		elem = elem->next;
-	nmin = elem->val;
-	while (elem)
-	{
-		if ((elem->val < nmin) && (elem->val != m1) && (elem->val != m2))
 			nmin = elem->val;
 		elem = elem->next;
 	}
@@ -100,4 +68,20 @@ int	stack_findMax(t_node **stack)
 		elem = elem->next;
 	}
 	return (max);
+}
+
+int	stack_findNextMax(t_node **stack, int max)
+{
+	t_node	*elem;
+	int		nmax;
+
+	elem = *stack;
+	nmax = stack_findMin(stack);
+	while (elem)
+	{
+		if ((elem->val > nmax) && (elem->val < max))
+			nmax = elem->val;
+		elem = elem->next;
+	}
+	return (nmax);
 }

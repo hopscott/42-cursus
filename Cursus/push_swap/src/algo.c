@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:10:13 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/25 20:42:31 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/26 20:51:44 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,81 +92,149 @@ int	ft_sqrt(int nb)
 		return (1);
 	if (nb >= 4)
 	{
-		i = 2;
+		i = 1;
 		tot = i * i;
-		while ((tot <= nb) && (i <= nb / 2) && (i <= 46341))
+		while ((tot < nb) && (i <= nb / 2) && (i <= 46341))
 		{
-			tot = i * i;
-			if (tot == nb)
-				return (i);
 			i++;
+			tot = i * i;
 		}
 		return (i);
 	}
 	return (0);
 }
 
-int	run_algo2byBin(t_node **st, t_node **st2)
+int	bin_max(t_node **stack, int bins, int binsize, int n)
 {
+	int	bin;
 	int	i;
-	int	bins;
-	int	binsize;
-	int start;
-	int next;
+	int	max;
 
-	bins = ft_sqrt(stack_size(st)) / 2;
-	binsize = stack_size(st);
-	if (bins)
-		binsize /= bins;
-	printf("xxx = %d\n", binsize);
-	start = stack_findMin(st);
-	while (!stack_ascend(st))
+	max = stack_findMax(stack);
+	bin = 0;
+	while ((bin < n) && (bin <= bins))
 	{
-		i = 0;
-		printf("i = %d/%d\n", i, binsize);
-		stack_print(st);
-		stack_print(st2);
-		while (stack_size(st) && (i < binsize))
+		i = 1;
+		while (i < binsize)
 		{
-			printf("i = %d/%d\n", i, binsize);
-			stack_print(st);
-			stack_print(st2);
-			if (stack_size(st) > 1)
-			{
-				next = stack_findNextMin(st, start);
-				if (s_steps(st, start) <= s_steps(st, next))
-				{
-					stackA_gotoNum(st, start);
-					op_pb(st, st2);
-					stackA_gotoNum(st, next);
-					op_pb(st, st2);
-				}
-				else if (s_steps(st, next) <= s_steps(st, start))
-				{
-					stackA_gotoNum(st, next);
-					op_pb(st, st2);
-					stackA_gotoNum(st, start);
-					op_pb(st, st2);
-				}
-				if (stack_size(st) != 0)
-				start = stack_findMin(st);
-			}
-			else
-				op_pb(st, st2);
-			i += 2;
+			max = stack_findNextMax(stack, max);
+			i++;
 		}
-		start = stack_findMin(st);
-		while (stack_size(st2) > 0)
-		{
-			if (stack_size(st2) > 1)
-				stackB_gotoNum(st2, stack_findMax(st2));
-			op_pa(st, st2);
-		}
+		bin++;
+		max = stack_findNextMax(stack, max);
 	}
-	printf("END\n");
+	return (max);
+}
+
+int	bin_min(t_node **stack, int bins, int binsize, int n)
+{
+	int	bin;
+	int	i;
+	int	min;
+
+	min = bin_max(stack, bins, binsize, n);
+	i = 1;
+	while (i < binsize)
+	{
+		min = stack_findNextMax(stack, min);
+		i++;
+	}
+	return (min);
+}
+
+int	stackA_gotoNextBin(t_node **stack, int binmin, int binmax)
+{
+	t_node	*elem;
+	int	fsteps;
+	int	ftarget;
+	int	bsteps;
+	int	btarget;
+
+	elem = *stack;
+	while (elem && ((elem->val < binmin) || (elem->val > binmax)))
+		elem = elem->next;
+	ftarget = elem->val;
+	while (elem)
+	{
+		if ((elem->val >= binmin) && (elem->val <= binmax))
+			btarget = elem->val;
+		elem = elem->next;
+	}
+	printf("ft: %d || bt: %d\n", ftarget, btarget);
+	fsteps = s_steps(stack, ftarget);
+	bsteps = s_steps(stack, btarget);
+	if (fsteps <= bsteps)
+		stackA_gotoNum(stack, ftarget);
+	else
+		stackA_gotoNum(stack, btarget);
 	return (0);
 }
 
-//			printf("i = %d/%d\n", i, binsize);
-//			stack_print(st);
-//			stack_print(st2);
+int	stack_exists(t_node **stack, int n)
+{
+	t_node	*elem;
+
+	elem = *stack;
+	while (elem)
+		if (elem->val == n)
+			return (1);
+		elem = elem->next;
+	return (0);
+}
+
+int	run_algo2byBin(t_node **st, t_node **st2)
+{
+	int	n;
+	int	bins;
+	int	binsize;
+	int	binmin;
+	int	binmax;
+	int	count;
+
+	bins = ft_sqrt(stack_size(st)) / 2;
+	binsize = stack_size(st);
+	binsize /= bins;
+	n = 0;
+	while (!stack_ascend(st) && (n <= bins))
+	{
+		binmax = bin_max(st, bins, binsize, n);
+		binmin = bin_min(st, bins, binsize, n);
+		if (n == bins)
+			binsize = stack_size(st) % bins;
+		count = 0;
+//		///////////////////////////////////////
+		printf("%d/%d\n", n, bins);
+		printf("bin = %d -> %d\n", binmin, binmax);
+		printf("binsize / stacksize = %d/%d\n", binsize, stack_size(st));
+		stack_print(st); 
+		stack_print(st2);
+//		///////////////////////////////////////
+		while (stack_size(st) && (count < binsize))
+		{
+			stackA_gotoNextBin(st, binmin, binmax);
+			op_pb(st, st2);
+			count++;
+		}
+		if (n == bins)
+			binsize = stack_size(st) / bins;
+		if (n > 1)
+			stackA_gotoNum(st, bin_min(st, bins, binsize, n - 1));
+//		///////////////////////////////////////
+		stack_print(st); 
+		stack_print(st2);
+//		///////////////////////////////////////
+		while (stack_size(st2))
+		{
+			stackB_gotoNum(st2, stack_findMax(st2));
+			op_pa(st, st2);
+		}
+		n++;
+	}
+	while (!stack_ascend(st))
+		stackA_gotoNum(st, stack_findMin(st));
+	return (0);
+}
+
+//		printf("i = %d/%d\n", i, binsize);
+//		stack_print(st);
+//		stack_print(st2);
