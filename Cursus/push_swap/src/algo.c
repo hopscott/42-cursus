@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:10:13 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/26 20:51:44 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/26 20:54:14 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ int	stackA_gotoNextBin(t_node **stack, int binmin, int binmax)
 			btarget = elem->val;
 		elem = elem->next;
 	}
-	printf("ft: %d || bt: %d\n", ftarget, btarget);
 	fsteps = s_steps(stack, ftarget);
 	bsteps = s_steps(stack, btarget);
 	if (fsteps <= bsteps)
@@ -203,11 +202,11 @@ int	run_algo2byBin(t_node **st, t_node **st2)
 			binsize = stack_size(st) % bins;
 		count = 0;
 //		///////////////////////////////////////
-		printf("%d/%d\n", n, bins);
-		printf("bin = %d -> %d\n", binmin, binmax);
-		printf("binsize / stacksize = %d/%d\n", binsize, stack_size(st));
-		stack_print(st); 
-		stack_print(st2);
+//		printf("%d/%d\n", n, bins);
+//		printf("bin = %d -> %d\n", binmin, binmax);
+//		printf("binsize / stacksize = %d/%d\n", binsize, stack_size(st));
+//		stack_print(st); 
+//		stack_print(st2);
 //		///////////////////////////////////////
 		while (stack_size(st) && (count < binsize))
 		{
@@ -220,8 +219,8 @@ int	run_algo2byBin(t_node **st, t_node **st2)
 		if (n > 1)
 			stackA_gotoNum(st, bin_min(st, bins, binsize, n - 1));
 //		///////////////////////////////////////
-		stack_print(st); 
-		stack_print(st2);
+//		stack_print(st); 
+//		stack_print(st2);
 //		///////////////////////////////////////
 		while (stack_size(st2))
 		{

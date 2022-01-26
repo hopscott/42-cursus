@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/26 18:57:42 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/26 20:53:06 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	main(int ac, char **av)
 			return (1);
 		*stack2 = 0;
 
-		printf("======= START =======\n");
-		stack_print(stack);
-		stack_print(stack2);
-		printf("=====================\n");
+//		printf("======= START =======\n");
+//		stack_print(stack);
+//		stack_print(stack2);
+//		printf("=====================\n");
 
 		if (stack_size(stack) <= 3)
 			run_algo3a(stack);
@@ -44,10 +44,10 @@ int	main(int ac, char **av)
 		else
 			run_algo2byBin(stack, stack2);
 
-		printf("======== END ========\n");
-		stack_print(stack);
-		stack_print(stack2);
-		printf("=====================\n");
+//		printf("======== END ========\n");
+//		stack_print(stack);
+//		stack_print(stack2);
+//		printf("=====================\n");
 
 		free(stack);
 		free(stack2);
