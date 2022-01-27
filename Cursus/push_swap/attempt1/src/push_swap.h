@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:42 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/27 15:32:22 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/27 16:16:37 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		op_rrr(t_node **stacka, t_node **stackb);
 void	run_algo3a(t_node **st);
 void	run_algo3b(t_node **st);
 int		run_algo5(t_node **st, t_node **st2);
+int		ft_sqrt(int nb);
 int		run_algobins(t_node **st, t_node **st2);
 
 #endif

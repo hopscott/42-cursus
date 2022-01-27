@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:43:16 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/27 15:38:01 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/27 16:34:27 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,3 @@ int	run_algobins(t_node **st, t_node **st2)
 	}
 	return (0);
 }
-//
-	//while (!stack_ascend(st))
-	//	stackA_gotoNum(st, stack_findMin(st));
