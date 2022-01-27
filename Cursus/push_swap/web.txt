@@ -1,0 +1,3 @@
+https://betterprogramming.pub/quicksort-explained-in-5-minutes-d32cf430a592
+https://medium.com/the-ultimate-engineer/what-is-computational-complexity-66722cd5f8dd
+
