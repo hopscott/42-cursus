@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:13:31 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/27 15:05:59 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/27 22:31:45 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,34 @@ int	*parse_input(int ac, char **av)
 	if (check_array(array, ac - 1))
 		return (0);
 	return (array);
+}
+
+int	arrchar_len(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr && arr[i])
+		i++;
+	return (i);
+}
+
+int	*parse_input(int ac, char **av)
+{
+	int	i;
+	int	j;
+	int	len;
+	char	**arrchar;
+	int	*arr;
+
+	i = 1;
+	while (i < ac)
+	{
+		j = 0;
+		arrchar = ft_split(av[i], ' ');
+		while (j < arrchar_len(arrchar))
+			arrchar[j++];
+		if (atoi_check(av[i]))
+			return (0);
+	
 }
