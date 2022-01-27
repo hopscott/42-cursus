@@ -6,7 +6,7 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/01/25 17:19:10 by swillis          ###   ########.fr        #
+#    Updated: 2022/01/27 16:44:50 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,16 @@ EXE =	$(BIN_DIR)/push_swap
 
 SRC = 	$(SRC_DIR)/push_swap.c\
 		$(SRC_DIR)/parsing.c\
+		$(SRC_DIR)/parsing_utils.c\
 		$(SRC_DIR)/stacks.c\
 		$(SRC_DIR)/stacks_utils.c\
 		$(SRC_DIR)/stacks_utils_algo.c\
 		$(SRC_DIR)/operations.c\
+		$(SRC_DIR)/operations2.c\
+		$(SRC_DIR)/operations3.c\
 		$(SRC_DIR)/algo.c\
 		$(SRC_DIR)/algo_utils.c\
+		$(SRC_DIR)/algo_bins.c\
 
 OBJ =	${SRC:.c=.o}
 
@@ -31,8 +35,6 @@ OBJ =	${SRC:.c=.o}
 	cc $(CFLAGS) -o $@ -c $<
 
 CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
-
-FNAME = libftprintf.a
 
 PRINTF = lib/printf/libftprintf.a
 
@@ -42,7 +44,6 @@ ${PRINTF} :
 NAME = push_swap.a
 
 ${NAME} :	${OBJ} ${PRINTF} 
-	cp $(PRINTF) .
 	ar rcs $(NAME) $(OBJ)
 	cc $(CFLAGS) $(PRINTF) $(NAME) -o $(EXE)
 
