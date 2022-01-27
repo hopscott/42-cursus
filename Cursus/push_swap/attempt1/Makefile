@@ -6,7 +6,7 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/01/27 16:44:50 by swillis          ###   ########.fr        #
+#    Updated: 2022/01/27 21:39:38 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,16 +38,16 @@ CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
 
 PRINTF = lib/printf/libftprintf.a
 
-${PRINTF} :
-	make -C lib/printf -f Makefile
-
 NAME = push_swap.a
 
-${NAME} :	${OBJ} ${PRINTF} 
-	ar rcs $(NAME) $(OBJ)
-	cc $(CFLAGS) $(PRINTF) $(NAME) -o $(EXE)
-
 all:	${NAME}
+
+${NAME} :	${PRINTF} ${OBJ}
+	ar rcs $(NAME) $(OBJ)
+	cc $(CFLAGS) $(NAME) $(PRINTF) -o $(EXE)
+
+${PRINTF} :
+	make -C lib/printf -f Makefile
 
 clean:
 	make -C lib/printf -f Makefile clean
@@ -55,7 +55,7 @@ clean:
 
 fclean : clean
 	make -C lib/printf -f Makefile fclean
-	rm -rf $(NAME) $(FNAME) $(EXE)
+	rm -rf $(NAME) $(FNAME)
 
 re : fclean all
 
