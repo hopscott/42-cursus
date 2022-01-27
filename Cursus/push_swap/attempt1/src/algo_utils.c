@@ -6,11 +6,32 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:08:38 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/25 17:08:43 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/27 14:59:11 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	ft_sqrt(int nb)
+{
+	int	i;
+	int	tot;
+
+	if (nb == 1)
+		return (1);
+	if (nb >= 4)
+	{
+		i = 1;
+		tot = i * i;
+		while ((tot < nb) && (i <= nb / 2) && (i <= 46341))
+		{
+			i++;
+			tot = i * i;
+		}
+		return (i);
+	}
+	return (0);
+}
 
 int	s_pos(t_node **stack, int target)
 {
@@ -39,7 +60,7 @@ int	s_steps(t_node **stack, int target)
 	return (steps);
 }
 
-int	stackA_gotoNum(t_node **stack, int target)
+int	stacka_gotonum(t_node **stack, int target)
 {
 	t_node	*elem;
 	int		steps;
@@ -62,7 +83,7 @@ int	stackA_gotoNum(t_node **stack, int target)
 	return (0);
 }
 
-int	stackB_gotoNum(t_node **stack, int target)
+int	stackb_gotonum(t_node **stack, int target)
 {
 	t_node	*elem;
 	int		steps;

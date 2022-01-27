@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:57:03 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/25 17:02:18 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/27 15:14:31 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ t_node	**stack_init(int *array, int len)
 {
 	int		i;
 	t_node	**stack;
-	
+
 	i = len - 1;
 	if (len > 1)
 	{
-		stack = malloc(sizeof(t_node*));
+		stack = malloc(sizeof(t_node *));
 		if (!stack)
 			return (0);
 		*stack = 0;
