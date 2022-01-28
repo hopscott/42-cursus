@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:13:31 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/28 18:24:14 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 18:43:39 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	arrlen(int ac, char **av)
 		arrc = ft_split(av[i], ' ');
 		len += arrclen(arrc);
 		i++;
+		ft_freetbl(arrc, arrclen(arrc) - 1);
 	}
 	return (len);
 }
