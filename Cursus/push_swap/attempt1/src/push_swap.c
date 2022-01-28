@@ -6,10 +6,11 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/27 15:34:54 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 14:23:00 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// #include <stdio.h>
 #include "push_swap.h"
 
 int	run_algo(t_node **stack, t_node **stack2)
@@ -27,17 +28,19 @@ int	run_algo(t_node **stack, t_node **stack2)
 }
 
 int	main(int ac, char **av)
-{
+{	
+	int		len;
 	int		*array;
-	t_node	**stack;
-	t_node	**stack2;
+	t_node		**stack;
+	t_node		**stack2;
 
 	if (ac > 1)
 	{
-		array = parse_input(ac, av);
-		if (!array)
+		len = arrlen(ac, av);
+		array = parse_input(ac, av, len);
+		if (check_array(array, len))
 			return (ft_puterror());
-		stack = stack_init(array, ac - 1);
+		stack = stack_init(array, len);
 		if (!stack)
 			return (1);
 		stack2 = malloc(sizeof(t_node *));
@@ -50,6 +53,7 @@ int	main(int ac, char **av)
 	}
 	return (0);
 }
+
 //		printf("======= START =======\n");
 //		stack_print(stack);
 //		stack_print(stack2);

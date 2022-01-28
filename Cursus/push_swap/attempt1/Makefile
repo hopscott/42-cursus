@@ -6,7 +6,7 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/01/27 21:39:38 by swillis          ###   ########.fr        #
+#    Updated: 2022/01/28 13:41:13 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ EXE =	$(BIN_DIR)/push_swap
 SRC = 	$(SRC_DIR)/push_swap.c\
 		$(SRC_DIR)/parsing.c\
 		$(SRC_DIR)/parsing_utils.c\
+		$(SRC_DIR)/parsing_utils_strings.c\
 		$(SRC_DIR)/stacks.c\
 		$(SRC_DIR)/stacks_utils.c\
 		$(SRC_DIR)/stacks_utils_algo.c\
