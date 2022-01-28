@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:13:31 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/28 15:53:45 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 18:24:14 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	*parse_input(int ac, char **av, int len)
 				return (0);
 			arri[i++] = ft_atoi(arrc[j++]);
 		}
+		ft_freetbl(arrc, arrclen(arrc) - 1);
 		x++;
 	}
 	return (arri);
