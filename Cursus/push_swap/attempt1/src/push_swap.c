@@ -6,11 +6,10 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/28 14:23:00 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 15:45:46 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <stdio.h>
 #include "push_swap.h"
 
 int	run_algo(t_node **stack, t_node **stack2)
@@ -53,13 +52,3 @@ int	main(int ac, char **av)
 	}
 	return (0);
 }
-
-//		printf("======= START =======\n");
-//		stack_print(stack);
-//		stack_print(stack2);
-//		printf("=====================\n");
-//		printf("======== END ========\n");
-//		stack_print(stack);
-//		stack_print(stack2);
-//		printf("=====================\n");
-// need to run clean stack op on both too - free all elems;
