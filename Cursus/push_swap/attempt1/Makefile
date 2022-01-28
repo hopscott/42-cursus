@@ -6,7 +6,7 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/01/28 16:12:04 by swillis          ###   ########.fr        #
+#    Updated: 2022/01/28 16:28:37 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC = 	$(SRC_DIR)/push_swap.c\
 		$(SRC_DIR)/stacks.c\
 		$(SRC_DIR)/stacks_utils.c\
 		$(SRC_DIR)/stacks_utils_algo.c\
+		$(SRC_DIR)/stacks_utils_clear.c\
 		$(SRC_DIR)/operations.c\
 		$(SRC_DIR)/operations2.c\
 		$(SRC_DIR)/operations3.c\

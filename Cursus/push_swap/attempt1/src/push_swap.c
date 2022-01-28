@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/28 15:54:09 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 17:28:27 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	main(int ac, char **av)
 			return (1);
 		*stack2 = 0;
 		run_algo(stack, stack2);
-		free(stack);
-		free(stack2);
+		stack_clear(stack);
+		stack_clear(stack2);
 	}
 	return (0);
 }
