@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/28 15:45:46 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 15:54:09 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	main(int ac, char **av)
 {	
 	int		len;
 	int		*array;
-	t_node		**stack;
-	t_node		**stack2;
+	t_node	**stack;
+	t_node	**stack2;
 
 	if (ac > 1)
 	{

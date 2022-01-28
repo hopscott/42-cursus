@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:13:31 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/28 14:20:41 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 15:53:45 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int	arrclen(char **arr)
 
 int	arrlen(int ac, char **av)
 {
-	int	i;
-	int	len;
-	char		**arrc;
+	int		i;
+	int		len;
+	char	**arrc;
 
 	i = 1;
 	len = 0;
@@ -65,11 +65,11 @@ int	arrlen(int ac, char **av)
 
 int	*parse_input(int ac, char **av, int len)
 {
-	int	i;
-	int	j;
-	int	x;
+	int		i;
+	int		j;
+	int		x;
+	int		*arri;
 	char	**arrc;
-	int	*arri;
 
 	arri = malloc(sizeof(int) * len);
 	if (!arri)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo_bins.c                                        :+:      :+:    :+:   */
+/*   algo_utils_bins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:43:16 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/28 15:45:54 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 16:12:51 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,41 +76,34 @@ int	stacka_gotonextbin(t_node **stack, int binmin, int binmax)
 	return (0);
 }
 
-int	run_algobins(t_node **st, t_node **st2)
+int	stacka_pushbin(t_node **st, t_node **st2, int bins, int n)
 {
-	int	n;
-	int	bins;
 	int	binsize;
 	int	binmin;
 	int	binmax;
 	int	count;
 
-	bins = ft_sqrt(stack_size(st)) / 2;
 	binsize = stack_size(st) / bins;
-	n = 0;
-	while (!stack_ascend(st) && (n <= bins))
+	binmax = bin_max(st, bins, binsize, n);
+	if (n + 1 == bins)
+		binsize += stack_size(st) % bins;
+	binmin = bin_min(st, bins, binsize, n);
+	count = 0;
+	while (stack_size(st) && (count < binsize))
 	{
-		binmax = bin_max(st, bins, binsize, n);
-		if (n + 1 == bins)
-			binsize += stack_size(st) % bins;
-		binmin = bin_min(st, bins, binsize, n);
-		count = 0;
-		while (stack_size(st) && (count < binsize))
-		{
-			stacka_gotonextbin(st, binmin, binmax);
-			op_pb(st, st2);
-			count++;
-		}
-		if (n == bins)
-			binsize -= stack_size(st) % bins;
-		if (n > 0)
-			stacka_gotonum(st, bin_min(st, bins, binsize, n - 1));
-		while (stack_size(st2))
-		{
-			stackb_gotonum(st2, stack_findmax(st2));
-			op_pa(st, st2);
-		}
-		n++;
+		stacka_gotonextbin(st, binmin, binmax);
+		op_pb(st, st2);
+		count++;
+	}
+	return (0);
+}
+
+int	stackb_empty(t_node **st, t_node **st2)
+{
+	while (stack_size(st2))
+	{
+		stackb_gotonum(st2, stack_findmax(st2));
+		op_pa(st, st2);
 	}
 	return (0);
 }

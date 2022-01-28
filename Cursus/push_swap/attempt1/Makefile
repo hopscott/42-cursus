@@ -6,7 +6,7 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/01/28 13:41:13 by swillis          ###   ########.fr        #
+#    Updated: 2022/01/28 16:12:04 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC = 	$(SRC_DIR)/push_swap.c\
 		$(SRC_DIR)/operations3.c\
 		$(SRC_DIR)/algo.c\
 		$(SRC_DIR)/algo_utils.c\
-		$(SRC_DIR)/algo_bins.c\
+		$(SRC_DIR)/algo_utils_bins.c\
 
 OBJ =	${SRC:.c=.o}
 

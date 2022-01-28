@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:10:13 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/27 15:36:23 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 16:13:03 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,27 @@ int	run_algo5(t_node **st, t_node **st2)
 	run_algo3a(st);
 	op_pa(st, st2);
 	op_pa(st, st2);
+	return (0);
+}
+
+int	run_algobins(t_node **st, t_node **st2)
+{
+	int	n;
+	int	bins;
+	int	binsize;
+
+	bins = ft_sqrt(stack_size(st)) / 2;
+	binsize = stack_size(st) / bins;
+	n = 0;
+	while (!stack_ascend(st) && (n <= bins))
+	{
+		stacka_pushbin(st, st2, bins, n);
+		if (n == bins)
+			binsize -= stack_size(st) % bins;
+		if (n > 0)
+			stacka_gotonum(st, bin_min(st, bins, binsize, n - 1));
+		stackb_empty(st, st2);
+		n++;
+	}
 	return (0);
 }
