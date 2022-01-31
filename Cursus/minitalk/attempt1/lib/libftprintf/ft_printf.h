@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 15:50:12 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/03 18:45:53 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/31 19:09:08 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_varcheck(const char *str);
 int	ft_finddigits_int(int n, int len_base);
 int	ft_finddigits_ull(unsigned long long add, int len_base);
 int	ft_finddigits_unsign(unsigned int n, int len_base);
-int	ft_strlen(char *str);
+int	ft_strleni(char *str);
 int	ft_printf(const char *str, ...);
 
 #endif

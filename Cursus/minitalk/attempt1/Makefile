@@ -6,7 +6,7 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/01/31 16:34:37 by swillis          ###   ########.fr        #
+#    Updated: 2022/01/31 19:01:38 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,15 @@ BIN_DIR = .
 
 CLIENT =	$(BIN_DIR)/client
 
+CLIENTSRC = 	$(SRC_DIR)/client.c\
+
+CLIENTOBJ =	${CLIENTSRC:.c=.o}
+
 SERVER =	$(BIN_DIR)/server
 
-SRC = 	$(SRC_DIR)/client.c\
+SERVERSRC = 	$(SRC_DIR)/server.c\
 
-OBJ =	${SRC:.c=.o}
+SERVEROBJ =	${SERVERSRC:.c=.o}
 
 .c.o :
 	cc $(CFLAGS) -o $@ -c $<
@@ -31,13 +35,9 @@ LIBFT = lib/libft/libft.a
 
 PRINTF = lib/libftprintf/libftprintf.a
 
-NAME = minitalk.a
-
-all:	${NAME}
-
-${NAME} :	${LIBFT} ${PRINTF} ${OBJ}
-	ar rcs $(NAME) $(OBJ)
-	cc $(CFLAGS) $(NAME) $(LIBFT) $(PRINTF) -o $(CLIENT)
+all:	${LIBFT} ${PRINTF} ${SERVEROBJ} ${CLIENTOBJ}
+	cc $(CFLAGS) $(SERVEROBJ) $(LIBFT) $(PRINTF) -o $(SERVER)
+	cc $(CFLAGS) $(CLIENTOBJ) $(LIBFT) $(PRINTF) -o $(CLIENT)
 
 ${LIBFT} :
 	make -C lib/libft -f Makefile
@@ -48,12 +48,11 @@ ${PRINTF} :
 clean:
 	make -C lib/libft -f Makefile clean
 	make -C lib/libftprintf -f Makefile clean
-	rm -rf $(OBJ)
+	rm -rf $(SERVEROBJ)
 
 fclean : clean
 	make -C lib/libft -f Makefile fclean
 	make -C lib/libftprintf -f Makefile fclean
-	rm -rf $(NAME)
 
 re : fclean all
 

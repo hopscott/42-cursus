@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:23:34 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/05 13:53:54 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/31 19:09:05 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_putbase_unsign(unsigned int n, char *base)
 	int		digits;
 	int		lenbase;
 
-	lenbase = ft_strlen(base);
+	lenbase = ft_strleni(base);
 	digits = ft_finddigits_unsign(n, lenbase);
 	str = malloc(sizeof(char) * (digits + 1));
 	if (!str)

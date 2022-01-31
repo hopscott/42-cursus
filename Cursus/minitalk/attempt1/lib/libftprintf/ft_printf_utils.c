@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:23:34 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/05 13:53:12 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/31 19:09:08 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	ft_putstr(char *s)
 {
 	if (s)
 	{
-		write(1, s, ft_strlen(s));
-		return (ft_strlen(s));
+		write(1, s, ft_strleni(s));
+		return (ft_strleni(s));
 	}
 	else if (s == NULL)
 		return (ft_putstr("(null)"));
@@ -62,7 +62,7 @@ int	ft_finddigits_int(int n, int len_base)
 	return (digits);
 }
 
-int	ft_strlen(char *str)
+int	ft_strleni(char *str)
 {
 	int	i;
 
@@ -79,7 +79,7 @@ int	ft_putbase(int n, char *base)
 	int				digits;
 	int				i;
 
-	digits = ft_finddigits_int(n, ft_strlen(base));
+	digits = ft_finddigits_int(n, ft_strleni(base));
 	str = malloc(sizeof(char) * (digits + 1));
 	if (!str)
 		return (0);
@@ -93,8 +93,8 @@ int	ft_putbase(int n, char *base)
 		if ((i == 0) && (n < 0))
 			str[i--] = '-';
 		else
-			str[i--] = base[nb % ft_strlen(base)];
-		nb /= ft_strlen(base);
+			str[i--] = base[nb % ft_strleni(base)];
+		nb /= ft_strleni(base);
 	}
 	ft_putstr(str);
 	free(str);
