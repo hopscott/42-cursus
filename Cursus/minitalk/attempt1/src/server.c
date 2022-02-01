@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:35:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/01 20:36:18 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/01 20:54:49 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 
 /////////////////////////////////////////////////////////
 
-int	pidclient;
 char	*str;
 
 void	handler(int signum)
@@ -181,12 +180,41 @@ void	handler(int signum)
 	}
 }
 
+char    *ft_strbase(int n, char *base)
+{
+        char                    *str;
+        unsigned int    nb;
+        int                             digits;
+        int                             i;
+
+        digits = ft_finddigits_int(n, ft_strleni(base));
+        str = malloc(sizeof(char) * (digits + 1));
+        if (!str)
+                return (0);
+        nb = n;
+        if (n < 0)
+                nb = -n;
+        str[digits] = '\0';
+        i = digits - 1;
+        while (i >= 0)
+        {
+                if ((i == 0) && (n < 0))
+                        str[i--] = '-';
+                else
+                        str[i--] = base[nb % ft_strleni(base)];
+                nb /= ft_strleni(base);
+        }
+        return (str);
+}
+
 void	get_pidclient(int sig, siginfo_t *info, void *context)
 {
+	int	pidclient;
 	(void) sig;
 	(void) context;
 
 	pidclient = info->si_pid;
+	str = ft_strbase(pidclient, "0123456789");
 }
 
 int	check_eos(char *str)
@@ -245,6 +273,7 @@ char	*ft_bintostr(char *bin)
 int	main(void)
 {
 	int					pid;
+	int					pidclient;
 	struct sigaction	sac;
 	struct sigaction	sa;
 
@@ -268,7 +297,9 @@ int	main(void)
 				pause();		// wait for signal
 			
 				// Signal received
+				pidclient = ft_atoi(str);
 				ft_printf("CONNECTED TO CLIENT [%d]\n", pidclient);
+				str = ft_strdup("");
 			}
 	
 			// send ping to indicate ready for bit
