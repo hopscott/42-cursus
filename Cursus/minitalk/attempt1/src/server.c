@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:35:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/01 20:54:49 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/01 21:05:06 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,17 +300,14 @@ int	main(void)
 				pidclient = ft_atoi(str);
 				ft_printf("CONNECTED TO CLIENT [%d]\n", pidclient);
 				str = ft_strdup("");
+			
+				// set up receiving bit
+				sigemptyset(&sa.sa_mask);
+				sa.sa_handler = handler;
+				sa.sa_flags = SA_RESTART;
+				sigaction(SIGUSR1, &sa, NULL);
+				sigaction(SIGUSR2, &sa, NULL);
 			}
-	
-			// send ping to indicate ready for bit
-			kill(pidclient, SIGUSR1);
-	
-			// set up receiving bit
-			sigemptyset(&sa.sa_mask);
-			sa.sa_handler = handler;
-			sa.sa_flags = SA_RESTART;
-			sigaction(SIGUSR1, &sa, NULL);
-			sigaction(SIGUSR2, &sa, NULL);
 
 			// send ping to indicate ready for bit
 			kill(pidclient, SIGUSR1);
