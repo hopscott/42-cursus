@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:35:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/31 20:06:26 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:44:43 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ char	*ft_itobinoct(int n)
 	return (str);
 }
 
+int	ready;
+
+void	handler(int sig)
+{
+	if (sig == SIGUSR1)
+		ready = 1;
+}
+
 int	main(int ac, char **av)
 {
 	int	pid;
@@ -60,30 +68,48 @@ int	main(int ac, char **av)
 	char	*oct;
 	size_t	i;
 	size_t	j;
+	struct sigaction	sa;
 
+	ready = 0;
 	if (ac == 3)
 	{
 		pid = ft_atoi(av[1]);
 		str = av[2];
+
+		// set up ping signal to give server client pid
+		kill(pid, SIGUSR1);
+
+		// when receive signal can send a bit
+		sigemptyset(&sa.sa_mask);
+		sa.sa_handler = handler;
+		sa.sa_flags = SA_RESTART;
+		sigaction(SIGUSR1, &sa, NULL);
+
 		// iterate over each char to convert to binary
 		i = 0;
 		while (i <= ft_strlen(str))
 		{
 			c = str[i];
 			oct = ft_itobinoct(c);
-			ft_printf("%s\n", oct);
-
 			j = 0;
 			while (j < ft_strlen(oct))
 			{
-				ft_printf("%c\n", oct[j]);
+
+				while (!ready)
+				{
+					pause();
+					sleep(1);
+				}
+
 				if (oct[j] == '0')
 					if (kill(pid, SIGUSR1) == -1)
 						return (-1);
+
 				if (oct[j] == '1')
 					if (kill(pid, SIGUSR2) == -1)
 						return (-1);
-				usleep(50000);
+
+				ready = 0;
 				j++;
 			}
 
