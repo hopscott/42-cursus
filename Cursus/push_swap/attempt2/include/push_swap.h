@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:42 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/28 17:28:08 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/02 23:32:54 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,10 @@ int		stackb_empty(t_node **st, t_node **st2);
 int		run_algobins(t_node **st, t_node **st2);
 int		run_algo(t_node **stack, t_node **stack2);
 void	stack_clear(t_node **stack);
+int	stack_findmedian(t_node **stack);
+int	stack_findnextmedian(t_node **stack);
+int	stacka_pushmedian(t_node **st, t_node **st2, int med, int nmed);
+int	run_algoquicksort(t_node **st, t_node **st2);
+
 
 #endif
