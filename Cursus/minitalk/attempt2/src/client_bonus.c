@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/31 16:35:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/07 20:50:04 by swillis          ###   ########.fr       */
+/*   Created: 2022/02/07 22:44:30 by swillis           #+#    #+#             */
+/*   Updated: 2022/02/07 22:50:48 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	handler(int sig)
 {
 	if (sig == SIGUSR1)
 		g_ready = 1;
+	if (sig == SIGUSR2)
+		g_ready = 2;
 }
 
 void	init_handler(int pid)
@@ -28,6 +30,7 @@ void	init_handler(int pid)
 	sa.sa_handler = handler;
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	kill(pid, SIGUSR1);
 }
 
@@ -44,7 +47,6 @@ int	send_char(int pid, unsigned char c)
 	{
 		if (!g_ready)
 			pause();
-		ft_printf("%c", oct[j]);
 		if (oct[j] == '0')
 			if (kill(pid, SIGUSR1) == -1)
 				return (-1);
@@ -79,6 +81,9 @@ int	main(int ac, char **av)
 				return (-1);
 			i++;
 		}
+		if (g_ready != 2)
+			pause();
+		ft_printf(">>> MESSAGE SUCCESSFULLY RECEIVED BY SERVER <<<\n");
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:35:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/07 20:50:04 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/07 22:41:55 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	send_char(int pid, unsigned char c)
 	{
 		if (!g_ready)
 			pause();
-		ft_printf("%c", oct[j]);
 		if (oct[j] == '0')
 			if (kill(pid, SIGUSR1) == -1)
 				return (-1);

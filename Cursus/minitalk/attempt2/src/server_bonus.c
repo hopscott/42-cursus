@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/31 16:35:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/07 20:32:21 by swillis          ###   ########.fr       */
+/*   Created: 2022/02/07 22:44:37 by swillis           #+#    #+#             */
+/*   Updated: 2022/02/07 22:44:42 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	init_handler(int pidclient)
 	return (pidclient);
 }
 
-int	reset_newmsg(void)
+int	reset_newmsg(int pidclient)
 {
 	unsigned char	*s;
 
@@ -76,6 +76,7 @@ int	reset_newmsg(void)
 	g_str = ft_strdup((unsigned char *)"");
 	if (!g_str)
 		return (-1);
+	kill(pidclient, SIGUSR2);
 	return (0);
 }
 
@@ -98,7 +99,7 @@ int	main(void)
 				pidclient = init_handler(pid);
 			kill(pidclient, SIGUSR1);
 			if (check_eos(g_str))
-				pidclient = reset_newmsg();
+				pidclient = reset_newmsg(pidclient);
 			usleep(50);
 		}
 	}
