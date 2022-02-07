@@ -6,7 +6,7 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/01/31 19:01:38 by swillis          ###   ########.fr        #
+#    Updated: 2022/02/07 19:58:26 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,23 @@ SRC_DIR = src
 INC_DIR = include
 BIN_DIR = .
 
-CLIENT =	$(BIN_DIR)/client
+UTILSRC = 		$(SRC_DIR)/base_conversion.c\
+				$(SRC_DIR)/utils.c\
+				$(SRC_DIR)/utils2.c\
+
+UTILOBJ =		${UTILSRC:.c=.o}
+
+CLIENT =		$(BIN_DIR)/client
 
 CLIENTSRC = 	$(SRC_DIR)/client.c\
 
-CLIENTOBJ =	${CLIENTSRC:.c=.o}
+CLIENTOBJ =		${CLIENTSRC:.c=.o}
 
-SERVER =	$(BIN_DIR)/server
+SERVER =		$(BIN_DIR)/server
 
 SERVERSRC = 	$(SRC_DIR)/server.c\
 
-SERVEROBJ =	${SERVERSRC:.c=.o}
+SERVEROBJ =		${SERVERSRC:.c=.o}
 
 .c.o :
 	cc $(CFLAGS) -o $@ -c $<
@@ -35,9 +41,11 @@ LIBFT = lib/libft/libft.a
 
 PRINTF = lib/libftprintf/libftprintf.a
 
-all:	${LIBFT} ${PRINTF} ${SERVEROBJ} ${CLIENTOBJ}
-	cc $(CFLAGS) $(SERVEROBJ) $(LIBFT) $(PRINTF) -o $(SERVER)
-	cc $(CFLAGS) $(CLIENTOBJ) $(LIBFT) $(PRINTF) -o $(CLIENT)
+${NAME} :	all
+
+all:	${LIBFT} ${PRINTF} ${UTILOBJ} ${SERVEROBJ} ${CLIENTOBJ}
+	cc $(CFLAGS) $(UTILOBJ) $(SERVEROBJ) $(LIBFT) $(PRINTF) -o $(SERVER)
+	cc $(CFLAGS) $(UTILOBJ) $(CLIENTOBJ) $(LIBFT) $(PRINTF) -o $(CLIENT)
 
 ${LIBFT} :
 	make -C lib/libft -f Makefile
@@ -48,11 +56,12 @@ ${PRINTF} :
 clean:
 	make -C lib/libft -f Makefile clean
 	make -C lib/libftprintf -f Makefile clean
-	rm -rf $(SERVEROBJ)
+	rm -rf $(UTILOBJ) $(SERVEROBJ) $(CLIENTOBJ)
 
 fclean : clean
 	make -C lib/libft -f Makefile fclean
 	make -C lib/libftprintf -f Makefile fclean
+	rm -rf $(SERVER) $(CLIENT)
 
 re : fclean all
 

@@ -6,11 +6,11 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 16:25:50 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/03 13:34:44 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/07 18:54:16 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	ft_isspace(char c)
+int	ft_isspace(unsigned char c)
 {
 	if (c == '\t' || c == '\n' || c == '\r')
 		return (1);
@@ -19,14 +19,14 @@ static int	ft_isspace(char c)
 	return (0);
 }
 
-static int	ft_isnum(char c)
+int	ft_isnum(unsigned char c)
 {
 	if ((c >= '0') && (c <= '9'))
 		return (1);
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(unsigned char *str)
 {
 	int				i;
 	int				sign;

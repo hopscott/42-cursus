@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 18:02:24 by swillis           #+#    #+#             */
-/*   Updated: 2021/11/30 12:35:25 by swillis          ###   ########.fr       */
+/*   Created: 2022/02/07 17:53:20 by swillis           #+#    #+#             */
+/*   Updated: 2022/02/07 18:30:44 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minitalk.h"
 
-void	ft_putendl_fd(char *s, int fd)
+int	check_eos(unsigned char *str)
 {
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
+	size_t	i;
+	size_t	len;
+
+	len = ft_strlen(str);
+	if ((len == 0) || (len % 8 != 0))
+		return (0);
+	i = len - 8;
+	while (i < len)
+	{
+		if (str[i] == '1')
+			return (0);
+		i++;
+	}
+	return (1);
 }

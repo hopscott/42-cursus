@@ -6,20 +6,20 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:32:56 by swillis           #+#    #+#             */
-/*   Updated: 2021/11/30 13:26:26 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/07 18:54:44 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *src)
+unsigned char	*ft_strdup(unsigned char *src)
 {
-	char	*dst;
-	int		i;
-	int		len_src;
+	unsigned char	*dst;
+	int				i;
+	int				len_src;
 
 	len_src = ft_strlen(src);
-	dst = malloc(sizeof(char) * (len_src + 1));
+	dst = malloc(sizeof(dst) * (len_src + 1));
 	if (!dst)
 		return (0);
 	i = 0;

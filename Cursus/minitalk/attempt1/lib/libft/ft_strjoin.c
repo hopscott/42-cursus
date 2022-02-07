@@ -6,25 +6,25 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 23:30:19 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/01 15:33:37 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/07 18:55:21 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+unsigned char	*ft_strjoin(unsigned char *s1, unsigned char *s2)
 {
-	char	*str;
-	int		len_s1;
-	int		len_s2;
-	int		i;
-	int		j;
+	unsigned char	*str;
+	int				len_s1;
+	int				len_s2;
+	int				i;
+	int				j;
 
 	if (!s1 || !s2)
 		return (0);
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
-	str = (char *)malloc((len_s1 + len_s2 + 1) * sizeof(char));
+	str = malloc((len_s1 + len_s2 + 1) * sizeof(str));
 	if (!str)
 		return (0);
 	i = 0;
