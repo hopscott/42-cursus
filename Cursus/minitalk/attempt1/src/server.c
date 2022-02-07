@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:35:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/01 21:05:06 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/07 16:43:44 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,6 +318,9 @@ int	main(void)
 				str = ft_strdup("");
 				pidclient = 0;
 			}
+
+			// sleep to prevent overflow of signals
+			usleep(50);
 		}
 	}
 	return (0);

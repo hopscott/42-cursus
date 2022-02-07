@@ -6,11 +6,12 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:43:16 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/01 15:08:05 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/04 00:59:49 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 int	bin_max(t_node **stack, int bins, int binsize, int n)
 {
@@ -76,23 +77,61 @@ int	stacka_gotonextbin(t_node **stack, int binmin, int binmax)
 	return (0);
 }
 
+t_node	*stack_findval(t_node **stack, int val)
+{
+	t_node	*elem;
+
+	elem = *stack;
+	while (elem)
+	{
+		if (elem->val == val)
+			return (elem);
+		elem = elem->next;
+	}
+	return (0);
+}
+
+int	stack_findbinmedian(t_node **stack, int binmin, int binsize)
+{
+	int	i;
+	int	med;
+	t_node	*elem;
+
+	elem = stack_findval(stack, binmin);
+	i = 0;
+	med = 0;
+	while (elem && (i <= binsize / 2))
+	{
+		med = elem->val;
+		elem = elem->next;
+		i++;
+	}
+	return (med);
+}
+
 int	stacka_pushbin(t_node **st, t_node **st2, int bins, int n)
 {
 	int	binsize;
 	int	binmin;
 	int	binmax;
 	int	count;
+	int	med;
 
 	binsize = stack_size(st) / bins;
 	binmax = bin_max(st, bins, binsize, n);
-	if (n + 1 == bins)
-		binsize += stack_size(st) % bins;
+//	if (n + 1 == bins)
+//		binsize += stack_size(st) % bins;
+	if (n == bins)
+		binsize = stack_size(st) % bins;
 	binmin = bin_min(st, bins, binsize, n);
 	count = 0;
+	med = stack_findbinmedian(st, binmin, binsize);
 	while (stack_size(st) && (count < binsize))
 	{
 		stacka_gotonextbin(st, binmin, binmax);
 		op_pb(st, st2);
+		if ((stack_size(st2) > 1) && ((*st2)->val <= med))
+			op_rb(st2);
 		count++;
 	}
 	return (0);

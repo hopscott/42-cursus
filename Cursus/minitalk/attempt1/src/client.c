@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:35:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/01 21:00:21 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/07 16:34:23 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	main(int ac, char **av)
 
 				if (!ready)
 					pause();
+				ft_printf("Ready for next bit: %c\n", oct[j]);
 
 				if (oct[j] == '0')
 					if (kill(pid, SIGUSR1) == -1)

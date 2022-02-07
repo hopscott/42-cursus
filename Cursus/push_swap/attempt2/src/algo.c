@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:10:13 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/01 15:08:09 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/04 00:59:08 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,16 @@ int	run_algobins(t_node **st, t_node **st2)
 	bins = ft_sqrt(stack_size(st)) / 2;
 	binsize = stack_size(st) / bins;
 	n = 0;
-	while (!stack_ascend(st) && (n <= bins))
+	while ((stack_size(st) > 0) && (n <= bins))
 	{
 		stacka_pushbin(st, st2, bins, n);
 		if (n == bins)
-			binsize -= stack_size(st) % bins;
+//			binsize -= stack_size(st) % bins;
+			binsize = stack_size(st) % bins;
 		if (n > 0)
 			stacka_gotonum(st, bin_min(st, bins, binsize, n - 1));
-		stackb_empty(st, st2);
 		n++;
 	}
+	stackb_empty(st, st2);
 	return (0);
 }

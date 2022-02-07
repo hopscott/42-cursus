@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:10:13 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/02 23:34:08 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/04 00:01:52 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int	stacka_pushmedian(t_node **st, t_node **st2, int med, int nmed)
 
 	push = 0;
 	size = stack_size(st);
-	while (push < size / 2 )
+	while (push < (size / 2) )
 	{
 		top = *st;
-		if (top->val <= med)
+		if (top->val >= med)
 		{
 			op_pb(st, st2);
 			if (top->val > nmed)
