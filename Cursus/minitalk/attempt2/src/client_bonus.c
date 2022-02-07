@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 22:44:30 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/07 22:50:48 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/07 22:57:15 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	send_char(int pid, unsigned char c)
 	j = 0;
 	while (j < ft_strlen(oct))
 	{
-		if (!g_ready)
+		if (g_ready != 1)
 			pause();
 		if (oct[j] == '0')
 			if (kill(pid, SIGUSR1) == -1)
