@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 18:47:23 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/08 19:08:24 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	stack_binning(t_node **stack)
 		elem = bin_nodes(stack, elem, n, binsize);
 		n++;
 	}
+	n--;
 	binsize = stack_size(stack) % bins;
 	elem = bin_nodes(stack, elem, n, binsize);
 	return (bins);
