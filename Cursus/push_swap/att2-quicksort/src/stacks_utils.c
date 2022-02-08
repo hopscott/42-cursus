@@ -6,99 +6,92 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:02:27 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 17:06:02 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/25 17:02:33 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "push_swap.h"
 
-t_node	*copy_node(t_node *elem)
+int	stack_swap(t_node **stack)
 {
-	t_node	*new;
-
-	new = new_node(elem->val, elem->bin);
-	if (!new)
-		return (0);
-	return (new);
-}
-
-void	stack_swap(t_node **stack)
-{
-	t_node	*top;
-	t_node	*n1;
-	t_node	*n2;
+	t_node	*elem;
 	int		size;
+	int		n1;
+	int		n2;
 
 	size = stack_size(stack);
-	if (size > 1)
+	if (*stack && size >= 2)
 	{
-		top = *stack;
-		n1 = copy_node(top);
-		if (!n1)
-			return ;
-		n2 = copy_node(top->next);
-		if (!n2)
-			return ;
+		elem = *stack;
+		n2 = elem->val;
+		elem = elem->next;
+		n1 = elem->val;
 		stack_pop(stack);
 		stack_pop(stack);
-		stack_push(stack, n1);
-		stack_push(stack, n2);
+		if (stack_push(stack, n2))
+			return (1);
+		if (stack_push(stack, n1))
+			return (1);
 	}
+	return (0);
 }
 
-void	stack_rotate(t_node **stack)
+int	stack_rotate(t_node **stack)
 {
-	t_node	*top;
+	t_node	*first;
 	t_node	*last;
-	t_node	*cpy;
+	t_node	*new;
 	int		size;
 
 	size = stack_size(stack);
-	if (size > 1)
+	if (*stack && size > 1)
 	{
-		top = *stack;
-		cpy = copy_node(top);
-		if (!cpy)
-			return ;
+		first = *stack;
+		new = new_node(first->val);
+		if (!new)
+			return (1);
 		last = last_node(stack);
-		last->next = cpy;
-		cpy->prev = last;
+		last->next = new;
 		stack_pop(stack);
+		return (0);
 	}
+	else
+		return (1);
 }
 
-void	stack_reverse(t_node **stack)
+int	stack_reverse(t_node **stack)
 {
-	t_node	*cpy;
 	t_node	*elem;
 	t_node	*last;
 	int		size;
 
 	size = stack_size(stack);
-	if (size > 1)
+	if (*stack && size > 1)
 	{
 		last = last_node(stack);
-		cpy = copy_node(last);
-		if (!cpy)
-			return ;
-		stack_push(stack, cpy);
-		elem = last->prev;
+		if (stack_push(stack, last->val))
+			return (1);
+		elem = *stack;
+		while (elem->next != last)
+			elem = elem->next;
 		elem->next = 0;
 		free(last);
+		return (0);
 	}
+	else
+		return (1);
 }
 
 int	stack_size(t_node **stack)
 {
 	int		i;
-	t_node	*top;
 	t_node	*elem;
 
 	i = 0;
-	top = *stack;
-	if (top)
+	if (*stack)
 	{
-		elem = top;
+		elem = *stack;
 		i = 1;
 		while (elem->next)
 		{
@@ -107,4 +100,27 @@ int	stack_size(t_node **stack)
 		}
 	}
 	return (i);
+}
+
+void	stack_print(t_node **stack)
+{
+	t_node	*elem;
+
+	if (*stack)
+	{
+		elem = *stack;
+		ft_printf("\nTOP\t%d\n", elem->val);
+		elem = elem->next;
+		while (elem)
+		{
+			ft_printf(">\t%d\n", elem->val);
+			elem = elem->next;
+		}
+		ft_printf("BOT\t________\n\n");
+	}
+	else
+	{
+		ft_printf("\nTOP\t%c\n", 'X');
+		ft_printf("BOT\t________\n\n");
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:42 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 18:48:49 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/08 14:23:23 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-# include "ft_printf.h"
 
 typedef struct s_node
 {
 	int				val;
-	int				bin;
-	struct s_node	*prev;
 	struct s_node	*next;
 }					t_node;
 
@@ -40,45 +37,52 @@ int		arrclen(char **arr);
 int		arrlen(int ac, char **av);
 int		check_array(int *array, int size);
 int		*parse_input(int ac, char **av, int len);
-t_node	*new_node(int n, int bin);
+t_node	*new_node(int n);
 t_node	*last_node(t_node **stack);
-t_node	*copy_node(t_node *elem);
 t_node	**stack_init(int *array, int len);
 int		stack_size(t_node **stack);
-void	stack_push(t_node **stack, t_node *new);
+int		stack_push(t_node **stack, int n);
 void	stack_pop(t_node **stack);
-void	stack_swap(t_node **stack);
-void	stack_rotate(t_node **stack);
-void	stack_reverse(t_node **stack);
+int		stack_swap(t_node **stack);
+int		stack_rotate(t_node **stack);
+int		stack_reverse(t_node **stack);
 void	stack_print(t_node **stack);
 int		stack_ascend(t_node **stack);
-t_node	*stack_findmin(t_node **stack);
-t_node	*stack_findnextmin(t_node **stack, int min);
-t_node	*stack_findmax(t_node **stack);
-t_node	*stack_findnextmax(t_node **stack, int max);
+int		stack_findmin(t_node **stack);
+int		stack_findnextmin(t_node **stack, int min);
+int		stack_findmax(t_node **stack);
+int		stack_findnextmax(t_node **stack, int max);
 int		s_pos(t_node **stack, int target);
 int		s_steps(t_node **stack, int target);
 int		stacka_gotonum(t_node **stack, int target);
 int		stackb_gotonum(t_node **stack, int target);
-void	op_sa(t_node **stacka);
-void	op_sb(t_node **stackb);
-void	op_ss(t_node **stacka, t_node **stackb);
-void	op_pa(t_node **stacka, t_node **stackb);
-void	op_pb(t_node **stacka, t_node **stackb);
-void	op_ra(t_node **stacka);
-void	op_rb(t_node **stackb);
-void	op_rr(t_node **stacka, t_node **stackb);
-void	op_rra(t_node **stacka);
-void	op_rrb(t_node **stackb);
-void	op_rrr(t_node **stacka, t_node **stackb);
+int		op_sa(t_node **stacka);
+int		op_sb(t_node **stackb);
+int		op_ss(t_node **stacka, t_node **stackb);
+int		op_pa(t_node **stacka, t_node **stackb);
+int		op_pb(t_node **stacka, t_node **stackb);
+int		op_ra(t_node **stacka);
+int		op_rb(t_node **stackb);
+int		op_rr(t_node **stacka, t_node **stackb);
+int		op_rra(t_node **stacka);
+int		op_rrb(t_node **stackb);
+int		op_rrr(t_node **stacka, t_node **stackb);
 void	run_algo3a(t_node **st);
 void	run_algo3b(t_node **st);
 int		run_algo5(t_node **st, t_node **st2);
 int		ft_sqrt(int nb);
-void	stacka_pushbin(t_node **st, t_node **st2, int n);
-void	stackb_empty(t_node **st, t_node **st2);
+int		bin_max(t_node **stack, int bins, int binsize, int n);
+int		bin_min(t_node **stack, int bins, int binsize, int n);
+int		stacka_gotonextbin(t_node **stack, int binmin, int binmax);
+int		stacka_pushbin(t_node **st, t_node **st2, int bins, int n);
+int		stackb_empty(t_node **st, t_node **st2);
 int		run_algobins(t_node **st, t_node **st2);
 int		run_algo(t_node **stack, t_node **stack2);
 void	stack_clear(t_node **stack);
+int	stack_findmedian(t_node **stack);
+int	stack_findnextmedian(t_node **stack);
+int	stacka_pushmedian(t_node **st, t_node **st2, int med);
+int	run_algoquicksort(t_node **st, t_node **st2);
+
 
 #endif

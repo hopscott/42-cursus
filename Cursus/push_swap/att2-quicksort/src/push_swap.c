@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:44 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 18:48:22 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/08 14:19:13 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	run_algo(t_node **stack, t_node **stack2)
 		else if ((size > 3) && (size <= 5))
 			run_algo5(stack, stack2);
 		else
-			run_algobins(stack, stack2);
+			run_algoquicksort(stack, stack2);
 	}
 	return (0);
 }

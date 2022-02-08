@@ -6,10 +6,11 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:13:31 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 15:44:14 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 18:43:39 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "push_swap.h"
 
 int	check_array(int *array, int size)

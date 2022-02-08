@@ -6,35 +6,27 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:01:07 by swillis           #+#    #+#             */
-/*   Updated: 2022/01/27 15:01:13 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/08 17:10:16 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "ft_printf.h"
 
-int	op_rra(t_node **stackA)
+void	op_rra(t_node **stackA)
 {
-	if (stack_reverse(stackA))
-		return (1);
+	stack_reverse(stackA);
 	ft_putstr("rra\n");
-	return (0);
 }
 
-int	op_rrb(t_node **stackB)
+void	op_rrb(t_node **stackB)
 {
-	if (stack_reverse(stackB))
-		return (1);
+	stack_reverse(stackB);
 	ft_putstr("rrb\n");
-	return (0);
 }
 
-int	op_rrr(t_node **stackA, t_node **stackB)
+void	op_rrr(t_node **stackA, t_node **stackB)
 {
-	if (stack_reverse(stackA))
-		return (1);
-	if (stack_reverse(stackB))
-		return (1);
+	stack_reverse(stackA);
+	stack_reverse(stackB);
 	ft_putstr("rrr\n");
-	return (0);
 }

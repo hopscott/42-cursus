@@ -6,13 +6,14 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:57:03 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 17:50:40 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/27 15:14:31 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "push_swap.h"
 
-t_node	*new_node(int n, int bin)
+t_node	*new_node(int n)
 {
 	t_node	*elem;
 
@@ -20,21 +21,17 @@ t_node	*new_node(int n, int bin)
 	if (!elem)
 		return (0);
 	elem->val = n;
-	elem->bin = bin;
 	elem->next = 0;
-	elem->prev = 0;
 	return (elem);
 }
 
 t_node	*last_node(t_node **stack)
 {
-	t_node	*top;
 	t_node	*elem;
 
-	top = *stack;
-	if (top)
+	if (*stack)
 	{
-		elem = top;
+		elem = *stack;
 		while (elem->next)
 			elem = elem->next;
 		return (elem);
@@ -43,35 +40,32 @@ t_node	*last_node(t_node **stack)
 		return (0);
 }
 
-void	stack_push(t_node **stack, t_node *new)
+int	stack_push(t_node **stack, int n)
 {
-	t_node	*top;
+	t_node	*new;
 
-	top = *stack;
-	if (top)
+	new = new_node(n);
+	if (!new)
+		return (1);
+	if (*stack)
 	{
-		top->prev = new;
-		new->next = top;
+		new->next = *stack;
 		*stack = new;
 	}
 	else
 		*stack = new;
+	return (0);
 }
 
 void	stack_pop(t_node **stack)
 {
-	t_node	*top;
-	t_node	*tmp;
+	t_node	*temp;
 
-	top = *stack;
-	if (top)
+	if (*stack)
 	{
-		tmp = top;
-		top = top->next;
-		if (top)
-			top->prev = 0;
-		*stack = top;
-		free(tmp);
+		temp = *stack;
+		*stack = temp->next;
+		free(temp);
 	}
 }
 
@@ -79,7 +73,6 @@ t_node	**stack_init(int *array, int len)
 {
 	int		i;
 	t_node	**stack;
-	t_node	*new;
 
 	i = len - 1;
 	if (len > 1)
@@ -90,10 +83,8 @@ t_node	**stack_init(int *array, int len)
 		*stack = 0;
 		while (i >= 0)
 		{
-			new = new_node(array[i], 0);
-			if (!new)
+			if (stack_push(stack, array[i]))
 				return (0);
-			stack_push(stack, new);
 			i--;
 		}
 		return (stack);

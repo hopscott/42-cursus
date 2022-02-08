@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:10:13 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 17:17:27 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/04 00:59:08 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	run_algo3a(t_node **st)
 	int		mid;
 	int		bot;
 
-	top = (stack_findmin(st))->val;
-	mid = (stack_findnextmin(st, top))->val;
-	bot = (stack_findmax(st))->val;
+	top = stack_findmin(st);
+	mid = stack_findnextmin(st, top);
+	bot = stack_findmax(st);
 	if ((mid == bot) && (s_pos(st, bot) < s_pos(st, top)))
 		op_sa(st);
 	if ((s_pos(st, mid) < s_pos(st, top)) && (s_pos(st, top) < s_pos(st, bot)))
@@ -47,9 +47,9 @@ void	run_algo3b(t_node **st)
 	int		mid;
 	int		bot;
 
-	bot = (stack_findmin(st))->val;
-	mid = (stack_findnextmin(st, bot))->val;
-	top = (stack_findmax(st))->val;
+	bot = stack_findmin(st);
+	mid = stack_findnextmin(st, bot);
+	top = stack_findmax(st);
 	if ((mid == bot) && (s_pos(st, bot) < s_pos(st, top)))
 		op_sb(st);
 	if ((s_pos(st, mid) < s_pos(st, top)) && (s_pos(st, top) < s_pos(st, bot)))
@@ -72,12 +72,35 @@ void	run_algo3b(t_node **st)
 
 int	run_algo5(t_node **st, t_node **st2)
 {
-	stacka_gotonum(st, (stack_findmin(st))->val);
+	stacka_gotonum(st, stack_findmin(st));
 	op_pb(st, st2);
-	stacka_gotonum(st, (stack_findmin(st))->val);
+	stacka_gotonum(st, stack_findmin(st));
 	op_pb(st, st2);
 	run_algo3a(st);
 	op_pa(st, st2);
 	op_pa(st, st2);
+	return (0);
+}
+
+int	run_algobins(t_node **st, t_node **st2)
+{
+	int	n;
+	int	bins;
+	int	binsize;
+
+	bins = ft_sqrt(stack_size(st)) / 2;
+	binsize = stack_size(st) / bins;
+	n = 0;
+	while ((stack_size(st) > 0) && (n <= bins))
+	{
+		stacka_pushbin(st, st2, bins, n);
+		if (n == bins)
+//			binsize -= stack_size(st) % bins;
+			binsize = stack_size(st) % bins;
+		if (n > 0)
+			stacka_gotonum(st, bin_min(st, bins, binsize, n - 1));
+		n++;
+	}
+	stackb_empty(st, st2);
 	return (0);
 }

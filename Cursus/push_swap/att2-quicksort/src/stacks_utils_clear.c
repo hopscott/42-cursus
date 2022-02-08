@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:02:27 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 16:21:13 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/28 16:29:56 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,4 @@ void	stack_clear(t_node **stack)
 	}
 	*stack = 0;
 	free(stack);
-}
-
-void	stack_print(t_node **stack)
-{
-	t_node	*elem;
-
-	if (*stack)
-	{
-		elem = *stack;
-		ft_printf("\nTOP\t%d\n", elem->val);
-		elem = elem->next;
-		while (elem)
-		{
-			ft_printf(">\t%d\n", elem->val);
-			elem = elem->next;
-		}
-		ft_printf("BOT\t________\n\n");
-	}
-	else
-	{
-		ft_printf("\nTOP\t%c\n", 'X');
-		ft_printf("BOT\t________\n\n");
-	}
 }

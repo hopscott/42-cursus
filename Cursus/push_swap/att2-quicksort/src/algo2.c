@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:10:13 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/04 00:01:52 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/08 14:22:44 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	stack_findnextmedian(t_node **stack)
 	return (nb);
 }
 
-int	stacka_pushmedian(t_node **st, t_node **st2, int med, int nmed)
+int	stacka_pushmedian(t_node **st, t_node **st2, int med)
 {
 	t_node	*top;
 	int	size;
@@ -58,11 +58,7 @@ int	stacka_pushmedian(t_node **st, t_node **st2, int med, int nmed)
 	{
 		top = *st;
 		if (top->val >= med)
-		{
 			op_pb(st, st2);
-			if (top->val > nmed)
-				op_rrb(st2);
-		}
 		else
 			op_ra(st);
 		push++;
@@ -79,7 +75,7 @@ int	run_algoquicksort(t_node **st, t_node **st2)
 	{
 		med = stack_findmedian(st);
 		nmed = stack_findnextmedian(st);
-		stacka_pushmedian(st, st2, med, nmed);
+		stacka_pushmedian(st, st2, med);
 	}
 	run_algo3a(st);
 	stackb_empty(st, st2);

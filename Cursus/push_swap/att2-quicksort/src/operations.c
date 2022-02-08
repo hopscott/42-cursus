@@ -6,57 +6,69 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:01:34 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 17:13:39 by swillis          ###   ########.fr       */
+/*   Updated: 2022/01/27 15:01:52 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "ft_printf.h"
 
-void	op_sa(t_node **stackA)
+int	op_sa(t_node **stackA)
 {
-	stack_swap(stackA);
+	if (stack_swap(stackA))
+		return (1);
 	ft_putstr("sa\n");
+	return (0);
 }
 
-void	op_sb(t_node **stackB)
+int	op_sb(t_node **stackB)
 {
-	stack_swap(stackB);
+	if (stack_swap(stackB))
+		return (1);
 	ft_putstr("sb\n");
+	return (0);
 }
 
-void	op_ss(t_node **stackA, t_node **stackB)
+int	op_ss(t_node **stackA, t_node **stackB)
 {
-	stack_swap(stackA);
-	stack_swap(stackB);
+	if (stack_swap(stackA))
+		return (1);
+	if (stack_swap(stackB))
+		return (1);
 	ft_putstr("ss\n");
+	return (0);
 }
 
-void	op_pa(t_node **stackA, t_node **stackB)
+int	op_pa(t_node **stackA, t_node **stackB)
 {
-	t_node	*top;
 	t_node	*elem;
+	int		n;
 
 	if (*stackB)
 	{
-		top = *stackB;
-		elem = copy_node(top);
-		stack_push(stackA, elem);
+		elem = *stackB;
+		n = elem->val;
+		if (stack_push(stackA, n))
+			return (1);
 		stack_pop(stackB);
 	}
 	ft_putstr("pa\n");
+	return (0);
 }
 
-void	op_pb(t_node **stackA, t_node **stackB)
+int	op_pb(t_node **stackA, t_node **stackB)
 {
-	t_node	*top;
 	t_node	*elem;
+	int		n;
 
 	if (*stackA)
 	{
-		top = *stackA;
-		elem = copy_node(top);
-		stack_push(stackB, elem);
+		elem = *stackA;
+		n = elem->val;
+		if (stack_push(stackB, n))
+			return (1);
 		stack_pop(stackA);
 	}
 	ft_putstr("pb\n");
+	return (0);
 }
