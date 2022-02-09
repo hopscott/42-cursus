@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:02:27 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 16:21:13 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/09 19:36:34 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	stack_print(t_node **stack)
 	if (*stack)
 	{
 		elem = *stack;
-		ft_printf("\nTOP\t%d\n", elem->val);
+		ft_printf("\nTOP\t%d\t[%d]\n", elem->val, elem->bin);
 		elem = elem->next;
 		while (elem)
 		{
-			ft_printf(">\t%d\n", elem->val);
+			ft_printf(">\t%d\t[%d]\n", elem->val, elem->bin);
 			elem = elem->next;
 		}
 		ft_printf("BOT\t________\n\n");

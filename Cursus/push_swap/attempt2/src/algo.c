@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:10:13 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 17:17:27 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/09 17:41:26 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	run_algo3b(t_node **st)
 		op_rrb(st);
 }
 
-int	run_algo5(t_node **st, t_node **st2)
+void	run_algo5(t_node **st, t_node **st2)
 {
 	stacka_gotonum(st, (stack_findmin(st))->val);
 	op_pb(st, st2);
@@ -79,5 +79,4 @@ int	run_algo5(t_node **st, t_node **st2)
 	run_algo3a(st);
 	op_pa(st, st2);
 	op_pa(st, st2);
-	return (0);
 }

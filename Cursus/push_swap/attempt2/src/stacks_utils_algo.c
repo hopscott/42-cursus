@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:14:53 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 17:07:01 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/09 19:41:13 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ t_node	*stack_findnextmin(t_node **stack, int min)
 	int		nmin;
 
 	elem = *stack;
-	m = elem;
-	nmin = (stack_findmax(stack))->val;
+	m = stack_findmax(stack);
+	nmin = m->val;
 	while (elem)
 	{
 		if ((elem->val < nmin) && (elem->val > min))
@@ -104,8 +104,8 @@ t_node	*stack_findnextmax(t_node **stack, int max)
 	int		nmax;
 
 	elem = *stack;
-	m = elem;
-	nmax = (stack_findmin(stack))->val;
+	m = stack_findmin(stack);
+	nmax = m->val;
 	while (elem)
 	{
 		if ((elem->val > nmax) && (elem->val < max))

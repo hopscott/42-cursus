@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:42 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 18:48:49 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/09 17:41:07 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,11 @@ void	op_rrb(t_node **stackb);
 void	op_rrr(t_node **stacka, t_node **stackb);
 void	run_algo3a(t_node **st);
 void	run_algo3b(t_node **st);
-int		run_algo5(t_node **st, t_node **st2);
+void	run_algo5(t_node **st, t_node **st2);
 int		ft_sqrt(int nb);
 void	stacka_pushbin(t_node **st, t_node **st2, int n);
 void	stackb_empty(t_node **st, t_node **st2);
-int		run_algobins(t_node **st, t_node **st2);
-int		run_algo(t_node **stack, t_node **stack2);
+void	run_algobins(t_node **st, t_node **st2);
 void	stack_clear(t_node **stack);
 
 #endif
