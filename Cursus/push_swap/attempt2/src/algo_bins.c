@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 19:08:24 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/09 17:38:26 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,41 @@ t_node	*stack_findnextbin(t_node **st, int n)
 		return (bot);
 }
 
+int	stack_findbinmed(t_node **st, int n)
+{
+	int		nbin;
+	int		i;
+
+	nbin = stack_binleft(st, n);
+	i = 0;
+	elem = stack_findnextbin(st, n);
+	while (elem && (i < nbin / 2))
+	{
+		i++;
+		elem = stack_findnextbin(st, n);
+	}
+	return (elem->val);
+}
+
 void	stacka_pushbin(t_node **st, t_node **st2, int n)
 {
 	t_node	*elem;
+	t_node	*top;
+	int		med;
 
+	med = stack_findbinmed(st, n);
 	elem = stack_findnextbin(st, n);
 	while (elem)
 	{
 		stacka_gotonum(st, elem->val);
 		op_pb(st, st2);
+		top = *st2;
+		if (top->val 
 		elem = stack_findnextbin(st, n);
 	}
 }
 
-int	run_algobins(t_node **st, t_node **st2)
+void	run_algobins(t_node **st, t_node **st2)
 {
 	int	bins;
 	int	n;
@@ -119,5 +140,4 @@ int	run_algobins(t_node **st, t_node **st2)
 		n++;
 	}
 	stackb_empty(st, st2);
-	return (0);
 }
