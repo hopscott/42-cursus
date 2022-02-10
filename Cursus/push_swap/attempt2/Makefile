@@ -6,7 +6,7 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/02/08 17:17:48 by swillis          ###   ########.fr        #
+#    Updated: 2022/02/10 17:32:08 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,16 +28,17 @@ SRC = 	$(SRC_DIR)/push_swap.c\
 		$(SRC_DIR)/operations2.c\
 		$(SRC_DIR)/operations3.c\
 		$(SRC_DIR)/algo.c\
-		$(SRC_DIR)/algo_bins.c\
 		$(SRC_DIR)/algo_utils.c\
-		$(SRC_DIR)/algo_utils_bins.c\
+		$(SRC_DIR)/algo_bins.c\
+		$(SRC_DIR)/algo_bins_utils.c\
+		$(SRC_DIR)/algo_bins_insertion.c\
 
 OBJ =	${SRC:.c=.o}
 
 .c.o :
 	cc $(CFLAGS) -o $@ -c $<
 
-CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror -I$(INC_DIR)
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
 
 PRINTF = lib/printf/libftprintf.a
 

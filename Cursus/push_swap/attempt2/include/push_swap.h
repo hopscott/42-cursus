@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:24:42 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/09 17:41:07 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/10 17:31:55 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,20 @@ void	run_algo3b(t_node **st);
 void	run_algo5(t_node **st, t_node **st2);
 int		ft_sqrt(int nb);
 void	stacka_pushbin(t_node **st, t_node **st2, int n);
-void	stackb_empty(t_node **st, t_node **st2);
+void	stacka_pushbinmedian(t_node **st, t_node **st2, int n);
+void	stackb_insertionbin(t_node **st, t_node **st2, int n);
+void	stackb_pushbin(t_node **st, t_node **st2, int n);
 void	run_algobins(t_node **st, t_node **st2);
+t_node	*bin_nodes(t_node **stack, t_node *elem, int n, int binsize);
+int		stack_binning(t_node **stack);
+int		stack_median_binning(t_node **stack);
+int		stack_binleft(t_node **st, int n);
+t_node	*stack_findnextbin(t_node **st, int n);
+int		*binarray_sort(int *arr, int nbin);
+int		*stack_binarray(t_node **st, int nbin, int n);
+int		binarray_findlower(int *arr, int len, int val);
+int		binarray_findupper(int *arr, int len, int val);
+void	stackb_insertpush(t_node **st, t_node **st2, int nbin, int n);
 void	stack_clear(t_node **stack);
 
 #endif
