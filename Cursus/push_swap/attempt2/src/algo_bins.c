@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/09 21:07:05 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/10 16:25:47 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,26 @@ int	stack_binning(t_node **stack)
 	binsize = stack_size(stack) % bins;
 	elem = bin_nodes(stack, elem, n, binsize);
 	return (bins);
+}
+
+
+int	stack_median_binning(t_node **stack)
+{
+	t_node	*elem;
+	int		n;
+	int		binsize;
+
+	binsize = stack_size(stack);
+	n = 0;
+	elem = stack_findmax(stack);
+	while (*stack && elem != stack_findmin(stack))
+	{
+		binsize = (binsize / 2) + (binsize % 2);
+		elem = bin_nodes(stack, elem, n, binsize);
+		n++;
+	}
+	elem->bin = n - 1;
+	return (n);
 }
 
 int	stack_binleft(t_node **st, int n)
@@ -93,46 +113,6 @@ t_node	*stack_findnextbin(t_node **st, int n)
 		return (bot);
 }
 
-int	stack_findbinmed(t_node **st, int n)
-{
-	t_node	*elem;
-	int		*arr;
-	int		nbin;
-	int		i;
-	int		tmp;
-
-	nbin = stack_binleft(st, n);
-	if (!nbin)
-		return (-1);
-	arr = malloc(sizeof(arr) * nbin);
-	if (!arr)
-		return (-1);
-	i = 0;
-	elem = *st;
-	while (elem && (i < nbin))
-	{
-		if (elem->bin == n)
-		{
-			arr[i] = elem->val;
-			i++;
-		}
-		elem = elem->next;
-	}
-	while (i > 1)
-	{
-		i--;
-		if (arr[i - 1] > arr[i])
-		{
-			tmp = arr[i];
-			arr[i] = arr[i - 1];
-			arr[i - 1] = tmp;
-		}
-	}
-	i = arr[nbin / 2];
-	free(arr);
-	return (i);
-}
-
 int	*stack_binarray(t_node **st, int nbin, int n)
 {
 	t_node	*elem;
@@ -162,8 +142,10 @@ int	*stack_binarray(t_node **st, int nbin, int n)
 			tmp = arr[i];
 			arr[i] = arr[i + 1];
 			arr[i + 1] = tmp;
+			i = 0;
 		}
-		i++;
+		else
+			i++;
 	}
 	return (arr);
 }
@@ -172,11 +154,27 @@ int	binarray_findlower(int *arr, int len, int val)
 {
 	int	i;
 
+	i = 0;
+	while (arr && (i + 1 < len))
+	{
+//		ft_printf(">>> arr[%d] = %d >>> %d\n", i, arr[i], val);
+		if (arr[i + 1] > val)
+			return (arr[i]);
+		i++;
+	}
+	return (arr[i]);
+}
+
+
+int	binarray_findupper(int *arr, int len, int val)
+{
+	int	i;
+
 	i = len - 1;
 	while (arr && (i > 0))
 	{
-		ft_printf(">>> arr[%d] = %d >>> %d\n", i, arr[i], val);
-		if (val > arr[i])
+//		ft_printf(">>> arr[%d] = %d >>> %d\n", i, arr[i], val);
+		if (arr[i - 1] < val)
 			return (arr[i]);
 		i--;
 	}
@@ -188,36 +186,70 @@ void	stacka_insertionbin(t_node **st, t_node **st2, int n)
 	int	nbin;
 	int	*arr;
 	int	lower;
+	int	upper;
 	int	val;
 
 	nbin = stack_binleft(st2, n);
-	ft_printf(">>> nbin = %d\n", nbin);
 	if (nbin == 0)
 		op_pb(st, st2);
 	else if (nbin == 1)
 	{
-		if ((*st)->val > (*st2)->val)
-		{
-			op_pb(st, st2);
+		val = (*st2)->val;
+		op_pb(st, st2);
+		if ((*st2)->val > val)
 			op_sb(st2);
-		}
-		else
-			op_pb(st, st2);
 	}
 	else
 	{
 		val = (*st)->val;
 		arr = stack_binarray(st2, nbin, n);
-		lower = binarray_findlower(arr, nbin, val);
-		ft_printf(">>> lower = %d\n", lower);
-		stackb_gotonum(st2, lower);
-		op_pb(st, st2);
+		if (!arr)
+			return ;
+		upper = binarray_findupper(arr, nbin, val); 
+		lower = binarray_findlower(arr, nbin, val); 
 		free(arr);
+		if (val < lower)
+			stackb_gotonum(st2, upper);
+		else if ((lower < val) && (val < upper))
+			stackb_gotonum(st2, lower);
+		else if (upper < val)
+			stackb_gotonum(st2, upper);
+		op_pb(st, st2);
 	}
-	ft_printf("============\n");
-	stack_print(st);
-	stack_print(st2);
-	ft_printf("============\n");
+}
+
+void	stackb_insertionbin(t_node **st, t_node **st2, int n)
+{
+	int	nbin;
+	int	*arr;
+	int	lower;
+	int	upper;
+	int	val;
+
+	nbin = stack_binleft(st, n);
+	if (nbin == 0)
+		op_pa(st, st2);
+	else if (nbin == 1)
+	{
+		val = (*st)->val;
+		op_pa(st, st2);
+		if ((*st)->val > val)
+			op_sa(st);
+	}
+	else
+	{
+		val = (*st2)->val;
+		arr = stack_binarray(st, nbin, n);
+		if (!arr)
+			return ;
+		upper = binarray_findupper(arr, nbin, val); 
+		lower = binarray_findlower(arr, nbin, val); 
+		free(arr);
+		stacka_gotonum(st, lower);
+		op_pa(st, st2);
+		if (lower < val)
+			op_sa(st);
+	}
 }
 
 void	stacka_pushbin(t_node **st, t_node **st2, int n)
@@ -228,18 +260,45 @@ void	stacka_pushbin(t_node **st, t_node **st2, int n)
 	while (elem)
 	{
 		stacka_gotonum(st, elem->val);
-
-		stacka_insertionbin(st, st2, n);
-
-//	t_node	*top;
-//	int		med;
-//	med = stack_findbinmed(st, n);
-//		op_pb(st, st2);
-//		top = *st2;
-//		if (top->val < med)
-//			op_rb(st2);
-
+		op_pb(st, st2);
 		elem = stack_findnextbin(st, n);
+	}
+}
+
+void	stacka_pushbinmedian(t_node **st, t_node **st2, int n)
+{
+	t_node	*elem;
+	int	*arr;
+	int	nbin;
+	int	med;
+
+	nbin = stack_binleft(st, n);
+	arr = stack_binarray(st, nbin, n);
+	if (!arr)
+		return ;
+	med = arr[nbin / 2];
+	free(arr);
+	elem = stack_findnextbin(st, n);
+	while (elem)
+	{
+		stacka_gotonum(st, elem->val);
+		op_pb(st, st2);
+		if ((stack_size(st2) > 1) && ((*st2)->val < med))
+			op_rb(st2);
+		elem = stack_findnextbin(st, n);
+	}
+}
+
+void	stackb_pushbin(t_node **st, t_node **st2, int n)
+{
+	t_node	*elem;
+
+	elem = stack_findnextbin(st2, n);
+	while (elem)
+	{
+		stackb_gotonum(st2, elem->val);
+		stackb_insertionbin(st, st2, n);
+		elem = stack_findnextbin(st2, n);
 	}
 }
 
@@ -249,11 +308,22 @@ void	run_algobins(t_node **st, t_node **st2)
 	int	n;
 
 	bins = stack_binning(st);
+//	bins = stack_median_binning(st);
+
+	n = bins - 1;
+	while (n >= 0)
+	{
+		stacka_pushbinmedian(st, st2, n);
+		n--;
+	}
+
 	n = 0;
 	while (n < bins)
 	{
-		stacka_pushbin(st, st2, n);
+		stackb_pushbin(st, st2, n);
+		stacka_gotonum(st, (stack_findmin(st))->val);
 		n++;
 	}
-	stackb_empty(st, st2);
+
+//	stackb_empty(st, st2);
 }

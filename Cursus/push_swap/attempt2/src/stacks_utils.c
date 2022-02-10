@@ -6,7 +6,7 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:02:27 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/08 17:06:02 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/10 15:23:24 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ void	stack_reverse(t_node **stack)
 		cpy = copy_node(last);
 		if (!cpy)
 			return ;
-		stack_push(stack, cpy);
 		elem = last->prev;
 		elem->next = 0;
+		stack_push(stack, cpy);
 		free(last);
 	}
 }
