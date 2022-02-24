@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:11 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/24 23:06:43 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/24 23:22:31 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	bresenham_trace(t_data *img, t_point *p1, t_point *p2)
 
 	// https://personal.math.ubc.ca/~cass/courses/m308-02b/projects/puhalovic/#alldirections
 	// https://stackoverflow.com/questions/62651042/how-to-implement-bresenhams-line-algorithm-in-c-when-trying-to-draw-a-line-in-b
-	if ((0 < (dy / dx)) && ((dy / dx)) < 1))
+	if ((-1 < (dy / dx)) && ((dy / dx) < 1))
 	{
 		x = p1->x;
 		y = p1->y;
@@ -68,6 +68,21 @@ void	bresenham_trace(t_data *img, t_point *p1, t_point *p2)
 			x += 1;
 		}
 	}
+
+	/*
+	int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
+	int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1; 
+	int err = (dx>dy ? dx : -dy)/2, e2;
+	
+	for(;;){
+		setPixel(x0,y0,Matrix);   //color the pixel in the matrix for later use.
+		if (x0==x1 && y0==y1) break;
+		e2 = err;
+		if (e2 >-dx) { err -= dy; x0 += sx; }
+		if (e2 < dy) { err += dx; y0 += sy; }
+	}
+  	*/
+  
 }
 
 void	trace_map_lines(t_data *img, t_map *map)
