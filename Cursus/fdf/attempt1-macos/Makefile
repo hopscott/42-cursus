@@ -25,10 +25,10 @@ SRC = 	$(SRC_DIR)/fdf.c\
 OBJ =	${SRC:.c=.o}
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -Imlx
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -Imlx -g -fsanitize=address
 
 .c.o :
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -c $< -o $@
 
 ${NAME} :	all
 
