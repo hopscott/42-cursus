@@ -42,8 +42,10 @@ void	isometric_map_points(t_map *map, t_point **arr)
 	while (i < map->points)
 	{
 		pt = arr[i];
+	//	pt->x = (int) ((pt->x - pt->z) * cos(deg2rad(30)));
+	//	pt->y = (int) (pt->y + (pt->x + pt->z) * sin(deg2rad(30)));
 		pt->x = (int) ((pt->x - pt->z) * cos(deg2rad(30)));
-		pt->y = (int) (pt->y + (pt->x + pt->z) * sin(deg2rad(30)));
+		pt->y = (int) (pt->y + (pt->x + pt->z) * sin(deg2rad(40)));
 		i++;
 	}
 }
