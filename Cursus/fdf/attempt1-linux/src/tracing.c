@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:11 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/25 22:02:59 by swillis          ###   ########.fr       */
+/*   Updated: 2022/02/25 22:09:28 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void bresenham_trace(t_data *img, t_point *p1, t_point *p2)
 				y += sy;
 			}
 		}
-		my_mlx_pixel_put(img, x, y, 0xFF0000);
 	}
 	if (dy == 0)
 	{
@@ -101,20 +100,22 @@ void bresenham_trace(t_data *img, t_point *p1, t_point *p2)
 				y += sy;
 			}
 		}
-
 	}
-	while ((x != p2->x) && (y != p2->y))
+	else
 	{
-		my_mlx_pixel_put(img, x, y, 0xFF0000);
-		if (err > -dx)
+		while ((x != p2->x) && (y != p2->y))
 		{
-			err -= dy;
-			x += sx;
-		}
-		if (err < dy)
-		{
-			err += dx;
-			y += sy;
+			my_mlx_pixel_put(img, x, y, 0xFF0000);
+			if (err > -dx)
+			{
+				err -= dy;
+				x += sx;
+			}
+			if (err < dy)
+			{
+				err += dx;
+				y += sy;
+			}
 		}
 	}
 	my_mlx_pixel_put(img, x, y, 0xFF0000);
