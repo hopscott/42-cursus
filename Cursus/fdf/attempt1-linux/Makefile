@@ -6,7 +6,7 @@
 #    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/02/22 19:01:46 by swillis          ###   ########.fr        #
+#    Updated: 2022/02/25 21:31:35 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,14 @@ NAME = fdf.a
 EXE = fdf
 
 SRC = 	$(SRC_DIR)/fdf.c\
+ 	$(SRC_DIR)/map.c\
+	$(SRC_DIR)/map_view.c\
+ 	$(SRC_DIR)/tracing.c\
 
 OBJ =	${SRC:.c=.o}
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) # -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -g -fsanitize=address
 
 .c.o :
 	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
