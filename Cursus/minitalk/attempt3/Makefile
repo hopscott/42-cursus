@@ -3,78 +3,102 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: swillis <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/02/10 18:02:08 by swillis          ###   ########.fr        #
+#    Updated: 2022/02/27 20:39:31 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC_DIR = src
-INC_DIR = include
-BIN_DIR = .
+# Name ==========================================
 
-UTILSRC = 		$(SRC_DIR)/base_conversion.c\
-				$(SRC_DIR)/utils.c\
-				$(SRC_DIR)/utils2.c\
+NAME := minitalk
 
-UTILOBJ =		${UTILSRC:.c=.o}
+# Dirs ==========================================
 
-CLIENT =		$(BIN_DIR)/client
+SRC_DIR := src
+INC_DIR := include
+LIB_DIR := lib
+BIN_DIR := .
 
-CLIENTSRC = 	$(SRC_DIR)/client.c\
+# Exes ==========================================
 
-CLIENTOBJ =		${CLIENTSRC:.c=.o}
+CLIENTEXE :=	$(BIN_DIR)/client
 
-SERVER =		$(BIN_DIR)/server
+SERVEREXE :=	$(BIN_DIR)/server
 
-SERVERSRC = 	$(SRC_DIR)/server.c\
+# Compilation ====================================
 
-SERVEROBJ =		${SERVERSRC:.c=.o}
+CC := cc
+LDFLAGS ?= 
+CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR)
 
-BONUS_CLIENTSRC = 	$(SRC_DIR)/client_bonus.c\
+# Src files ======================================
 
-BONUS_CLIENTOBJ =		${BONUS_CLIENTSRC:.c=.o}
+HEADERS := 	$(INC_DIR)/ft_printf.h\
+		$(INC_DIR)/libft.h\
+		$(INC_DIR)/minitalk.h\
 
-BONUS_SERVERSRC = 	$(SRC_DIR)/server_bonus.c\
+UTILSFILES := 	$(SRC_DIR)/base_conversion.c\
+		$(SRC_DIR)/utils.c\
+		$(SRC_DIR)/utils2.c\
 
-BONUS_SERVEROBJ =		${BONUS_SERVERSRC:.c=.o}
+CLIENTFILES := 	$(SRC_DIR)/client.c\
 
-.c.o :
-	cc $(CFLAGS) -o $@ -c $<
+SERVERFILES := 	$(SRC_DIR)/server.c\
 
-CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
+# Make all ========================================
 
-LIBFT = lib/libft/libft.a
+all : $(NAME)
 
-PRINTF = lib/libftprintf/libftprintf.a
+$(NAME): client server
 
-${NAME} :	all
+%.o: %.c $(HEADERS)
+	$(CC) -c $(CFLAGS) -o $@ $<
 
-all:	${LIBFT} ${PRINTF} ${UTILOBJ} ${SERVEROBJ} ${CLIENTOBJ}
-	cc $(CFLAGS) $(UTILOBJ) $(SERVEROBJ) $(LIBFT) $(PRINTF) -o $(SERVER)
-	cc $(CFLAGS) $(UTILOBJ) $(CLIENTOBJ) $(LIBFT) $(PRINTF) -o $(CLIENT)
+# Objects ========================================
 
-${LIBFT} :
+UTILSOBJS :=	$(UTILSFILES:.c=.o)
+
+CLIENTOBJS :=	$(CLIENTFILES:.c=.o)
+
+SERVEROBJS :=	$(SERVERFILES:.c=.o)
+
+# Libs ==========================================
+
+LIBFT := $(LIB_DIR)/libft/libft.a
+
+PRINTF := $(LIB_DIR)/libftprintf/libftprintf.a
+
+$(LIBFT) :
 	make -C lib/libft -f Makefile
 
-${PRINTF} :
+$(PRINTF) :
 	make -C lib/libftprintf -f Makefile
 
-bonus:	all ${BONUS_CLIENTOBJ} ${BONUS_SERVEROBJ}
-	cc $(CFLAGS) $(UTILOBJ) $(BONUS_SERVEROBJ) $(LIBFT) $(PRINTF) -o $(SERVER)
-	cc $(CFLAGS) $(UTILOBJ) $(BONUS_CLIENTOBJ) $(LIBFT) $(PRINTF) -o $(CLIENT)
+# Recipes ========================================
+
+client : $(UTILSOBJS) $(CLIENTOBJS) $(LIBFT) $(PRINTF)
+	$(CC) $(LDFLAGS) -o $(CLIENTEXE) $^
+
+server : $(UTILSOBJS) $(SERVEROBJS) $(LIBFT) $(PRINTF)
+	$(CC) $(LDFLAGS) -o $(SERVEREXE) $^
+
+# Cleanup ========================================
 
 clean:
 	make -C lib/libft -f Makefile clean
 	make -C lib/libftprintf -f Makefile clean
-	rm -rf $(UTILOBJ) $(SERVEROBJ) $(CLIENTOBJ)
-	rm -rf $(BONUS_CLIENTOBJ) $(BONUS_SERVEROBJ)
+	rm -rf $(UTILSOBJS) $(CLIENTOBJS) $(SERVEROBJS)
 
 fclean : clean
 	make -C lib/libft -f Makefile fclean
 	make -C lib/libftprintf -f Makefile fclean
+	rm -rf $(CLIENTEXE) $(SERVEREXE)
+
+# Additional ========================================
 
 re : fclean all
 
 .PHONY : all clean fclean re
+
