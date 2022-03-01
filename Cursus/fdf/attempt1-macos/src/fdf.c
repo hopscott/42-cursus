@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/01 23:13:25 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/02 00:27:47 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int main(int ac, char **av)
 
 //		space_map_points(&map, map.arr);
 //		isometric_map_points(&map, map.arr_pt);
-
-		mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 
 		fit_points_full_window(&map, map.arr);
 

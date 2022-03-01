@@ -85,6 +85,7 @@ t_map build_map(char *path);
 
 // mapview
 void	fit_points_full_window(t_map *map, t_point **arr);
+
 double deg2rad(double degree);
 void dimetric_map_points(t_map *map, t_point **arr);
 void isometric_map_points(t_map *map, t_point **arr);

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/01 23:12:26 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/01 23:25:47 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,6 @@
 double deg2rad(double degree)
 {
     return (degree * (M_PI / 180));
-}
-
-void	space_map_points(t_map *map, t_point **arr)
-{
-	int		i;
-	t_point	*pt;
-
-	i = 0;
-	while (i < map->points)
-	{
-		pt = arr[i];
-		pt->u = pt->u * 5;
-		pt->v = pt->v * 5;
-		ft_printf("> (%d, %d)\n", pt->u, pt->v);
-		i++;
-	}
 }
 
 void	find_origin_point(t_map *map, t_point **arr)

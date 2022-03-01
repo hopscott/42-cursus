@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/01 22:49:09 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/02 00:28:30 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ int fdf_map_cols(char *path)
 	if (!fd)
 		return (-1);
 	str = get_next_line(fd);
-	close(fd);
 	x = ft_wordcount(str, ' ');
+	while (str)
+		str = get_next_line(fd);
+	close(fd);
 	free(str);
 	return (x);
 }
@@ -32,13 +34,18 @@ int fdf_map_rows(char *path)
 {
 	int y;
 	int fd;
+	uchar *str;
 
 	fd = open(path, O_RDONLY);
 	if (!fd)
 		return (-1);
 	y = 0;
-	while (get_next_line(fd))
+	str = get_next_line(fd);
+	while (str)
+	{
 		y++;
+		str = get_next_line(fd);
+	}
 	close(fd);
 	return (y);
 }
@@ -51,10 +58,12 @@ void parse_map(t_map map, t_point **arr, int fd)
 	uchar *line;
 	t_point *pt;
 
+	ft_printf("===== PARSING =====\n");
 	r = 0;
 	line = get_next_line(fd);
 	while (line && (r < map.rows))
 	{
+		ft_printf(">[%d]> %s", r, line);
 		row = ft_split(line, ' ');
 		c = 0;
 		while (c < map.cols)
@@ -84,6 +93,7 @@ void reset_points(t_map map, t_point **arr)
 	while (i < map.points)
 	{
 		pt = arr[i];
+		//ft_printf(">[%d]> (%d, %d, %d)\n", i, pt->col, pt->row, pt->height);
 		pt->xyz[0] = pt->col;
 		pt->xyz[1] = pt->row;
 		pt->xyz[2] = pt->height;
@@ -169,9 +179,11 @@ t_map build_map(char *path)
 	t_map	map;
 
 	// map properties
-	map.cols = fdf_map_cols(path);
 	map.rows = fdf_map_rows(path);
+	map.cols = fdf_map_cols(path);
 	map.points = map.cols * map.rows;
+
+	ft_printf("> Cols: %d | Rows: %d | Points: %d\n", map.cols, map.rows, map.points);
 
 	// parse map
 	map.arr = malloc(sizeof(t_point *) * map.points);
@@ -185,6 +197,8 @@ t_map build_map(char *path)
 
 	// setup eqn xyz plane
 	map.plane = malloc(sizeof(t_plane));
+	if (!map.plane)
+		return (map);
 	map.plane->a = 1;
 	map.plane->b = 1;
 	map.plane->c = 1;

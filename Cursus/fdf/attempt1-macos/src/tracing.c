@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:11 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/01 23:16:08 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/02 00:27:02 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void my_mlx_pixel_put(t_data *img, int u, int v, int color)
 {
 	char *dst;
 
-//	ft_printf(">> (%d, %d)\n", x, y);
-	if (((0 <= u) && (u <= HEIGHT)) && ((0 <= v) && (v <= WIDTH)))
+	// Issue here with pixel == height or width
+	//ft_printf(">> (%d, %d)\n", u, v);
+	if (((0 <= u) && (u < HEIGHT)) && ((0 <= v) && (v < WIDTH)))
 	{
 		dst = img->addr + (v * img->line_length + u * (img->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
