@@ -6,47 +6,51 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/03 19:58:25 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/02 00:28:30 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	fdf_map_dimensions(char *path, t_map *map)
+int fdf_map_cols(char *path)
 {
-	int		rows;
-	int		cols;
-	int 	fd;
-	uchar	*str;
-
+	int x;
+	int fd;
+	uchar *str;
 
 	fd = open(path, O_RDONLY);
 	if (!fd)
 		return (-1);
 	str = get_next_line(fd);
-	if (!str)
-		return (-1);
-	rows = 0;
-	cols = ft_wordcount(str, ' ');
+	x = ft_wordcount(str, ' ');
 	while (str)
-	{
-		rows++;
-		if (ft_wordcount(str, ' ') != cols)
-		{
-			free(str);
-			return (-1);
-		}
-		free(str);
 		str = get_next_line(fd);
-	}
-	map->cols = cols;
-	map->rows = rows;
-	map->points = cols * rows;
 	close(fd);
-	return (0);
+	free(str);
+	return (x);
 }
 
-int	parse_map(t_map *map, t_point **arr, int fd)
+int fdf_map_rows(char *path)
+{
+	int y;
+	int fd;
+	uchar *str;
+
+	fd = open(path, O_RDONLY);
+	if (!fd)
+		return (-1);
+	y = 0;
+	str = get_next_line(fd);
+	while (str)
+	{
+		y++;
+		str = get_next_line(fd);
+	}
+	close(fd);
+	return (y);
+}
+
+void parse_map(t_map map, t_point **arr, int fd)
 {
 	int r;
 	int c;
@@ -57,37 +61,36 @@ int	parse_map(t_map *map, t_point **arr, int fd)
 	ft_printf("===== PARSING =====\n");
 	r = 0;
 	line = get_next_line(fd);
-	while (line && (r < map->rows))
+	while (line && (r < map.rows))
 	{
 		ft_printf(">[%d]> %s", r, line);
 		row = ft_split(line, ' ');
 		c = 0;
-		while (c < map->cols)
+		while (c < map.cols)
 		{
 			pt = malloc(sizeof(t_point));
 			if (!pt)
-				return (r * map->cols + c);
+				return;
 			pt->col = c;
 			pt->row = r;
 			pt->height = ft_atoi(row[c]);
-			arr[r * map->cols + c] = pt;
+			arr[r * map.cols + c] = pt;
 			c++;
 		}
 		r++;
-		ft_freetbl(row, map->cols);
-		free(line);
 		line = get_next_line(fd);
 	}
-	return (0);
+	free(line);
+	ft_freetbl(row, map.cols);
 }
 
-void reset_points(t_map *map, t_point **arr)
+void reset_points(t_map map, t_point **arr)
 {
 	t_point *pt;
 	int i;
 
 	i = 0;
-	while (i < map->points)
+	while (i < map.points)
 	{
 		pt = arr[i];
 		//ft_printf(">[%d]> (%d, %d, %d)\n", i, pt->col, pt->row, pt->height);
@@ -155,13 +158,13 @@ void	vector_cross(int a[], int b[], int dst[])
 	dst[2] = cross[2];
 }
 
-void	uv_mapping(t_map *map, t_plane *plane, t_point **arr)
+void uv_mapping(t_map map, t_plane *plane, t_point **arr)
 {
 	t_point *pt;
 	int 	i;
 
 	i = 0;
-	while (i < map->points)
+	while (i < map.points)
 	{
 		pt = arr[i];
 		pt->u = vector_dot(plane->u, pt->xyz, 3);
@@ -170,73 +173,65 @@ void	uv_mapping(t_map *map, t_plane *plane, t_point **arr)
 	}
 }
 
-t_map	*build_map(char *path)
+t_map build_map(char *path)
 {
-	int			fd;
-	t_map		*map;
-	int			i;
+	int		fd;
+	t_map	map;
 
 	// map properties
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (0);
-	if (fdf_map_dimensions(path, map) == -1)
-	{
-		free(map);
-		return (0);
-	}
+	map.rows = fdf_map_rows(path);
+	map.cols = fdf_map_cols(path);
+	map.points = map.cols * map.rows;
 
-	ft_printf("> Cols: %d | Rows: %d | Points: %d\n", map->cols, map->rows, map->points);
+	ft_printf("> Cols: %d | Rows: %d | Points: %d\n", map.cols, map.rows, map.points);
 
 	// parse map
-	map->arr = malloc(sizeof(t_point *) * map->points);
-	if (!map->arr)
-		return (0);
+	map.arr = malloc(sizeof(t_point *) * map.points);
+	if (!map.arr)
+		return (map);
 	fd = open(path, O_RDONLY);
 	if (!fd)
 		return (map);
-	i = parse_map(map, map->arr, fd);
-	if (i != 0)
-		free_arr_points(map->arr, i);
+	parse_map(map, map.arr, fd);
 	close(fd);
 
 	// setup eqn xyz plane
-	map->plane = malloc(sizeof(t_plane));
-	if (!map->plane)
-		return (0);
-	map->plane->a = 1;
-	map->plane->b = 1;
-	map->plane->c = 1;
-	map->plane->d = 0;
+	map.plane = malloc(sizeof(t_plane));
+	if (!map.plane)
+		return (map);
+	map.plane->a = 1;
+	map.plane->b = 1;
+	map.plane->c = 1;
+	map.plane->d = 0;
 
 	// https://stackoverflow.com/questions/18663755/how-to-convert-a-3d-point-on-a-plane-to-uv-coordinates
 	
 	// build up n vector
-	map->plane->n[0] = map->plane->a;
-	map->plane->n[1] = map->plane->b;
-	map->plane->n[2] = map->plane->c;
+	map.plane->n[0] = map.plane->a;
+	map.plane->n[1] = map.plane->b;
+	map.plane->n[2] = map.plane->c;
 
 	// build up u vector
-	map->plane->u[0] = map->plane->n[1];
-	map->plane->u[1] = -1 * map->plane->n[0];
-	map->plane->u[2] = 0;
-	if ((map->plane->n[0] == 0) && (map->plane->n[1] == 0))
+	map.plane->u[0] = map.plane->n[1];
+	map.plane->u[1] = -1 * map.plane->n[0];
+	map.plane->u[2] = 0;
+	if ((map.plane->n[0] == 0) && (map.plane->n[1] == 0))
 	{
-		map->plane->u[0] = 0;
-		map->plane->u[1] = 0;
-		map->plane->u[2] = map->plane->n[2];
+		map.plane->u[0] = 0;
+		map.plane->u[1] = 0;
+		map.plane->u[2] = map.plane->n[2];
 	}
-	normalise_arr_int(map->plane->u, 3);
+	normalise_arr_int(map.plane->u, 3);
 
 	// build up v vector
-	map->plane->v[0] = 0;
-	map->plane->v[1] = 0;
-	map->plane->v[2] = 0;
-	vector_cross(map->plane->n, map->plane->u, map->plane->v);
+	map.plane->v[0] = 0;
+	map.plane->v[1] = 0;
+	map.plane->v[2] = 0;
+	vector_cross(map.plane->n, map.plane->u, map.plane->v);
 
 	// setup points
-	reset_points(map, map->arr);
-	uv_mapping(map, map->plane, map->arr);
+	reset_points(map, map.arr);
+	uv_mapping(map, map.plane, map.arr);
 
 	return (map);
 }

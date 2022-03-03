@@ -74,21 +74,27 @@ typedef struct s_vars
 } 				t_vars;
 
 // fdf
-int		destroy_win(t_vars *vars);
-int		close_win(int keycode, t_vars *vars);
-void	free_arr_points(t_point **arr, int len);
+int destroy_win(t_vars *vars);
+int close_win(int keycode, t_vars *vars);
 
 // map
-t_map	*build_map(char *path);
+int fdf_map_cols(char *path);
+int fdf_map_rows(char *path);
+void build_map_points(t_map map, t_point **arr, int fd);
+t_map build_map(char *path);
 
 // mapview
 void	fit_points_full_window(t_map *map, t_point **arr);
-double	deg2rad(double degree);
+
+double deg2rad(double degree);
+void dimetric_map_points(t_map *map, t_point **arr);
+void isometric_map_points(t_map *map, t_point **arr);
+void space_map_points(t_map *map, t_point **arr);
 
 // tracing
 void my_mlx_pixel_put(t_data *img, int x, int y, int color);
+void trace_map_points(t_data *img, t_map *map);
 void bresenham_trace(t_data *img, t_point *p1, t_point *p2);
-void trace_map_points(t_data *img, t_map *map, t_point **arr);
-void trace_map_lines(t_data *img, t_map *map, t_point **arr);
+void trace_map_lines(t_data *img, t_map *map);
 
 #endif

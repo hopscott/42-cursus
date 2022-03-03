@@ -6,13 +6,13 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:11 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/03 17:32:01 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/02 00:27:02 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void my_mlx_pixel_put(t_data *data, int u, int v, int color)
+void my_mlx_pixel_put(t_data *img, int u, int v, int color)
 {
 	char *dst;
 
@@ -20,12 +20,12 @@ void my_mlx_pixel_put(t_data *data, int u, int v, int color)
 	//ft_printf(">> (%d, %d)\n", u, v);
 	if (((0 <= u) && (u < HEIGHT)) && ((0 <= v) && (v < WIDTH)))
 	{
-		dst = data->addr + (v * data->line_length + u * (data->bits_per_pixel / 8));
+		dst = img->addr + (v * img->line_length + u * (img->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
 }
 
-void trace_map_points(t_data *data, t_map *map, t_point **arr)
+void trace_map_points(t_data *img, t_map *map)
 {
 	int i;
 	t_point *pt;
@@ -33,11 +33,11 @@ void trace_map_points(t_data *data, t_map *map, t_point **arr)
 	i = 0;
 	while (i < map->points)
 	{
-		pt = arr[i];
+		pt = map->arr[i];
 		if (pt->height == 0)
-			my_mlx_pixel_put(data, pt->u, pt->v, 0xFFFFFF);
+			my_mlx_pixel_put(img, pt->u, pt->v, 0xFFFFFF);
 		else
-			my_mlx_pixel_put(data, pt->u, pt->v, 0x0000FF);
+			my_mlx_pixel_put(img, pt->u, pt->v, 0x0000FF);
 		i++;
 	}
 }
@@ -123,7 +123,7 @@ void bresenham_trace(t_data *img, t_point *p1, t_point *p2)
 	my_mlx_pixel_put(img, x, y, 0xFF0000);
 }
 
-void trace_map_lines(t_data *data, t_map *map, t_point **arr)
+void trace_map_lines(t_data *img, t_map *map)
 {
 	int i;
 	t_point *p1;
@@ -133,18 +133,18 @@ void trace_map_lines(t_data *data, t_map *map, t_point **arr)
 	i = 0;
 	while (i + 1 < map->points)
 	{
-		p1 = arr[i];
-		p2 = arr[i + 1];
+		p1 = map->arr[i];
+		p2 = map->arr[i + 1];
 		if (p2->col != 0)
-			bresenham_trace(data, p1, p2);
+			bresenham_trace(img, p1, p2);
 		i++;
 	}
 	i = 0;
 	while (i + map->cols < map->points)
 	{
-		p1 = arr[i];
-		p3 = arr[i + map->cols];
-		bresenham_trace(data, p1, p3);
+		p1 = map->arr[i];
+		p3 = map->arr[i + map->cols];
+		bresenham_trace(img, p1, p3);
 		i++;
 	}
 }
