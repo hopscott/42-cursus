@@ -82,6 +82,7 @@ t_map	*build_map(char *path);
 void	set_map_plane(t_map *map, int a, int b, int c);
 void	reset_points(t_map *map, t_point **arr);
 
+
 // mapview
 void	fit_points_full_window(t_map *map, t_point **arr);
 double	deg2rad(double degree);

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/03 23:08:19 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/04 00:12:41 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,57 @@ int	zoom_in(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
+	map->plane->c += 1;
+	set_map_plane(map, map->plane->a, map->plane->b, map->plane->c);
+	next_image(vars);
+	trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img,  0, 0);
+	return (0);
+}
+
+int	zoom_out(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	map->plane->c -= 1;
+	set_map_plane(map, map->plane->a, map->plane->b, map->plane->c);
+	next_image(vars);
+	trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img,  0, 0);
+	return (0);
+}
+
+int	increase(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
 	map->plane->a += 1;
 	map->plane->b += 1;
+	set_map_plane(map, map->plane->a, map->plane->b, map->plane->c);
+	next_image(vars);
+	trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img,  0, 0);
+	return (0);
+}
+
+int	decrease(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	map->plane->a -= 1;
+	map->plane->b -= 1;
 	set_map_plane(map, map->plane->a, map->plane->b, map->plane->c);
 	next_image(vars);
 	trace_map_lines(data, map, map->arr);
@@ -108,7 +157,10 @@ int	isometric_full(t_vars *vars)
 	data = vars->data;
 	map = data->map;
 	reset_points(map, map->arr);
-	set_map_plane(map, 1, 1, 1);
+	map->plane->a = 1;
+	map->plane->b = 1;
+	map->plane->c = 1;
+	set_map_plane(map, map->plane->a, map->plane->b, map->plane->c);
 	next_image(vars);
 	fit_points_full_window(map, map->arr);
 	trace_map_lines(data, map, map->arr);
@@ -209,6 +261,70 @@ int	translate_down(t_vars *vars)
 	return (0);
 }
 
+void	rotate_left(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	map->plane->a -= 1;
+	set_map_plane(map, map->plane->a, map->plane->b, map->plane->c);
+	next_image(vars);
+	// fit_points_full_window(map, map->arr);
+	trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img,  0, 0);
+}
+
+void	rotate_right(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	map->plane->a += 1;
+	set_map_plane(map, map->plane->a, map->plane->b, map->plane->c);
+	next_image(vars);
+	// fit_points_full_window(map, map->arr);
+	trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img,  0, 0);
+}
+
+void	rotate_up(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	map->plane->c += 1;
+	set_map_plane(map, map->plane->a, map->plane->b, map->plane->c);
+	next_image(vars);
+	fit_points_full_window(map, map->arr);
+	trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img,  0, 0);
+}
+
+void	rotate_down(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	map->plane->c -= 1;
+	set_map_plane(map, map->plane->a, map->plane->b, map->plane->c);
+	next_image(vars);
+	fit_points_full_window(map, map->arr);
+	trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img,  0, 0);
+}
+
 int key_manager(int keycode, t_vars *vars)
 {
 	ft_printf(">> KEY PRESSED >> %d\n", keycode);
@@ -216,8 +332,22 @@ int key_manager(int keycode, t_vars *vars)
 		destroy_win(vars);
 	else if (keycode == 34) // i - 34
 		isometric_full(vars);
-	else if (keycode == 14) // e - 14
+	else if (keycode == 0) // a - 0
+		rotate_left(vars);
+	else if (keycode == 2) // d - 2
+		rotate_right(vars);
+	else if (keycode == 1) // s - 1
+		rotate_down(vars);
+	else if (keycode == 13) // w - 13
+		rotate_up(vars);
+	else if (keycode == 12) // q - 12
 		zoom_in(vars);
+	else if (keycode == 14) // e - 14
+		zoom_out(vars);
+	else if (keycode == 27) // - - 27
+		decrease(vars);
+	else if (keycode == 24) // + - 24
+		increase(vars);
 	else if (keycode == 123) // left - 123
 		translate_left(vars);
 	else if (keycode == 124) // right - 124
@@ -264,7 +394,8 @@ int main(int ac, char **av)
 			free_vars(&vars);
 
 		map = data->map;
-//		fit_points_full_window(map, map->arr);
+		set_map_plane(map, 1, 1, 1);
+		fit_points_full_window(map, map->arr);
 		trace_map_lines(data, map, map->arr);
 		trace_map_points(data, map, map->arr);
 		mlx_put_image_to_window(vars.mlx, vars.win, data->img, 0, 0);

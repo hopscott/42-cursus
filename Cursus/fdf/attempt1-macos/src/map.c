@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/03 23:14:50 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/04 01:00:28 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ int	vector_dot(int a[], int b[], int len)
 	}
 	return (dot);
 }
-
 void	vector_cross(int a[], int b[], int dst[])
 {
 	int	cross[3];
@@ -143,10 +142,28 @@ void	vector_cross(int a[], int b[], int dst[])
 	dst[2] = cross[2];
 }
 
+void	vector_multiply(int a, int b[], int dst[])
+{
+    dst[0] = a * b[0];
+    dst[1] = a * b[1];
+    dst[2] = a * b[2];
+}
+
+void	vector_add(int a[], int b[], int dst[])
+{
+    dst[0] = a[0] + b[0];
+    dst[1] = a[1] + b[1];
+    dst[2] = a[2] + b[2];
+}
+
+// https://en.wikipedia.org/wiki/3D_projection#:~:text=A%203D%20projection%20(or%20graphical,capability%20on%20a%20simpler%20plane.
 void	uv_mapping(t_map *map, t_plane *plane, t_point **arr)
 {
 	t_point *pt;
 	int 	i;
+	// int		tmp1[3];
+	// int		tmp2[3];
+	// int		tmp3[3];
 
 	i = 0;
 	while (i < map->points)
@@ -154,10 +171,15 @@ void	uv_mapping(t_map *map, t_plane *plane, t_point **arr)
 		pt = arr[i];
 		pt->u = vector_dot(plane->u, pt->xyz, 3);
 		pt->v = vector_dot(plane->v, pt->xyz, 3);
+		// https://forums.autodesk.com/t5/revit-api-forum/how-to-get-xyz-by-the-uv-on-surface/td-p/9788287
+		// vector_multiply(pt->u, plane->u, tmp1);
+		// vector_multiply(pt->v, plane->v, tmp2);
+		// vector_add(tmp1, tmp2, tmp3);
+		// vector_add(pt->xyz, tmp3, pt->xyz);
 		i++;
 	}
-	// pt->xyz = 
 }
+
 
 t_map	*parse_map(char *path)
 {
@@ -206,10 +228,7 @@ void	set_map_plane(t_map *map, int a, int b, int c)
 		map->plane->u[1] = 0;
 		map->plane->u[2] = map->plane->n[2];
 	}
-	//normalise_arr_int(map->plane->u, 3);
-	map->plane->v[0] = 0;
-	map->plane->v[1] = 0;
-	map->plane->v[2] = 0;
+	normalise_arr_int(map->plane->u, 3);
 	vector_cross(map->plane->n, map->plane->u, map->plane->v);
 	uv_mapping(map, map->plane, map->arr);
 }
@@ -225,6 +244,5 @@ t_map	*build_map(char *path)
 	if (!map->plane)
 		return (map);
 	reset_points(map, map->arr);
-	set_map_plane(map, 1, 1, 1);
 	return (map);
 }
