@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/03/01 23:03:07 by swillis          ###   ########.fr        #
+#    Updated: 2022/03/07 00:26:44 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,12 @@ PRINTF = lib/libftprintf/libftprintf.a
 NAME = fdf.a
 EXE = fdf
 
-SRC = 	$(SRC_DIR)/fdf.c\
-	 	$(SRC_DIR)/map.c\
-		$(SRC_DIR)/map_view.c\
-	 	$(SRC_DIR)/tracing.c\
+SRC = 	$(SRC_DIR)/main.c\
+	 	$(SRC_DIR)/maps.c\
+	 	$(SRC_DIR)/keys.c\
+	 	$(SRC_DIR)/images.c\
+	 	$(SRC_DIR)/views.c\
+		$(SRC_DIR)/tracing.c\
 
 OBJ =	${SRC:.c=.o}
 

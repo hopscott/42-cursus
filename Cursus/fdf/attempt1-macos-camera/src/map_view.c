@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/01 23:25:47 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/06 20:46:56 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	fit_points_full_window(t_map *map, t_point **arr)
 	while (i < map->points)
 	{
 		pt = arr[i];
-		pt->bx = (pt->bx - map->bx_min) * (WIDTH / (map->bx_max - map->bx_min));
-		pt->by = (pt->by - map->by_min) * (HEIGHT / (map->by_max - map->by_min));
+		pt->bx = (pt->bx - map->bx_min); //* (WIDTH / (map->bx_max - map->bx_min));
+		pt->by = (pt->by - map->by_min); //* (HEIGHT / (map->by_max - map->by_min));
 		i++;
 	}
 }

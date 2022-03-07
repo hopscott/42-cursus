@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/04 01:00:28 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/06 22:18:17 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,12 +213,12 @@ void	set_camera_angle(t_map *map, int x_deg, int y_deg, int z_deg)
 	map->camera->theta[2] = z;
 }
 
-void	set_camera_orientation(t_map *map, int x, int y, int z)
-{
-	map->camera->e[0] = x;
-	map->camera->e[1] = y;
-	map->camera->e[2] = z;
-}
+// void	set_camera_orientation(t_map *map, int x, int y, int z)
+// {
+// 	map->camera->e[0] = x;
+// 	map->camera->e[1] = y;
+// 	map->camera->e[2] = z;
+// }
 
 void	set_point_vector(t_map *map, t_camera *cam, t_point **arr)
 {
@@ -244,7 +244,7 @@ void	set_point_vector(t_map *map, t_camera *cam, t_point **arr)
 	}
 }
 
-void	set_point_projection(t_map *map, t_camera *cam, t_point **arr)
+void	set_point_projection(t_map *map, t_point **arr, int zoom)
 {
 	t_point *pt;
 	int 	i;
@@ -259,10 +259,13 @@ void	set_point_projection(t_map *map, t_camera *cam, t_point **arr)
 		dx = pt->d[0];
 		dy = pt->d[1];
 		dz = pt->d[2];
-		if (dz == 0)
-			dz = cam->e[2];
-		pt->bx = (cam->e[2] / dz) * dx + cam->e[0];
-		pt->by = (cam->e[2] / dz) * dy + cam->e[1];
+		ft_printf("> %d %d %d\n", pt->xyz[0], pt->xyz[1], pt->xyz[2]);
+		ft_printf("> %d %d %d\n", dx, dy, dz);
+		// pt->bx = (cam->e[2] / dz) * dx + cam->e[0];
+		// pt->by = (cam->e[2] / dz) * dy + cam->e[1];
+		pt->bx = (dx / dz) * zoom;
+		pt->by = (dy / dz) * zoom;
+		ft_printf(">> %d %d\n", pt->bx, pt->by);
 		i++;
 	}
 }
@@ -279,9 +282,9 @@ t_map	*build_map(char *path)
 	if (!map->camera)
 		return (map);
 	set_camera_position(map, 1, 1, 1);
-	set_camera_angle(map, 30, 30, 30);
-	set_camera_orientation(map, 1, 1, 1);
+	set_camera_angle(map, 0, 0, 0);
+	// set_camera_orientation(map, 0, 0, 0);
 	set_point_vector(map, map->camera, map->arr);
-	set_point_projection(map, map->camera, map->arr);
+	set_point_projection(map, map->arr, 5);
 	return (map);
 }
