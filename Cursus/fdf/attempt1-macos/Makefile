@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/03/07 00:26:44 by swillis          ###   ########.fr        #
+#    Updated: 2022/03/08 18:00:13 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRC = 	$(SRC_DIR)/main.c\
 	 	$(SRC_DIR)/images.c\
 	 	$(SRC_DIR)/views.c\
 		$(SRC_DIR)/tracing.c\
+		$(SRC_DIR)/planes.c\
+		$(SRC_DIR)/vectors.c\
 
 OBJ =	${SRC:.c=.o}
 

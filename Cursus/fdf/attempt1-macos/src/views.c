@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/07 01:19:31 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/08 17:58:01 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	fit_points_full_window(t_map *map, t_point **arr)
 	}
 }
 
+/*
 // https://stackoverflow.com/questions/28607713/convert-3d-coordinates-to-2d-in-an-isometric-projection
 void	pixel_mapping_isometric(t_map *map, t_point **arr)
 {
@@ -101,3 +102,4 @@ void	pixel_mapping_isometric(t_map *map, t_point **arr)
 		i++;
 	}
 }
+*/

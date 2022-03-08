@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/07 01:26:02 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/08 17:59:40 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,23 @@ typedef struct s_point
 	int	py;
 }			t_point;
 
+typedef struct s_plane {
+	int	a;
+	int	b;
+	int	c;
+	int	d;
+	int	n[3];
+	int	u[3];
+	int	v[3];
+}				t_plane;
+
 typedef struct s_map
 {
 	int		cols;
 	int		rows;
 	int		points;
 	t_point	**arr;
-	int		alpha;
+	t_plane	*plane;
 	int		px_min;
 	int		px_max;
 	int		py_min;
@@ -110,5 +120,15 @@ void	my_mlx_pixel_put(t_data *img, int px, int py, int color);
 void	bresenham_trace(t_data *img, t_point *p1, t_point *p2);
 void	trace_map_points(t_data *img, t_map *map, t_point **arr);
 void	trace_map_lines(t_data *img, t_map *map, t_point **arr);
+
+// vectors
+void	normalise_arr_int(int arr[], int len);
+int		vector_dot(int a[], int b[], int len);
+void	vector_cross(int a[], int b[], int dst[]);
+void	vector_multiply(int a, int b[], int dst[]);
+void	vector_add(int a[], int b[], int dst[]);
+
+// planes
+void	set_map_plane(t_map *map, int a, int b, int c);
 
 #endif

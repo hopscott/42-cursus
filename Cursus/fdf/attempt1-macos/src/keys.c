@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/07 01:26:07 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/08 17:59:04 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	rotate_right(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	map->alpha += 1;
-	pixel_mapping_isometric(map, map->arr);
+	map->plane->a += 1;
+	set_map_plane(map, map->plane->a, map->plane->b, map->plane->c);
 	next_image(vars);
 	fit_points_full_window(map, map->arr);
-	// trace_map_lines(data, map, map->arr);
+	trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
