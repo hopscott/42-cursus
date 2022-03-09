@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/08 17:59:40 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 00:08:14 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ typedef struct s_plane {
 	int	v[3];
 }				t_plane;
 
+typedef struct s_mat {
+	int		r;
+	int		c;
+	double	**tbl;
+}				t_mat;
+
 typedef struct s_map
 {
 	int		cols;
@@ -62,6 +68,13 @@ typedef struct s_map
 	int		points;
 	t_point	**arr;
 	t_plane	*plane;
+	t_mat	*rx;
+	t_mat	*ry;
+	t_mat	*rz;
+	t_mat	*r;
+	double	alpha;
+	double	beta;
+	double	theta;
 	int		px_min;
 	int		px_max;
 	int		py_min;
@@ -107,13 +120,7 @@ void	fit_points_full_window(t_map *map, t_point **arr);
 
 // map
 t_map	*build_map(char *path);
-void	set_map_plane(t_map *map, int a, int b, int c);
 void	reset_points(t_map *map, t_point **arr);
-
-// views
-double	deg2rad(double degree);
-void	fit_points_full_window(t_map *map, t_point **arr);
-void	pixel_mapping_isometric(t_map *map, t_point **arr);
 
 // tracing
 void	my_mlx_pixel_put(t_data *img, int px, int py, int color);
@@ -128,7 +135,8 @@ void	vector_cross(int a[], int b[], int dst[]);
 void	vector_multiply(int a, int b[], int dst[]);
 void	vector_add(int a[], int b[], int dst[]);
 
-// planes
-void	set_map_plane(t_map *map, int a, int b, int c);
+// rotations
+t_mat	*init_matrix(int r, int c);
+void	basic_rotate(t_map *map, double alpha, double beta, double theta);
 
 #endif

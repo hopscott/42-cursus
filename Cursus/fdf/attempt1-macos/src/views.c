@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/08 17:58:01 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/09 23:15:47 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,22 @@ void	fit_points_full_window(t_map *map, t_point **arr)
 	}
 }
 
-/*
-// https://stackoverflow.com/questions/28607713/convert-3d-coordinates-to-2d-in-an-isometric-projection
-void	pixel_mapping_isometric(t_map *map, t_point **arr)
-{
-	t_point	*pt;
-	int		i;
-	int		alpha;
+// // https://stackoverflow.com/questions/28607713/convert-3d-coordinates-to-2d-in-an-isometric-projection
+// void	pixel_mapping_isometric(t_map *map, t_point **arr)
+// {
+// 	t_point	*pt;
+// 	int		i;
+// 	int		alpha;
 
-	alpha = map->alpha;
-	i = 0;
-	while (i < map->points)
-	{
-		pt = arr[i];
-		pt->px = pt->x * cos(deg2rad(alpha)) + pt->y * cos(deg2rad(alpha + 120)) + pt->z * cos(deg2rad(alpha - 120));
-		pt->py = pt->x * sin(deg2rad(alpha)) + pt->y * sin(deg2rad(alpha + 120)) + pt->z * sin(deg2rad(alpha - 120));
-		i++;
-	}
-}
-*/
+// 	alpha = map->alpha;
+// 	i = 0;
+// 	while (i < map->points)
+// 	{
+// 		pt = arr[i];
+// 		//pt->px = pt->x * cos(deg2rad(alpha)) + pt->y * cos(deg2rad(alpha + 120)) + pt->z * cos(deg2rad(alpha - 120));
+// 		//pt->py = pt->x * sin(deg2rad(alpha)) + pt->y * sin(deg2rad(alpha + 120)) + pt->z * sin(deg2rad(alpha - 120));
+// 		pt->px = pt->x * cos(deg2rad(alpha)) + pt->y * cos(deg2rad(alpha + 120)) + pt->z * cos(deg2rad(alpha - 120));
+// 		pt->py = pt->x * sin(deg2rad(alpha)) + pt->y * sin(deg2rad(alpha + 120)) + pt->z * sin(deg2rad(alpha - 120));
+// 		i++;
+// 	}
+// }

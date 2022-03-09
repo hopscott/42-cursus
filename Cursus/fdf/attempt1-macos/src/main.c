@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/08 17:32:16 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/09 23:58:04 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,12 @@ int	main(int ac, char **av)
 		if (!data->map)
 			return (free_vars(vars));
 		map = data->map;
+
 		fit_points_full_window(map, map->arr);
-		trace_map_lines(data, map, map->arr);
+		// trace_map_lines(data, map, map->arr);
 		trace_map_points(data, map, map->arr);
 		mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
+
 		mlx_key_hook(vars->win, key_manager, vars);
 		mlx_hook(vars->win, ON_DESTROY, 0, destroy_win, vars);
 		mlx_loop(vars->mlx);
