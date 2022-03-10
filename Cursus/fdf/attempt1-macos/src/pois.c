@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/09 23:15:47 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 17:47:06 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	find_furthest_point(t_map *map, t_point **arr)
 	map->py_max = pt->py;
 }
 
+#include <stdio.h>
+
 void	fit_points_full_window(t_map *map, t_point **arr)
 {
 	int		i;
@@ -74,12 +76,23 @@ void	fit_points_full_window(t_map *map, t_point **arr)
 
 	find_origin_point(map, arr);
 	find_furthest_point(map, arr);
+	printf(">[origin]> (%f, %f)\n", map->px_min, map->py_min);
+	printf(">[max]> (%f, %f)\n", map->px_max, map->py_max);
 	i = 0;
 	while (i < map->points)
 	{
 		pt = arr[i];
-		pt->px = (pt->px - map->px_min) * (WIDTH / (map->px_max - map->px_min));
-		pt->py = (pt->py - map->py_min) * (HEIGHT / (map->py_max - map->py_min));
+		// pt->px = (pt->px - map->px_min) * (WIDTH / (map->px_max - map->px_min));
+		// pt->py = (pt->py - map->py_min) * (HEIGHT / (map->py_max - map->py_min));
+		pt->px += map->px_min;
+		pt->py += map->py_min;
+		// // NEED TO RECENTER AROUND ORIGIN
+		// x -= (map->px_max - map->px_min) / 2;
+		// y -= (map->py_max - map->py_min) / 2;
+		// printf(">centered> (%f, %f)\n", x, y);
+		// x *= WIDTH / (map->px_max - map->px_min);
+		// y *= HEIGHT / (map->py_max - map->py_min);
+		// printf(">scaled> (%f, %f)\n", x, y);
 		i++;
 	}
 }

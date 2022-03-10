@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:11 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/08 17:52:34 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 18:22:08 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	trace_map_points(t_data *data, t_map *map, t_point **arr)
 	while (i < map->points)
 	{
 		pt = arr[i];
-		if (pt->height == 0)
-			my_mlx_pixel_put(data, pt->px, pt->py, 0xFFFFFF);
+		if (pt->z == 0)
+			my_mlx_pixel_put(data, (int)pt->px, (int)pt->py, 0xFFFFFF);
 		else
-			my_mlx_pixel_put(data, pt->px, pt->py, 0x0000FF);
+			my_mlx_pixel_put(data, (int)pt->px, (int)pt->py, 0x0000FF);
 		i++;
 	}
 }
@@ -192,9 +192,10 @@ void	bresenham_trace(t_data *data, t_point *p1, t_point *p2)
 */
 
 
+/*
 // https://personal.math.ubc.ca/~cass/courses/m308-02b/projects/puhalovic/#alldirections
 // https://stackoverflow.com/questions/62651042/how-to-implement-bresenhams-line-algorithm-in-c-when-trying-to-draw-a-line-in-b
-void bresenham_trace(t_data *img, t_point *p1, t_point *p2)
+void bresenham_trace(t_data *data, t_map *map, t_point *p1, t_point *p2)
 {
 	// https://medium.com/geekculture/bresenhams-line-drawing-algorithm-2e0e953901b3
 	// case 0 = x1 < x2
@@ -205,8 +206,9 @@ void bresenham_trace(t_data *img, t_point *p1, t_point *p2)
 	int dy;
 	int err;
 
-	dx = abs(p2->px - p1->px);
-	dy = abs(p2->py - p1->py);
+	(void)map;
+	dx = fabs(p2->px - p1->px);
+	dy = fabs(p2->py - p1->py);
 	sx = 1;
 	if (p1->px > p2->px)
 		sx = -1;
@@ -223,7 +225,7 @@ void bresenham_trace(t_data *img, t_point *p1, t_point *p2)
 	{
 		while (y != p2->py)
 		{
-			my_mlx_pixel_put(img, x, y, 0xFF0000);
+			my_mlx_pixel_put(data, x, y, 0xFF0000);
 			if (err > -dx)
 			{
 				err -= dy;
@@ -240,7 +242,7 @@ void bresenham_trace(t_data *img, t_point *p1, t_point *p2)
 	{
 		while (x != p2->px)
 		{
-			my_mlx_pixel_put(img, x, y, 0xFF0000);
+			my_mlx_pixel_put(data, x, y, 0xFF0000);
 			if (err > -dx)
 			{
 				err -= dy;
@@ -257,7 +259,7 @@ void bresenham_trace(t_data *img, t_point *p1, t_point *p2)
 	{
 		while ((x != p2->px) && (y != p2->py))
 		{
-			my_mlx_pixel_put(img, x, y, 0xFF0000);
+			my_mlx_pixel_put(data, x, y, 0xFF0000);
 			if (err > -dx)
 			{
 				err -= dy;
@@ -270,7 +272,7 @@ void bresenham_trace(t_data *img, t_point *p1, t_point *p2)
 			}
 		}
 	}
-	my_mlx_pixel_put(img, x, y, 0xFF0000);
+	my_mlx_pixel_put(data, x, y, 0xFF0000);
 }
 
 void	trace_map_lines(t_data *data, t_map *map, t_point **arr)
@@ -286,7 +288,7 @@ void	trace_map_lines(t_data *data, t_map *map, t_point **arr)
 		p1 = arr[i];
 		p2 = arr[i + 1];
 		if (p2->col != 0)
-			bresenham_trace(data, p1, p2);
+			bresenham_trace(data, map, p1, p2);
 		i++;
 	}
 	i = 0;
@@ -294,7 +296,8 @@ void	trace_map_lines(t_data *data, t_map *map, t_point **arr)
 	{
 		p1 = arr[i];
 		p3 = arr[i + map->cols];
-		bresenham_trace(data, p1, p3);
+		bresenham_trace(data, map, p1, p3);
 		i++;
 	}
 }
+*/

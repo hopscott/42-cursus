@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/10 00:30:46 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 19:44:17 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,83 @@ void	rotate_right(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	basic_rotate(map, 0.0, 0.0, 1.0);
+	basic_rotate(map, 0.0, 0.0, 10.0);
 	next_image(vars);
-	fit_points_full_window(map, map->arr);
-	trace_map_lines(data, map, map->arr);
+	// trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
+}
+
+void	rotate_left(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	basic_rotate(map, 0.0, 0.0, -10.0);
+	next_image(vars);
+	// trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
+}
+
+void	translate_up(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	map->dy += -10.0;
+	basic_translate(map, map->dx, map->dy);
+	next_image(vars);
+	// trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
+}
+
+void	translate_down(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	map->dy += 10.0;
+	basic_translate(map, map->dx, map->dy);
+	next_image(vars);
+	// trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
+}
+
+void	translate_right(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	map->dx += 10.0;
+	basic_translate(map, map->dx, map->dy);
+	next_image(vars);
+	// trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
+}
+
+void	translate_left(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	map->dx += -10.0;
+	basic_translate(map, map->dx, map->dy);
+	next_image(vars);
+	// trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
@@ -43,5 +116,15 @@ int	key_manager(int keycode, t_vars *vars)
 		destroy_win(vars);
 	else if (keycode == 2)
 		rotate_right(vars);
+	else if (keycode == 0)
+		rotate_left(vars);
+	else if (keycode == 126)
+		translate_up(vars);
+	else if (keycode == 125)
+		translate_down(vars);
+	else if (keycode == 124)
+		translate_right(vars);
+	else if (keycode == 123)
+		translate_left(vars);
 	return (0);
 }

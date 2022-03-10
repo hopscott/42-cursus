@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/09 23:58:04 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 20:02:08 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ void	free_map(t_map *map)
 {
 	if (map->arr)
 		free_arr_points(map->arr, map->points);
+	if (map->rx)
+		free_matrix(map->rx, map->rx->r);
+	if (map->ry)
+		free_matrix(map->ry, map->ry->r);
+	if (map->rz)
+		free_matrix(map->rz, map->rz->r);
+	if (map->r)
+		free_matrix(map->r, map->r->r);
 	free(map);
 }
 
@@ -101,12 +109,10 @@ int	main(int ac, char **av)
 		if (!data->map)
 			return (free_vars(vars));
 		map = data->map;
-
-		fit_points_full_window(map, map->arr);
+		// fit_points_full_window(map, map->arr);
 		// trace_map_lines(data, map, map->arr);
 		trace_map_points(data, map, map->arr);
 		mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
-
 		mlx_key_hook(vars->win, key_manager, vars);
 		mlx_hook(vars->win, ON_DESTROY, 0, destroy_win, vars);
 		mlx_loop(vars->mlx);

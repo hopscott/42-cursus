@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/10 00:08:14 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 20:10:19 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,12 @@ enum
 
 typedef struct s_point
 {
-	int	col;
-	int	row;
-	int	height;
-	int	x;
-	int	y;
-	int	z;
-	int	px;
-	int	py;
+	int		x;
+	int		y;
+	int		z;
+	double	px;
+	double	py;
 }			t_point;
-
-typedef struct s_plane {
-	int	a;
-	int	b;
-	int	c;
-	int	d;
-	int	n[3];
-	int	u[3];
-	int	v[3];
-}				t_plane;
 
 typedef struct s_mat {
 	int		r;
@@ -67,18 +54,20 @@ typedef struct s_map
 	int		rows;
 	int		points;
 	t_point	**arr;
-	t_plane	*plane;
+	double	alpha;
+	double	beta;
+	double	theta;
 	t_mat	*rx;
 	t_mat	*ry;
 	t_mat	*rz;
 	t_mat	*r;
-	double	alpha;
-	double	beta;
-	double	theta;
-	int		px_min;
-	int		px_max;
-	int		py_min;
-	int		py_max;
+	double	dx;
+	double	dy;
+	int		zoom;
+	double	px_min;
+	double	px_max;
+	double	py_min;
+	double	py_max;
 }				t_map;
 
 typedef struct s_data
@@ -116,17 +105,18 @@ int		free_vars(t_vars *vars);
 
 // views
 double	deg2rad(double degree);
+void	find_origin_point(t_map *map, t_point **arr);
+void	find_furthest_point(t_map *map, t_point **arr);
 void	fit_points_full_window(t_map *map, t_point **arr);
 
 // map
 t_map	*build_map(char *path);
-void	reset_points(t_map *map, t_point **arr);
 
 // tracing
-void	my_mlx_pixel_put(t_data *img, int px, int py, int color);
-void	bresenham_trace(t_data *img, t_point *p1, t_point *p2);
-void	trace_map_points(t_data *img, t_map *map, t_point **arr);
-void	trace_map_lines(t_data *img, t_map *map, t_point **arr);
+void	my_mlx_pixel_put(t_data *data, int px, int py, int color);
+void	bresenham_trace(t_data *data, t_map *map, t_point *p1, t_point *p2);
+void	trace_map_points(t_data *data, t_map *map, t_point **arr);
+void	trace_map_lines(t_data *data, t_map *map, t_point **arr);
 
 // vectors
 void	normalise_arr_int(int arr[], int len);
@@ -136,7 +126,16 @@ void	vector_multiply(int a, int b[], int dst[]);
 void	vector_add(int a[], int b[], int dst[]);
 
 // rotations
-t_mat	*init_matrix(int r, int c);
 void	basic_rotate(t_map *map, double alpha, double beta, double theta);
+
+// translations
+void	basic_translate(t_map *map, double dx, double dy);
+
+// matrices
+t_mat	*free_matrix(t_mat *mat, int rows);
+t_mat	*init_matrix(int r, int c);
+void	set_matrix(double arr[], t_mat *mat);
+void	matrix_multipy(t_mat *m1, t_mat *m2, t_mat *res);
+void	print_matrix(t_mat *mat); // <==== X REMOVE
 
 #endif

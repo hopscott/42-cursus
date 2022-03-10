@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/10 00:16:23 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 20:01:09 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	parse_map_points(t_map *map, t_point **arr, int fd, int r)
 	int		c;
 	uchar	**row;
 	uchar	*line;
-	t_point	*pt;
 
 	line = get_next_line(fd);
 	while (line && (r < map->rows))
@@ -54,36 +53,19 @@ void	parse_map_points(t_map *map, t_point **arr, int fd, int r)
 		c = 0;
 		while (c < map->cols)
 		{
-			pt = malloc(sizeof(t_point));
-			if (!pt)
+			arr[r * map->cols + c] = malloc(sizeof(t_point));
+			if (!arr[r * map->cols + c])
 				return (free_arr_points(map->arr, r * map->cols + c));
-			pt->col = c;
-			pt->row = r;
-			pt->height = ft_atoi(row[c]);
-			arr[r * map->cols + c] = pt;
+			arr[r * map->cols + c]->x = c;
+			arr[r * map->cols + c]->y = r;
+			arr[r * map->cols + c]->z = ft_atoi(row[c]);
 			c++;
 		}
 		r++;
+		ft_freetbl(row, map->cols);
 		line = get_next_line(fd);
 	}
-	ft_freetbl(row, map->cols);
 	free(line);
-}
-
-void	reset_points(t_map *map, t_point **arr)
-{
-	t_point	*pt;
-	int		i;
-
-	i = 0;
-	while (i < map->points)
-	{
-		pt = arr[i];
-		pt->x = pt->col;
-		pt->y = pt->row;
-		pt->z = pt->height;
-		i++;
-	}
 }
 
 t_map	*parse_map(char *path)
@@ -122,14 +104,17 @@ t_map	*build_map(char *path)
 	map = parse_map(path);
 	if (!map->arr)
 		return (map);
-	reset_points(map, map->arr);
 	map->rx = init_matrix(3, 3);
 	map->ry = init_matrix(3, 3);
 	map->rz = init_matrix(3, 3);
 	map->r = init_matrix(3, 3);
+	if (!map->rx || map->ry || map->rz || map->r)
+		return (map);
 	map->alpha = 45.0;
 	map->beta = asin(tan(deg2rad(30)));
 	map->theta = 45.0;
+	map->dx = 0.0;
+	map->dy = 0.0;
 	basic_rotate(map, 0.0, 0.0, 0.0);
 	return (map);
 }
