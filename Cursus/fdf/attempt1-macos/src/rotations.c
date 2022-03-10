@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/10 21:09:08 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 21:34:29 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,21 @@ void	rotate_points(t_map *map)
 	free_matrix(tmp, tmp->r);
 }
 
+void	recenter_xyz(t_map *map, t_point **arr)
+{
+	int		i;
+	t_point	*pt;
+
+	i = 0;
+	while (i < map->points)
+	{
+		pt = arr[i];
+		pt->x -= map->cols / 2;
+		pt->y -= map->rows / 2;
+		i++;
+	}
+}
+
 void	basic_rotate(t_map *map, double alpha, double beta, double theta)
 {
 	t_mat	*tmp;
@@ -103,5 +118,6 @@ void	basic_rotate(t_map *map, double alpha, double beta, double theta)
 	matrix_multipy(map->rx, map->ry, tmp);
 	matrix_multipy(tmp, map->rz, map->r);
 	free_matrix(tmp, tmp->r);
+	recenter_xyz(map, map->arr);
 	rotate_points(map);
 }
