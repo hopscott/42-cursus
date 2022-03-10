@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/10 20:12:14 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 21:09:08 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	rotate_points(t_map *map)
 		arr[2] = (double)pt->z;
 		set_matrix(arr, xyz);
 		matrix_multipy(map->r, xyz, tmp);
-		pt->px = tmp->tbl[0][0] + map->dx;
-		pt->py = tmp->tbl[1][0] + map->dy;
+		pt->px = tmp->tbl[0][0];
+		pt->py = tmp->tbl[1][0];
 		i++;
 	}
 	free_matrix(xyz, xyz->r);
@@ -93,9 +93,9 @@ void	basic_rotate(t_map *map, double alpha, double beta, double theta)
 {
 	t_mat	*tmp;
 
-	map->alpha += alpha;
-	map->beta += beta;
-	map->theta += theta;
+	map->alpha = alpha;
+	map->beta = beta;
+	map->theta = theta;
 	set_rotation_x(map, map->alpha);
 	set_rotation_y(map, map->beta);
 	set_rotation_z(map, map->theta);

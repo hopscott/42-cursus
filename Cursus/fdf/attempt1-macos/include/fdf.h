@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/10 20:10:19 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 20:46:28 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "ft_printf.h"
 # include <mlx.h>
 # include <math.h>
+
+# include <stdio.h> // <==== X
 
 # define WIDTH 800
 # define HEIGHT 600

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/10 20:01:09 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 21:10:40 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,9 @@ t_map	*build_map(char *path)
 	map->ry = init_matrix(3, 3);
 	map->rz = init_matrix(3, 3);
 	map->r = init_matrix(3, 3);
-	if (!map->rx || map->ry || map->rz || map->r)
+	if (!map->rx || !map->ry || !map->rz || !map->r)
 		return (map);
-	map->alpha = 45.0;
-	map->beta = asin(tan(deg2rad(30)));
-	map->theta = 45.0;
-	map->dx = 0.0;
-	map->dy = 0.0;
-	basic_rotate(map, 0.0, 0.0, 0.0);
+	basic_rotate(map, 45.0, asin(tan(deg2rad(30))), 45.0);
+	basic_translate(map, 0.0, 0.0);
 	return (map);
 }

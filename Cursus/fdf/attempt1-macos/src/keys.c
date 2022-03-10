@@ -6,13 +6,11 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/10 19:44:17 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 21:17:20 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-#include <stdio.h>
 
 void	rotate_right(t_vars *vars)
 {
@@ -21,7 +19,8 @@ void	rotate_right(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	basic_rotate(map, 0.0, 0.0, 10.0);
+	basic_rotate(map, map->alpha, map->beta, map->theta + 10.0);
+	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
 	// trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
@@ -35,7 +34,8 @@ void	rotate_left(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	basic_rotate(map, 0.0, 0.0, -10.0);
+	basic_rotate(map, map->alpha, map->beta, map->theta - 10.0);
+	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
 	// trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
@@ -49,8 +49,8 @@ void	translate_up(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	map->dy += -10.0;
-	basic_translate(map, map->dx, map->dy);
+	map->dy -= 10;
+	basic_translate(map, 0.0, -10.0);
 	next_image(vars);
 	// trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
@@ -64,8 +64,8 @@ void	translate_down(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	map->dy += 10.0;
-	basic_translate(map, map->dx, map->dy);
+	map->dy += 10;
+	basic_translate(map, 0.0, 10.0);
 	next_image(vars);
 	// trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
@@ -79,8 +79,8 @@ void	translate_right(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	map->dx += 10.0;
-	basic_translate(map, map->dx, map->dy);
+	map->dx += 10;
+	basic_translate(map, 10.0, 0.0);
 	next_image(vars);
 	// trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
@@ -94,8 +94,8 @@ void	translate_left(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	map->dx += -10.0;
-	basic_translate(map, map->dx, map->dy);
+	map->dx -= 10;
+	basic_translate(map, -10.0, 0.0);
 	next_image(vars);
 	// trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
