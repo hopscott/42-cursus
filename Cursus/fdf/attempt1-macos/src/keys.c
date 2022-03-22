@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 18:47:10 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/22 23:53:46 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	zoom_in(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	basic_zoom(map, map->zoom + 5);
+	basic_zoom(map, map->zoom + 2);
 	basic_rotate(map, map->alpha, map->beta, map->theta);
 	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
-	// trace_map_lines(data, map, map->arr);
+	trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
@@ -35,16 +35,48 @@ void	zoom_out(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	if (map->zoom - 5 > 0)
+	if (map->zoom - 2 > 0)
 	{
-		basic_zoom(map, map->zoom - 5);
+		basic_zoom(map, map->zoom - 2);
 		basic_rotate(map, map->alpha, map->beta, map->theta);
 		basic_translate(map, map->dx, map->dy);
 		next_image(vars);
-		// trace_map_lines(data, map, map->arr);
+		trace_map_lines(data, map, map->arr);
 		trace_map_points(data, map, map->arr);
 		mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 	}
+}
+
+void	rotate_up(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	basic_zoom(map, map->zoom);
+	basic_rotate(map, map->alpha - 15.0, map->beta, map->theta);
+	basic_translate(map, map->dx, map->dy);
+	next_image(vars);
+	trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
+}
+
+void	rotate_down(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	basic_zoom(map, map->zoom);
+	basic_rotate(map, map->alpha + 15.0, map->beta, map->theta);
+	basic_translate(map, map->dx, map->dy);
+	next_image(vars);
+	trace_map_lines(data, map, map->arr);
+	trace_map_points(data, map, map->arr);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
 void	rotate_right(t_vars *vars)
@@ -55,10 +87,10 @@ void	rotate_right(t_vars *vars)
 	data = vars->data;
 	map = data->map;
 	basic_zoom(map, map->zoom);
-	basic_rotate(map, map->alpha, map->beta, map->theta + 10.0);
+	basic_rotate(map, map->alpha, map->beta, map->theta + 15.0);
 	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
-	// trace_map_lines(data, map, map->arr);
+	trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
@@ -71,10 +103,10 @@ void	rotate_left(t_vars *vars)
 	data = vars->data;
 	map = data->map;
 	basic_zoom(map, map->zoom);
-	basic_rotate(map, map->alpha, map->beta, map->theta - 10.0);
+	basic_rotate(map, map->alpha, map->beta, map->theta - 15.0);
 	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
-	// trace_map_lines(data, map, map->arr);
+	trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
@@ -86,10 +118,10 @@ void	translate_up(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	map->dy -= 20;
-	basic_translate(map, 0.0, -20.0);
+	map->dy -= 25;
+	basic_translate(map, 0.0, -25.0);
 	next_image(vars);
-	// trace_map_lines(data, map, map->arr);
+	trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
@@ -101,10 +133,10 @@ void	translate_down(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	map->dy += 20;
-	basic_translate(map, 0.0, 20.0);
+	map->dy += 25;
+	basic_translate(map, 0.0, 25.0);
 	next_image(vars);
-	// trace_map_lines(data, map, map->arr);
+	trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
@@ -116,10 +148,10 @@ void	translate_right(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	map->dx += 20;
-	basic_translate(map, 20.0, 0.0);
+	map->dx += 25;
+	basic_translate(map, 25.0, 0.0);
 	next_image(vars);
-	// trace_map_lines(data, map, map->arr);
+	trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
@@ -131,10 +163,10 @@ void	translate_left(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	map->dx -= 20;
-	basic_translate(map, -20.0, 0.0);
+	map->dx -= 25;
+	basic_translate(map, -25.0, 0.0);
 	next_image(vars);
-	// trace_map_lines(data, map, map->arr);
+	trace_map_lines(data, map, map->arr);
 	trace_map_points(data, map, map->arr);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
@@ -151,6 +183,10 @@ int	key_manager(int keycode, t_vars *vars)
 	ft_printf(">> KEY PRESSED >> %d\n", keycode);
 	if (keycode == 53)
 		destroy_win(vars);
+	else if (keycode == 13)
+		rotate_up(vars);
+	else if (keycode == 1)
+		rotate_down(vars);
 	else if (keycode == 2)
 		rotate_right(vars);
 	else if (keycode == 0)

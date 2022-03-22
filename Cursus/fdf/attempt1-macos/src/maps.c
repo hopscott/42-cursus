@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 18:35:15 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/22 18:55:58 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ t_map	*build_map(char *path)
 	map = parse_map(path);
 	if (!map->arr)
 		return (map);
+	map->zoom = 1;
+	basic_zoom(map, map->zoom);
 	map->rx = init_matrix(3, 3);
 	map->ry = init_matrix(3, 3);
 	map->rz = init_matrix(3, 3);
@@ -112,7 +114,5 @@ t_map	*build_map(char *path)
 		return (map);
 	basic_rotate(map, 45.0, asin(tan(deg2rad(30))), 45.0);
 	basic_translate(map, 0.0, 0.0);
-	map->zoom = 1;
-	basic_zoom(map, map->zoom);
 	return (map);
 }

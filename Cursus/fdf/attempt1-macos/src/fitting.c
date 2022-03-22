@@ -1,77 +1,75 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shifts.c                                           :+:      :+:    :+:   */
+/*   fitting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 23:52:29 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/22 23:53:30 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	recenter_xyz(t_map *map, t_point **arr)
+double	deg2rad(double degree)
 {
-	int		i;
-	t_point	*pt;
-
-	i = 0;
-	while (i < map->points)
-	{
-		pt = arr[i];
-		pt->x -= map->cols / 2;
-		pt->y -= map->rows / 2;
-		i++;
-	}
+	return (degree * (M_PI / 180));
 }
 
-void	uncenter_xyz(t_map *map, t_point **arr)
+void	find_origin_point(t_map *map, t_point **arr)
 {
 	int		i;
 	t_point	*pt;
 
 	i = 0;
+	pt = arr[i];
 	while (i < map->points)
 	{
-		pt = arr[i];
-		pt->x += map->cols / 2;
-		pt->y += map->rows / 2;
+		if (arr[i]->px < pt->px)
+			pt = arr[i];
 		i++;
 	}
+	map->px_min = pt->px;
+	i = 0;
+	pt = arr[i];
+	while (i < map->points)
+	{
+		if (arr[i]->py < pt->py)
+			pt = arr[i];
+		i++;
+	}
+	map->py_min = pt->py;
 }
 
-void	basic_translate(t_map *map, double dx, double dy)
+void	find_furthest_point(t_map *map, t_point **arr)
 {
 	int		i;
 	t_point	*pt;
 
 	i = 0;
+	pt = arr[i];
 	while (i < map->points)
 	{
-		pt = map->arr[i];
-		pt->px += dx;
-		pt->py += dy;
+		if (arr[i]->px > pt->px)
+			pt = arr[i];
 		i++;
 	}
+	map->px_max = pt->px;
+	i = 0;
+	pt = arr[i];
+	while (i < map->points)
+	{
+		if (arr[i]->py > pt->py)
+			pt = arr[i];
+		i++;
+	}
+	map->py_max = pt->py;
 }
 
-void	basic_zoom(t_map *map, int zoom)
+// TODO
+void	fit_points_full_window(t_map *map, t_point **arr)
 {
-	int		i;
-	t_point	*pt;
-
-	recenter_xyz(map, map->arr);
-	i = 0;
-	while (i < map->points)
-	{
-		pt = map->arr[i];
-		pt->x = (pt->x / map->zoom) * zoom;
-		pt->y = (pt->y / map->zoom) * zoom;
-		pt->z = (pt->z / map->zoom) * zoom;
-		i++;
-	}
-	map->zoom = zoom;
-	uncenter_xyz(map, map->arr);
+	find_origin_point(map, arr);
+	find_furthest_point(map, arr);
 }

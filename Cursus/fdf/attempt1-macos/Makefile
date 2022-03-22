@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/03/22 18:21:30 by swillis          ###   ########.fr        #
+#    Updated: 2022/03/22 23:38:31 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,12 @@ EXE = fdf
 SRC = 	$(SRC_DIR)/main.c\
 	 	$(SRC_DIR)/maps.c\
 		$(SRC_DIR)/tracing.c\
-		$(SRC_DIR)/vectors.c\
 		$(SRC_DIR)/matrices.c\
 		$(SRC_DIR)/rotations.c\
 		$(SRC_DIR)/shifts.c\
 	 	$(SRC_DIR)/keys.c\
-	 	$(SRC_DIR)/images.c\
-	 	$(SRC_DIR)/pois.c\
+	 	$(SRC_DIR)/lines.c\
+	 	$(SRC_DIR)/fitting.c\
 
 OBJ =	${SRC:.c=.o}
 

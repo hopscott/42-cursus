@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 18:22:15 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/22 23:54:22 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,17 @@ typedef struct s_vars
 	t_data	*data;
 }				t_vars;
 
-typedef struct s_pixel {
-	int	x;
-	int	y;
-}				t_pixel;
-
-// images
-void	next_image(t_vars *vars);
+typedef struct s_trace {
+	int		dy;
+	int		dx;
+	int		sx;
+	int		sy;
+	int		param;
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
+}				t_trace;
 
 // keys
 int		key_manager(int keycode, t_vars *vars);
@@ -115,17 +119,10 @@ void	fit_points_full_window(t_map *map, t_point **arr);
 t_map	*build_map(char *path);
 
 // tracing
+void	next_image(t_vars *vars);
 void	my_mlx_pixel_put(t_data *data, int px, int py, int color);
-void	bresenham_trace(t_data *data, t_map *map, t_point *p1, t_point *p2);
 void	trace_map_points(t_data *data, t_map *map, t_point **arr);
 void	trace_map_lines(t_data *data, t_map *map, t_point **arr);
-
-// vectors
-void	normalise_arr_int(int arr[], int len);
-int		vector_dot(int a[], int b[], int len);
-void	vector_cross(int a[], int b[], int dst[]);
-void	vector_multiply(int a, int b[], int dst[]);
-void	vector_add(int a[], int b[], int dst[]);
 
 // rotations
 void	basic_rotate(t_map *map, double alpha, double beta, double theta);
@@ -141,6 +138,8 @@ t_mat	*free_matrix(t_mat *mat, int rows);
 t_mat	*init_matrix(int r, int c);
 void	set_matrix(double arr[], t_mat *mat);
 void	matrix_multipy(t_mat *m1, t_mat *m2, t_mat *res);
-void	print_matrix(t_mat *mat); // <==== X REMOVE
+
+// lines
+void	bresenham_trace(t_data *data, t_point *p0, t_point *p1);
 
 #endif

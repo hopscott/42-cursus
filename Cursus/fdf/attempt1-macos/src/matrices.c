@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/10 20:09:11 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/22 23:53:59 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,34 +100,4 @@ void	matrix_multipy(t_mat *m1, t_mat *m2, t_mat *res)
 		}
 		i++;
 	}
-}
-
-// ==============================================================
-
-#include <stdio.h>
-
-void	print_matrix(t_mat *mat)
-{
-	double	*row;
-	int		i;
-	int		j;
-
-	printf("===========================================\n");
-	i = 0;
-	while (i < mat->r)
-	{
-		row = mat->tbl[i];
-		j = 0;
-		printf("|");
-		while (j < mat->c)
-		{
-			printf("%f", row[j]);
-			if (j + 1 < mat->c)
-				printf("\t");
-			j++;
-		}
-		printf("|\n");
-		i++;
-	}
-	printf("===========================================\n");
 }
