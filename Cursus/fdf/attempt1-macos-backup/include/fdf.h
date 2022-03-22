@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 18:22:15 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 20:46:28 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,8 @@ void	vector_add(int a[], int b[], int dst[]);
 // rotations
 void	basic_rotate(t_map *map, double alpha, double beta, double theta);
 
-// shifts
-void	recenter_xyz(t_map *map, t_point **arr);
-void	uncenter_xyz(t_map *map, t_point **arr);
+// translations
 void	basic_translate(t_map *map, double dx, double dy);
-void	basic_zoom(t_map *map, int zoom);
 
 // matrices
 t_mat	*free_matrix(t_mat *mat, int rows);

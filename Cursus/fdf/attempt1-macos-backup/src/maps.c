@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 18:35:15 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/10 21:10:40 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,5 @@ t_map	*build_map(char *path)
 		return (map);
 	basic_rotate(map, 45.0, asin(tan(deg2rad(30))), 45.0);
 	basic_translate(map, 0.0, 0.0);
-	map->zoom = 1;
-	basic_zoom(map, map->zoom);
 	return (map);
 }

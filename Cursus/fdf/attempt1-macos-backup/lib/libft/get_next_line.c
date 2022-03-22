@@ -6,12 +6,11 @@
 /*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:25:01 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/16 13:46:34 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/07 15:14:41 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 size_t	ft_eolcheck(uchar *str)
 {
