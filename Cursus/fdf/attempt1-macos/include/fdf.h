@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/23 12:16:23 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/23 17:49:07 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_map
 	int		rows;
 	int		points;
 	t_point	**arr;
+	int		z_min;
+	int		z_max;
 	double	alpha;
 	double	beta;
 	double	theta;
@@ -94,14 +96,25 @@ typedef struct s_trace {
 	int		dx;
 	int		sx;
 	int		sy;
-	int		param;
 	int		err;
 	int		e2;
 	int		x0;
 	int		y0;
+	int		z0;
 	int		x1;
 	int		y1;
+	int		z1;
+	int		r0;
+	int		g0;
+	int		b0;
+	int		r1;
+	int		g1;
+	int		b1;
+	int		steps;
 }				t_trace;
+
+// fitting
+void	find_map_heights(t_map *map, t_point **arr);
 
 // keys
 int		key_manager(int keycode, t_vars *vars);

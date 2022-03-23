@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 18:55:58 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/23 17:41:48 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ t_map	*build_map(char *path)
 	map = parse_map(path);
 	if (!map->arr)
 		return (map);
+	find_map_heights(map, map->arr);
 	map->zoom = 1;
 	basic_zoom(map, map->zoom);
 	map->rx = init_matrix(3, 3);

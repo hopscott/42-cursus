@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 23:53:30 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/23 17:28:22 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,31 @@ void	find_furthest_point(t_map *map, t_point **arr)
 		i++;
 	}
 	map->py_max = pt->py;
+}
+
+void	find_map_heights(t_map *map, t_point **arr)
+{
+	int		i;
+	t_point	*pt;
+
+	i = 0;
+	pt = arr[i];
+	while (i < map->points)
+	{
+		if (arr[i]->z < pt->z)
+			pt = arr[i];
+		i++;
+	}
+	map->z_min = pt->z;
+	i = 0;
+	pt = arr[i];
+	while (i < map->points)
+	{
+		if (arr[i]->z > pt->z)
+			pt = arr[i];
+		i++;
+	}
+	map->z_max = pt->z;
 }
 
 // TODO
