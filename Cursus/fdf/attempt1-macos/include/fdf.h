@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 23:54:22 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/23 12:16:23 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct s_trace {
 	int		sx;
 	int		sy;
 	int		param;
+	int		err;
+	int		e2;
 	int		x0;
 	int		y0;
 	int		x1;
