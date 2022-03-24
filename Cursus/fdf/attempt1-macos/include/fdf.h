@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/23 17:49:07 by swillis          ###   ########.fr       */
+/*   Updated: 2022/03/24 17:27:11 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,41 @@ typedef struct s_mat {
 	double	**tbl;
 }				t_mat;
 
+typedef struct s_colour
+{
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+	unsigned int	dec;
+}	t_colour;
+
 typedef struct s_map
 {
-	int		cols;
-	int		rows;
-	int		points;
-	t_point	**arr;
-	int		z_min;
-	int		z_max;
-	double	alpha;
-	double	beta;
-	double	theta;
-	t_mat	*rx;
-	t_mat	*ry;
-	t_mat	*rz;
-	t_mat	*r;
-	double	dx;
-	double	dy;
-	int		zoom;
-	double	px_min;
-	double	px_max;
-	double	py_min;
-	double	py_max;
+	int			cols;
+	int			rows;
+	int			points;
+	t_point		**arr;
+	int			z_min;
+	int			z_max;
+	t_colour	min_colour;
+	t_colour	max_colour;
+	int			r_max;
+	int			g_max;
+	int			b_max;
+	double		alpha;
+	double		beta;
+	double		theta;
+	t_mat		*rx;
+	t_mat		*ry;
+	t_mat		*rz;
+	t_mat		*r;
+	double		dx;
+	double		dy;
+	int			zoom;
+	double		px_min;
+	double		px_max;
+	double		py_min;
+	double		py_max;
 }				t_map;
 
 typedef struct s_data
@@ -100,9 +113,9 @@ typedef struct s_trace {
 	int		e2;
 	int		x0;
 	int		y0;
-	int		z0;
 	int		x1;
 	int		y1;
+	int		z0;
 	int		z1;
 	int		r0;
 	int		g0;
@@ -110,6 +123,7 @@ typedef struct s_trace {
 	int		r1;
 	int		g1;
 	int		b1;
+	double	h;
 	int		steps;
 }				t_trace;
 
