@@ -74,4 +74,5 @@ void	basic_zoom(t_map *map, int zoom)
 	}
 	map->zoom = zoom;
 	uncenter_xyz(map, map->arr);
+	find_map_heights(map, map->arr);
 }

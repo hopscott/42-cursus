@@ -50,10 +50,7 @@ void	trace_map_points(t_data *data, t_map *map, t_point **arr)
 	while (i < map->points)
 	{
 		pt = arr[i];
-		if (pt->z == 0)
-			my_mlx_pixel_put(data, (int)pt->px, (int)pt->py, 0xFFFFFF);
-		else
-			my_mlx_pixel_put(data, (int)pt->px, (int)pt->py, 0x0000FF);
+		my_mlx_pixel_put(data, (int)pt->px, (int)pt->py, rgb_colour(255, 255, 255));
 		i++;
 	}
 }
@@ -80,6 +77,32 @@ void	trace_map_lines(t_data *data, t_map *map, t_point **arr)
 		p1 = arr[i];
 		p3 = arr[i + map->cols];
 		bresenham_trace(data, p1, p3);
+		i++;
+	}
+}
+
+void	trace_map_gradients(t_data *data, t_map *map, t_point **arr)
+{
+	int		i;
+	t_point	*p1;
+	t_point	*p2;
+	t_point	*p3;
+
+	i = 0;
+	while (i + 1 < map->points)
+	{
+		p1 = arr[i];
+		p2 = arr[i + 1];
+		if ((i + 1) % map->cols != 0)
+			bresenham_trace_gradient(data, p1, p2);
+		i++;
+	}
+	i = 0;
+	while (i + map->cols < map->points)
+	{
+		p1 = arr[i];
+		p3 = arr[i + map->cols];
+		bresenham_trace_gradient(data, p1, p3);
 		i++;
 	}
 }

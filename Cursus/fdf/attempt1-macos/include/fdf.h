@@ -66,11 +66,8 @@ typedef struct s_map
 	t_point		**arr;
 	int			z_min;
 	int			z_max;
-	t_colour	min_colour;
-	t_colour	max_colour;
-	int			r_max;
-	int			g_max;
-	int			b_max;
+	t_colour	*c0;
+	t_colour	*c1;
 	double		alpha;
 	double		beta;
 	double		theta;
@@ -85,6 +82,7 @@ typedef struct s_map
 	double		px_max;
 	double		py_min;
 	double		py_max;
+	int			type;
 }				t_map;
 
 typedef struct s_data
@@ -115,15 +113,8 @@ typedef struct s_trace {
 	int		y0;
 	int		x1;
 	int		y1;
-	int		z0;
-	int		z1;
-	int		r0;
-	int		g0;
-	int		b0;
-	int		r1;
-	int		g1;
-	int		b1;
-	double	h;
+	double	h0;
+	double	h1;
 	int		steps;
 }				t_trace;
 
@@ -152,6 +143,7 @@ void	next_image(t_vars *vars);
 void	my_mlx_pixel_put(t_data *data, int px, int py, int color);
 void	trace_map_points(t_data *data, t_map *map, t_point **arr);
 void	trace_map_lines(t_data *data, t_map *map, t_point **arr);
+void	trace_map_gradients(t_data *data, t_map *map, t_point **arr);
 
 // rotations
 void	basic_rotate(t_map *map, double alpha, double beta, double theta);
@@ -169,6 +161,12 @@ void	set_matrix(double arr[], t_mat *mat);
 void	matrix_multipy(t_mat *m1, t_mat *m2, t_mat *res);
 
 // lines
-void	bresenham_trace(t_data *data, t_point *p0, t_point *p1);
+void			bresenham_trace(t_data *data, t_point *p0, t_point *p1);
+void			bresenham_trace_gradient(t_data *data, t_point *p0, t_point *p1);
+
+// renders
+unsigned int	rgb_colour(unsigned int r, unsigned int g, unsigned int b);
+unsigned int	perc_colour(t_colour *c0, t_colour *c1, double p);
+void	render_map(t_data *data, t_map *map);
 
 #endif

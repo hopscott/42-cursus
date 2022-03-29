@@ -106,4 +106,5 @@ void	basic_rotate(t_map *map, double alpha, double beta, double theta)
 	recenter_xyz(map, map->arr);
 	rotate_points(map);
 	uncenter_xyz(map, map->arr);
+	find_map_heights(map, map->arr);
 }

@@ -12,6 +12,22 @@
 
 #include "fdf.h"
 
+void	toggle_render(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	if (map->type > 1)
+		map->type = 0;
+	else
+		map->type += 1;
+	next_image(vars);
+	render_map(data, map);
+	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
+}
+
 void	zoom_in(t_vars *vars)
 {
 	t_data	*data;
@@ -23,7 +39,7 @@ void	zoom_in(t_vars *vars)
 	basic_rotate(map, map->alpha, map->beta, map->theta);
 	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
-	trace_map_lines(data, map, map->arr);
+	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
@@ -40,7 +56,7 @@ void	zoom_out(t_vars *vars)
 		basic_rotate(map, map->alpha, map->beta, map->theta);
 		basic_translate(map, map->dx, map->dy);
 		next_image(vars);
-		trace_map_lines(data, map, map->arr);
+		render_map(data, map);
 		mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 	}
 }
@@ -56,7 +72,7 @@ void	rotate_up(t_vars *vars)
 	basic_rotate(map, map->alpha - 15.0, map->beta, map->theta);
 	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
-	trace_map_lines(data, map, map->arr);
+	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
@@ -71,7 +87,7 @@ void	rotate_down(t_vars *vars)
 	basic_rotate(map, map->alpha + 15.0, map->beta, map->theta);
 	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
-	trace_map_lines(data, map, map->arr);
+	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
@@ -86,7 +102,7 @@ void	rotate_right(t_vars *vars)
 	basic_rotate(map, map->alpha, map->beta, map->theta + 15.0);
 	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
-	trace_map_lines(data, map, map->arr);
+	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
@@ -101,7 +117,7 @@ void	rotate_left(t_vars *vars)
 	basic_rotate(map, map->alpha, map->beta, map->theta - 15.0);
 	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
-	trace_map_lines(data, map, map->arr);
+	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
@@ -115,7 +131,7 @@ void	translate_up(t_vars *vars)
 	map->dy -= 25;
 	basic_translate(map, 0.0, -25.0);
 	next_image(vars);
-	trace_map_lines(data, map, map->arr);
+	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
@@ -129,7 +145,7 @@ void	translate_down(t_vars *vars)
 	map->dy += 25;
 	basic_translate(map, 0.0, 25.0);
 	next_image(vars);
-	trace_map_lines(data, map, map->arr);
+	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
@@ -143,7 +159,7 @@ void	translate_right(t_vars *vars)
 	map->dx += 25;
 	basic_translate(map, 25.0, 0.0);
 	next_image(vars);
-	trace_map_lines(data, map, map->arr);
+	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
@@ -157,7 +173,7 @@ void	translate_left(t_vars *vars)
 	map->dx -= 25;
 	basic_translate(map, -25.0, 0.0);
 	next_image(vars);
-	trace_map_lines(data, map, map->arr);
+	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
@@ -193,5 +209,7 @@ int	key_manager(int keycode, t_vars *vars)
 		zoom_in(vars);
 	else if (keycode == 12)
 		zoom_out(vars);
+	else if (keycode == 17)
+		toggle_render(vars);
 	return (0);
 }

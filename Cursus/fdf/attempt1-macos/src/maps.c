@@ -97,6 +97,29 @@ t_map	*parse_map(char *path)
 	return (map);
 }
 
+void	set_map_colours(t_map *map)
+{
+	t_colour	*c0;
+	t_colour	*c1;
+
+	map->c0 = malloc(sizeof(t_colour));
+	if (!map->c0)
+		return ;
+	c0 = map->c0;
+	c0->r = 255;
+	c0->g = 0;
+	c0->b = 0;
+	c0->dec = rgb_colour(c0->r, c0->g, c0->b);
+	map->c1 = malloc(sizeof(t_colour));
+	if (!map->c1)
+		return ;
+	c1 = map->c1;
+	c1->r = 255;
+	c1->g = 255;
+	c1->b = 0;
+	c1->dec = rgb_colour(c1->r, c1->g, c1->b);
+}
+
 t_map	*build_map(char *path)
 {
 	t_map	*map;
@@ -115,5 +138,7 @@ t_map	*build_map(char *path)
 		return (map);
 	basic_rotate(map, 45.0, asin(tan(deg2rad(30))), 45.0);
 	basic_translate(map, 0.0, 0.0);
+	set_map_colours(map);
+	map->type = 1;
 	return (map);
 }
