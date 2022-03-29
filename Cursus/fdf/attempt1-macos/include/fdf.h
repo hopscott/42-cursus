@@ -55,7 +55,6 @@ typedef struct s_colour
 	unsigned int	r;
 	unsigned int	g;
 	unsigned int	b;
-	unsigned int	dec;
 }	t_colour;
 
 typedef struct s_map
@@ -120,6 +119,7 @@ typedef struct s_trace {
 
 // fitting
 void	find_map_heights(t_map *map, t_point **arr);
+void	fit_points_full_window(t_map *map, t_point **arr);
 
 // keys
 int		key_manager(int keycode, t_vars *vars);
@@ -167,6 +167,6 @@ void			bresenham_trace_gradient(t_data *data, t_point *p0, t_point *p1);
 // renders
 unsigned int	rgb_colour(unsigned int r, unsigned int g, unsigned int b);
 unsigned int	perc_colour(t_colour *c0, t_colour *c1, double p);
-void	render_map(t_data *data, t_map *map);
+void			render_map(t_data *data, t_map *map);
 
 #endif

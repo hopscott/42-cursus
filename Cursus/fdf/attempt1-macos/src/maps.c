@@ -109,7 +109,6 @@ void	set_map_colours(t_map *map)
 	c0->r = 255;
 	c0->g = 0;
 	c0->b = 0;
-	c0->dec = rgb_colour(c0->r, c0->g, c0->b);
 	map->c1 = malloc(sizeof(t_colour));
 	if (!map->c1)
 		return ;
@@ -117,7 +116,6 @@ void	set_map_colours(t_map *map)
 	c1->r = 255;
 	c1->g = 255;
 	c1->b = 0;
-	c1->dec = rgb_colour(c1->r, c1->g, c1->b);
 }
 
 t_map	*build_map(char *path)

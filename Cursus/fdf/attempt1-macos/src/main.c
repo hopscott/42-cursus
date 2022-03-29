@@ -109,6 +109,7 @@ int	main(int ac, char **av)
 		if (!data->map)
 			return (free_vars(vars));
 		map = data->map;
+		fit_points_full_window(map, map->arr);
 		render_map(data, map);
 		mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 		mlx_key_hook(vars->win, key_manager, vars);

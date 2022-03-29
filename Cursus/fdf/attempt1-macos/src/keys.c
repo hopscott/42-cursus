@@ -35,7 +35,7 @@ void	zoom_in(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	basic_zoom(map, map->zoom + 2);
+	basic_zoom(map, map->zoom + 1);
 	basic_rotate(map, map->alpha, map->beta, map->theta);
 	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
@@ -50,9 +50,9 @@ void	zoom_out(t_vars *vars)
 
 	data = vars->data;
 	map = data->map;
-	if (map->zoom - 2 > 0)
+	if (map->zoom > 2)
 	{
-		basic_zoom(map, map->zoom - 2);
+		basic_zoom(map, map->zoom - 1);
 		basic_rotate(map, map->alpha, map->beta, map->theta);
 		basic_translate(map, map->dx, map->dy);
 		next_image(vars);
