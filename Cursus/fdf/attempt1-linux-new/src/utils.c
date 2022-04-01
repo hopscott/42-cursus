@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/01 17:48:10 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 18:15:02 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	key_manager(int keycode, t_vars *vars)
 		zoom_in(vars);
 	else if (keycode == 113)
 		zoom_out(vars);
-	else if ((keycode == 116) || (keycode == 105) || (keycode == 102))
+	else if ((keycode == 116) || (keycode == 105) || (keycode == 112))
 		view_key_manager(keycode, vars);
 	return (0);
 }

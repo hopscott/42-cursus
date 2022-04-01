@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/01 17:37:45 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 18:18:37 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	rev_trace_map_points(t_data *data, t_map *map, t_point **arr)
 		pt = arr[i];
 		my_mlx_pixel_put(data, (int)pt->px, (int)pt->py, \
 										rgb_colour(255, 255, 255));
-		i++;
+		i--;
 	}
 }
 

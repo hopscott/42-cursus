@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:11 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/01 17:41:35 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 18:20:22 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ unsigned int	perc_colour(t_colour *c0, t_colour *c1, double p)
 
 void	render_map(t_data *data, t_map *map)
 {
-	if ((fabs(map->theta) <= 90) || (fabs(map->theta) >= 270))
+	if ((fabs(map->theta) < 90) || (fabs(map->theta) > 270))
 	{
 		if (map->type == 0)
 			trace_map_points(data, map, map->arr);
