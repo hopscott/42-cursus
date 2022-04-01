@@ -1,68 +1,97 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys_translate.c                                   :+:      :+:    :+:   */
+/*   keys_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/01 17:39:23 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 19:04:41 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	translate_up(t_vars *vars)
+void	toggle_render(t_vars *vars)
 {
 	t_data	*data;
 	t_map	*map;
 
 	data = vars->data;
 	map = data->map;
-	map->dy -= 25;
-	basic_translate(map, 0.0, -25.0);
+	if (map->type > 1)
+		map->type = 0;
+	else
+		map->type += 1;
 	next_image(vars);
 	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
-void	translate_down(t_vars *vars)
+void	zoom_in(t_vars *vars)
 {
 	t_data	*data;
 	t_map	*map;
 
 	data = vars->data;
 	map = data->map;
-	map->dy += 25;
-	basic_translate(map, 0.0, 25.0);
+	basic_zoom(map, map->zoom + 1);
+	basic_rotate(map, map->alpha, map->beta, map->theta);
+	basic_translate(map, map->dx, map->dy);
 	next_image(vars);
 	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
-void	translate_right(t_vars *vars)
+void	zoom_out(t_vars *vars)
 {
 	t_data	*data;
 	t_map	*map;
 
 	data = vars->data;
 	map = data->map;
-	map->dx += 25;
-	basic_translate(map, 25.0, 0.0);
+	if (map->zoom > 1)
+	{
+		basic_zoom(map, map->zoom - 1);
+		basic_rotate(map, map->alpha, map->beta, map->theta);
+		basic_translate(map, map->dx, map->dy);
+		next_image(vars);
+		render_map(data, map);
+		mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
+	}
+}
+
+void	isometric_view(t_vars *vars)
+{
+	t_data	*data;
+	t_map	*map;
+
+	data = vars->data;
+	map = data->map;
+	basic_zoom(map, 1);
+	basic_rotate(map, 45.0, asin(tan(deg2rad(30))), 45.0);
+	map->dx = 0.0;
+	map->dy = 0.0;
+	basic_translate(map, map->dx, map->dy);
+	fit_points_full_window(map, map->arr);
 	next_image(vars);
 	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);
 }
 
-void	translate_left(t_vars *vars)
+void	parallel_view(t_vars *vars)
 {
 	t_data	*data;
 	t_map	*map;
 
 	data = vars->data;
 	map = data->map;
-	map->dx -= 25;
-	basic_translate(map, -25.0, 0.0);
+	basic_zoom(map, 1);
+	basic_rotate(map, 0.0, 0.0, 0.0);
+	map->dx = 0.0;
+	map->dy = 0.0;
+	basic_translate(map, map->dx, map->dy);
+	fit_points_full_window(map, map->arr);
 	next_image(vars);
 	render_map(data, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, data->img, 0, 0);

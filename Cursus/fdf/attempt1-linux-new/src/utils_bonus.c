@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/01 19:04:29 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 19:04:34 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,42 @@ int	destroy_win(t_vars *vars)
 	return (0);
 }
 
+void	view_key_manager(int keycode, t_vars *vars)
+{
+	if (keycode == 116)
+		toggle_render(vars);
+	else if (keycode == 105)
+		isometric_view(vars);
+	else if (keycode == 112)
+		parallel_view(vars);
+}
+
 int	key_manager(int keycode, t_vars *vars)
 {
 	if (keycode == 65307)
 		destroy_win(vars);
+	else if (keycode == 119)
+		rotate_up(vars);
+	else if (keycode == 115)
+		rotate_down(vars);
+	else if (keycode == 100)
+		rotate_right(vars);
+	else if (keycode == 97)
+		rotate_left(vars);
+	else if (keycode == 65362)
+		translate_up(vars);
+	else if (keycode == 65364)
+		translate_down(vars);
+	else if (keycode == 65363)
+		translate_right(vars);
+	else if (keycode == 65361)
+		translate_left(vars);
+	else if (keycode == 101)
+		zoom_in(vars);
+	else if (keycode == 113)
+		zoom_out(vars);
+	else if ((keycode == 116) || (keycode == 105) || (keycode == 112))
+		view_key_manager(keycode, vars);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/04/01 18:11:22 by swillis          ###   ########.fr        #
+#    Updated: 2022/04/01 19:06:11 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,9 +45,21 @@ SRCS	:= 	$(SRC_DIR)/main.c\
 			$(SRC_DIR)/matrices.c\
 			$(SRC_DIR)/rotations.c\
 			$(SRC_DIR)/shifts.c\
-			$(SRC_DIR)/keys.c\
-			$(SRC_DIR)/keys_rotate.c\
-			$(SRC_DIR)/keys_translate.c\
+			$(SRC_DIR)/lines.c\
+			$(SRC_DIR)/fitting.c\
+			$(SRC_DIR)/renders.c\
+
+BONUS_SRCS	:= 	$(SRC_DIR)/main.c\
+			$(SRC_DIR)/utils_bonus.c\
+	 		$(SRC_DIR)/maps.c\
+			$(SRC_DIR)/tracing.c\
+			$(SRC_DIR)/tracing_rev.c\
+			$(SRC_DIR)/matrices.c\
+			$(SRC_DIR)/rotations.c\
+			$(SRC_DIR)/shifts.c\
+			$(SRC_DIR)/keys_bonus.c\
+			$(SRC_DIR)/keys_rotate_bonus.c\
+			$(SRC_DIR)/keys_translate_bonus.c\
 			$(SRC_DIR)/lines.c\
 			$(SRC_DIR)/fitting.c\
 			$(SRC_DIR)/renders.c\
@@ -64,6 +76,8 @@ $(NAME): fdf
 # Objects ========================================
 
 OBJS :=	$(SRCS:.c=.o)
+
+BONUS_OBJS :=	$(BONUS_SRCS:.c=.o)
 
 # Libs ==========================================
 
@@ -82,12 +96,15 @@ $(PRINTF) :
 fdf : $(OBJS) $(LIBFT) $(PRINTF)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $(EXE)
 
+bonus : $(BONUS_OBJS) $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $(EXE)
+
 # Cleanup ========================================
 
 clean:
 	make -C lib/libft -f Makefile clean
 	make -C lib/libftprintf -f Makefile clean
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(BONUS_OBJS)
 
 fclean : clean
 	make -C lib/libft -f Makefile fclean
