@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:25:01 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/07 15:14:41 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:55:26 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_eolcheck(uchar *str)
+size_t	ft_eolcheck(t_uchar *str)
 {
 	size_t	i;
 
@@ -26,10 +26,10 @@ size_t	ft_eolcheck(uchar *str)
 	return (0);
 }
 
-uchar	*ft_concat(uchar *str, uchar *buffer)
+t_uchar	*ft_concat(t_uchar *str, t_uchar *buffer)
 {
-	uchar	*cat;
-	uchar	*new;
+	t_uchar	*cat;
+	t_uchar	*new;
 
 	cat = ft_strndup(buffer, ft_strlen_eol(buffer));
 	new = ft_strjoin_eol(str, cat);
@@ -38,12 +38,12 @@ uchar	*ft_concat(uchar *str, uchar *buffer)
 	return (new);
 }
 
-uchar	*ft_realign_buff(uchar *s, uchar buffer[])
+t_uchar	*ft_realign_buff(t_uchar *s, t_uchar buffer[])
 {
-	uchar	*str;
-	int	start;
-	int	end;
-	int	i;
+	t_uchar	*str;
+	int		start;
+	int		end;
+	int		i;
 
 	start = ft_strlen_eol(buffer);
 	end = start;
@@ -61,17 +61,17 @@ uchar	*ft_realign_buff(uchar *s, uchar buffer[])
 	return (s);
 }
 
-uchar	*ft_freechar(uchar *s)
+t_uchar	*ft_freechar(t_uchar *s)
 {
 	free(s);
 	return (0);
 }
 
-uchar	*get_next_line(int fd)
+t_uchar	*get_next_line(int fd)
 {
-	static uchar	buffer[BUFFER_SIZE];
-	uchar		*str;
-	int		buff_read;
+	static t_uchar	buffer[BUFFER_SIZE];
+	t_uchar			*str;
+	int				buff_read;
 
 	if ((fd < 0) || (fd > 1024))
 		return (0);

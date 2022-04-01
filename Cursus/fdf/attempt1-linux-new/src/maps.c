@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/30 17:56:36 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 18:06:39 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,36 @@
 int	map_dimensions(int fd, t_map *map)
 {
 	int		rows;
-	int		cols;
-	uchar	*line;
+	t_uchar	*line;
 
 	line = get_next_line(fd);
 	if (!line)
 		return (1);
 	rows = 0;
-	cols = ft_wordcount(line, ' ');
+	map->cols = ft_wordcount(line, ' ');
 	while (line)
 	{
 		rows++;
-		if (ft_wordcount(line, ' ') != cols)
+		if (ft_wordcount(line, ' ') != map->cols)
 		{
+			map->err_elem = ft_wordcount(line, ' ');
 			free(line);
-			return (1);
+			return (rows);
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
 	free(line);
-	map->cols = cols;
 	map->rows = rows;
-	map->points = cols * rows;
+	map->points = map->cols * map->rows;
 	return (0);
 }
 
 void	parse_map_points(t_map *map, t_point **arr, int fd, int r)
 {
 	int		c;
-	uchar	**row;
-	uchar	*line;
+	t_uchar	**row;
+	t_uchar	*line;
 
 	line = get_next_line(fd);
 	while (line && (r < map->rows))
@@ -74,7 +73,6 @@ t_map	*parse_map(char *path)
 {
 	t_map	*map;
 	int		fd;
-	int		err;
 
 	map = malloc(sizeof(t_map));
 	if (!map)
@@ -82,9 +80,10 @@ t_map	*parse_map(char *path)
 	fd = open(path, O_RDONLY);
 	if (!fd)
 		return (map);
-	err = map_dimensions(fd, map);
+	map->err_row = map_dimensions(fd, map);
 	close(fd);
-	if (err)
+	map->arr = NULL;
+	if (map->err_row)
 		return (map);
 	map->arr = malloc(sizeof(t_point *) * map->points);
 	if (!map->arr)
@@ -126,7 +125,12 @@ t_map	*build_map(char *path)
 
 	map = parse_map(path);
 	if (!map->arr)
+	{
+		ft_printf("Map Dimensions ERROR - Line (%d) ", map->err_row);
+		ft_printf("=> [%d] elements vs. previous lines [%d]\n", \
+		map->err_elem, map->cols);
 		return (map);
+	}
 	find_map_heights(map, map->arr);
 	map->zoom = 1;
 	basic_zoom(map, map->zoom);

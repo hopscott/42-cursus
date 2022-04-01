@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 18:31:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/02/07 19:45:37 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:56:30 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-typedef unsigned char uchar;
+typedef unsigned char	t_uchar;
 # define BUFFER_SIZE 100
 
-size_t		ft_strlen(uchar *s);
-int		ft_atoi(uchar *nptr);
-uchar		*ft_strdup(uchar *s);
-uchar		*ft_strjoin(uchar *s1, uchar *s2);
-size_t		ft_strlcpy(uchar *dst, uchar *src, size_t size);
-size_t		ft_strlen_eol(uchar *s);
-uchar		*ft_strjoin_eol(uchar *s1, uchar *s2);
-uchar		*ft_strndup(uchar *s, size_t n);
-void		ft_bzero(uchar *s, size_t n);
-uchar		*get_next_line(int fd);
-uchar		**ft_freetbl(uchar **tbl, int pos);
-int     	ft_wordcount(uchar *str, uchar c);
-uchar		**ft_split(uchar *s, uchar c);
+size_t		ft_strlen(t_uchar *s);
+int			ft_atoi(t_uchar *nptr);
+t_uchar		*ft_strdup(t_uchar *s);
+t_uchar		*ft_strjoin(t_uchar *s1, t_uchar *s2);
+size_t		ft_strlcpy(t_uchar *dst, t_uchar *src, size_t size);
+size_t		ft_strlen_eol(t_uchar *s);
+t_uchar		*ft_strjoin_eol(t_uchar *s1, t_uchar *s2);
+t_uchar		*ft_strndup(t_uchar *s, size_t n);
+void		ft_bzero(t_uchar *s, size_t n);
+t_uchar		*get_next_line(int fd);
+t_uchar		**ft_freetbl(t_uchar **tbl, int pos);
+int			ft_wordcount(t_uchar *str, t_uchar c);
+t_uchar		**ft_split(t_uchar *s, t_uchar c);
 
 #endif

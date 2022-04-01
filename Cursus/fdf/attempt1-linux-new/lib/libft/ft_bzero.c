@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 18:20:47 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/15 21:25:36 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:53:34 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(uchar *s, size_t n)
+void	ft_bzero(t_uchar *s, size_t n)
 {
 	size_t	i;
 

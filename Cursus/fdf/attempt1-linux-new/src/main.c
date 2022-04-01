@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/30 18:01:04 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:38:34 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,20 @@ void	free_map(t_map *map)
 
 int	free_vars(t_vars *vars)
 {
+	if (vars->data)
+	{
+		if (vars->data->img)
+			mlx_destroy_image(vars->mlx, vars->data->img);
+		if (vars->data->map)
+			free_map(vars->data->map);
+		free(vars->data);
+	}
 	if (vars->mlx)
 	{
 		if (vars->win)
 			mlx_destroy_window(vars->mlx, vars->win);
 		else
 			free(vars->mlx);
-	}
-	if (vars->data)
-	{
-		if (vars->data->img)
-			free(vars->data->img);
-		if (vars->data->map)
-			free_map(vars->data->map);
-		free(vars->data);
 	}
 	free(vars);
 	return (1);
@@ -103,12 +103,14 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
+		if (!check_fdf(av[1]))
+			return (1);
 		vars = init_vars();
 		if (!vars)
 			return (free_vars(vars));
 		data = vars->data;
 		data->map = build_map(av[1]);
-		if (!data->map)
+		if ((!data->map) || (!data->map->arr))
 			return (free_vars(vars));
 		map = data->map;
 		fit_points_full_window(map, map->arr);

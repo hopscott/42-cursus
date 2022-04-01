@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:43:24 by swillis           #+#    #+#             */
-/*   Updated: 2021/12/06 16:19:23 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:53:44 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-uchar	**ft_freetbl(uchar **tbl, int pos)
+t_uchar	**ft_freetbl(t_uchar **tbl, int pos)
 {
 	while (pos)
 	{
@@ -24,7 +24,7 @@ uchar	**ft_freetbl(uchar **tbl, int pos)
 	return (0);
 }
 
-int	ft_wordcount(uchar *str, uchar c)
+int	ft_wordcount(t_uchar *str, t_uchar c)
 {
 	int	i;
 	int	wrd;
@@ -43,7 +43,7 @@ int	ft_wordcount(uchar *str, uchar c)
 	return (wrd);
 }
 
-int	ft_wordlen(uchar *str, uchar c)
+int	ft_wordlen(t_uchar *str, t_uchar c)
 {
 	int	i;
 	int	len;
@@ -60,7 +60,7 @@ int	ft_wordlen(uchar *str, uchar c)
 	return (len);
 }
 
-uchar	*ft_fillelem(uchar *s, uchar c, int i, uchar *elm)
+t_uchar	*ft_fillelem(t_uchar *s, t_uchar c, int i, t_uchar *elm)
 {
 	int	j;
 
@@ -71,10 +71,10 @@ uchar	*ft_fillelem(uchar *s, uchar c, int i, uchar *elm)
 	return (elm);
 }
 
-uchar	**ft_split(uchar *s, uchar c)
+t_uchar	**ft_split(t_uchar *s, t_uchar c)
 {
-	uchar	**tbl;
-	uchar	*elem;
+	t_uchar	**tbl;
+	t_uchar	*elem;
 	int		i;
 	int		x;
 

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 23:38:10 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:37:33 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	next_image(t_vars *vars)
 {
 	t_data	*data;
-	t_map	*map;
 
 	data = vars->data;
-	map = data->map;
 	mlx_destroy_image(vars->mlx, data->img);
 	data->img = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	if (!data->img)
@@ -50,7 +48,8 @@ void	trace_map_points(t_data *data, t_map *map, t_point **arr)
 	while (i < map->points)
 	{
 		pt = arr[i];
-		my_mlx_pixel_put(data, (int)pt->px, (int)pt->py, rgb_colour(255, 255, 255));
+		my_mlx_pixel_put(data, (int)pt->px, (int)pt->py, \
+										rgb_colour(255, 255, 255));
 		i++;
 	}
 }

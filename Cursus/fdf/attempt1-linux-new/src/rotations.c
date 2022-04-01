@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/22 18:22:26 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:35:40 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,14 @@ void	basic_rotate(t_map *map, double alpha, double beta, double theta)
 	t_mat	*tmp;
 
 	map->alpha = alpha;
+	if (fabs(map->alpha) > 360.0)
+		map->alpha = alpha / 360.0;
 	map->beta = beta;
+	if (fabs(map->beta) > 360.0)
+		map->beta = beta / 360.0;
 	map->theta = theta;
+	if (fabs(map->theta) > 360.0)
+		map->theta = theta / 360.0;
 	set_rotation_x(map, map->alpha);
 	set_rotation_y(map, map->beta);
 	set_rotation_z(map, map->theta);

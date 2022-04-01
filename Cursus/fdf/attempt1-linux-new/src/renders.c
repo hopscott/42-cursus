@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lines.c                                            :+:      :+:    :+:   */
+/*   renders.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:11 by swillis           #+#    #+#             */
-/*   Updated: 2022/03/24 17:29:01 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:41:35 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,22 @@ unsigned int	perc_colour(t_colour *c0, t_colour *c1, double p)
 
 void	render_map(t_data *data, t_map *map)
 {
-	if (map->type == 0)
-		trace_map_points(data, map, map->arr);
-	if (map->type == 1)
-		trace_map_lines(data, map, map->arr);
-	if (map->type == 2)
-		trace_map_gradients(data, map, map->arr);
+	if ((fabs(map->theta) <= 90) || (fabs(map->theta) >= 270))
+	{
+		if (map->type == 0)
+			trace_map_points(data, map, map->arr);
+		if (map->type == 1)
+			trace_map_lines(data, map, map->arr);
+		if (map->type == 2)
+			trace_map_gradients(data, map, map->arr);
+	}
+	else
+	{
+		if (map->type == 0)
+			rev_trace_map_points(data, map, map->arr);
+		if (map->type == 1)
+			rev_trace_map_lines(data, map, map->arr);
+		if (map->type == 2)
+			rev_trace_map_gradients(data, map, map->arr);
+	}
 }

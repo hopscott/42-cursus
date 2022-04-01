@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/03/30 17:58:47 by swillis          ###   ########.fr        #
+#    Updated: 2022/04/01 18:03:07 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ EXE :=	$(BIN_DIR)/fdf
 
 # Compilation ====================================
 
-CC := cc
+CC := gcc
 LDFLAGS ?= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -I/usr/include -Imlx_linux -O3 # -g -fsanitize=address
+CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -I/usr/include -Imlx_linux -O3 -g -fsanitize=address
 
 # Src files ======================================
 
@@ -38,12 +38,16 @@ HEADERS := 	$(INC_DIR)/ft_printf.h\
 			$(INC_DIR)/fdf.h\
 
 SRCS	:= 	$(SRC_DIR)/main.c\
+			$(SRC_DIR)/utils.c\
 	 		$(SRC_DIR)/maps.c\
 			$(SRC_DIR)/tracing.c\
+			$(SRC_DIR)/tracing_rev.c\
 			$(SRC_DIR)/matrices.c\
 			$(SRC_DIR)/rotations.c\
 			$(SRC_DIR)/shifts.c\
 			$(SRC_DIR)/keys.c\
+			$(SRC_DIR)/keys_rotate.c\
+			$(SRC_DIR)/keys_translate.c\
 			$(SRC_DIR)/lines.c\
 			$(SRC_DIR)/fitting.c\
 			$(SRC_DIR)/renders.c\
