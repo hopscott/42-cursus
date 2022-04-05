@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/05 13:40:04 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/05 14:11:42 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	map_dimensions(int fd, t_map *map)
 		}
 		free(line);
 		line = get_next_line(fd);
-		printf(">%s<", line);
 	}
+	free(line);
 	map->rows = rows;
 	map->points = map->cols * map->rows;
 	return (0);
