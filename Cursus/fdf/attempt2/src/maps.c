@@ -6,12 +6,12 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:54:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/05 14:11:42 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/05 14:14:03 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
+
 int	map_dimensions(int fd, t_map *map)
 {
 	int		rows;

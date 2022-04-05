@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 16:12:46 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/01 17:38:34 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/05 14:40:03 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,21 @@ void	free_map(t_map *map)
 {
 	if (map->arr)
 		free_arr_points(map->arr, map->points);
-	if (map->rx)
-		free_matrix(map->rx, map->rx->r);
-	if (map->ry)
-		free_matrix(map->ry, map->ry->r);
-	if (map->rz)
-		free_matrix(map->rz, map->rz->r);
-	if (map->r)
-		free_matrix(map->r, map->r->r);
-	if (map->c0)
-		free(map->c0);
-	if (map->c1)
-		free(map->c1);
+	if (!map->err_row)
+	{
+		if (map->rx)
+			free_matrix(map->rx, map->rx->r);
+		if (map->ry)
+			free_matrix(map->ry, map->ry->r);
+		if (map->rz)
+			free_matrix(map->rz, map->rz->r);
+		if (map->r)
+			free_matrix(map->r, map->r->r);
+		if (map->c0)
+			free(map->c0);
+		if (map->c1)
+			free(map->c1);
+	}
 	free(map);
 }
 
@@ -60,8 +63,7 @@ int	free_vars(t_vars *vars)
 	{
 		if (vars->win)
 			mlx_destroy_window(vars->mlx, vars->win);
-		else
-			free(vars->mlx);
+		free(vars->mlx);
 	}
 	free(vars);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 18:31:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/05 13:40:50 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/05 14:47:18 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 typedef unsigned char	t_uchar;
 # define BUFFER_SIZE 100
 
+int			ft_isspace(unsigned char c);
 int			ft_isnum(unsigned char c);
 size_t		ft_strlen(t_uchar *s);
 size_t		strlen_eol(unsigned char *str);

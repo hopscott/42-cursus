@@ -6,12 +6,12 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:25:01 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/05 14:11:27 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/05 14:38:10 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 size_t	bufflen_eol(unsigned char buff[])
 {
 	size_t	i;
@@ -73,18 +73,15 @@ t_uchar	*ft_realign_buff(t_uchar *s, size_t i, t_uchar buff[])
 	size_t	len;
 
 	len = BUFFER_SIZE - i;
-	if (len > 0)
+	tmp = ft_strndup(&buff[i], len);
+	ft_bzero(buff, BUFFER_SIZE);
+	i = 0;
+	while (tmp && i < len)
 	{
-		tmp = ft_strndup(&buff[i], len);
-		ft_bzero(buff, BUFFER_SIZE);
-		i = 0;
-		while (tmp && i < len)
-		{
-			buff[i] = tmp[i];
-			i++;
-		}
-		free(tmp);
+		buff[i] = tmp[i];
+		i++;
 	}
+	free(tmp);
 	return (s);
 }
 
@@ -101,11 +98,11 @@ t_uchar	*get_next_line(int fd)
 	{
 		ft_bzero(buffer, BUFFER_SIZE);
 		rd = read(fd, buffer, BUFFER_SIZE);
-		if (rd < 0)
+		if (rd <= 0)
 			return (NULL);
 	}
 	str = ft_strndup(buffer, bufflen_eol(buffer));
-	while (!check_eol(str) || rd == 0)
+	while (!check_eol(str))
 	{
 		ft_bzero(buffer, BUFFER_SIZE);
 		rd = read(fd, buffer, BUFFER_SIZE);
