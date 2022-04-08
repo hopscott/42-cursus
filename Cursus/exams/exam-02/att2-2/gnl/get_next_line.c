@@ -115,6 +115,7 @@ char	*realign_buffer(char *str, char buff[], int n)
 		buff[i] = tmp[i];
 		i++;
 	}
+	free(tmp);
 	return (str);
 }
 

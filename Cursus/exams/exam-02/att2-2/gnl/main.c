@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
 
 char    *get_next_line(int fd);
@@ -15,6 +16,7 @@ int	main(int ac, char **av)
 		while (line)
 		{
 			printf(">%s<", line);
+			free(line);
 			line = get_next_line(fd);
 		}
 	}
