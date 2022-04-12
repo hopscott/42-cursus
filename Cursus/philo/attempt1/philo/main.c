@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 19:05:58 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/08 15:21:02 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/12 20:29:39 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ typedef struct s_table
 	int					time_to_die;
 	int					time_to_eat;
 	int					time_to_sleep;
-	struct timezone		tz;
 	struct timeval		start_time;
 	struct timeval		current_time;
 	pthread_mutex_t		*forks;
@@ -32,7 +31,7 @@ unsigned long long	timestamp(t_table *table)
 	struct timeval	end;
 	struct timeval	diff;
 
-	gettimeofday(&table->current_time, &table->tz);
+	gettimeofday(&table->current_time, NULL);
 	start = table->start_time;
 	end = table->current_time;
 	diff.tv_sec = end.tv_sec - start.tv_sec ;
@@ -56,6 +55,7 @@ int	free_table(t_table *table)
 		free(table->forks);
 	if (table->philos)
 		free(table->philos);
+	free(table);
 	return (1);
 }
 
@@ -101,24 +101,24 @@ void	start_dinner(t_table *table)
 
 int	main(int ac, char **av)
 {
-	t_table	table;
+	t_table	*table;
 
-	table.number_of_philosophers = -1;
-	table.time_to_die = -1;
-	table.time_to_eat = -1;
-	table.time_to_sleep = -1;
 	if (ac == 5)
 	{
-		gettimeofday(&table.start_time, &table.tz);
-		table.number_of_philosophers = ft_atoi((unsigned char *)av[1]);
-		table.time_to_die = ft_atoi((unsigned char *)av[2]);
-		table.time_to_eat = ft_atoi((unsigned char *)av[3]);
-		table.time_to_sleep = ft_atoi((unsigned char *)av[4]);
-		if ((table.number_of_philosophers > 0) && (table.time_to_die > 0) \
-					&& (table.time_to_eat > 0) && (table.time_to_sleep > 0))
-			start_dinner(&table);
+		table = malloc(sizeof(t_table));
+		if (!table)
+			return (1);
+		gettimeofday(&table->start_time, NULL);
+		table->number_of_philosophers = ft_atoi(av[1]);
+		table->time_to_die = ft_atoi(av[2]);
+		table->time_to_eat = ft_atoi(av[3]);
+		table->time_to_sleep = ft_atoi(av[4]);
+		if ((table->number_of_philosophers > 0) && (table->time_to_die > 0) \
+					&& (table->time_to_eat > 0) && (table->time_to_sleep > 0))
+			start_dinner(table);
 		else
 			printf("ERROR - Make sure all inputs are greater than 0");
+		free_table(table);
 	}
-	return (free_table(&table));
+	return (0);
 }
