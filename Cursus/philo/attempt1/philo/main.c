@@ -3,38 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 19:05:58 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/12 22:24:40 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/14 02:07:38 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-enum {
-	THINKING = 0,
-	HUNGRY = 1,
-	EATING = 2,
-	SLEEPING = 3
-};
-
-typedef struct s_table {
-	int					number_of_philosophers;
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	struct timeval		start_time;
-	struct timeval		current_time;
-	int					id;
-	int					lphilo;
-	int					rphilo;
-	int					lfork;
-	int					rfork;
-	int					*states;
-	pthread_t			*tid;
-	pthread_mutex_t		*forks;
-}	t_table;
 
 unsigned long long	timestamp(t_table *table)
 {
@@ -52,139 +28,144 @@ unsigned long long	timestamp(t_table *table)
 
 void	free_table(t_table *table)
 {
-	if (table->states)
-		free(table->states);
-	if (table->tid)
-		free(table->tid);
+	if (table->philos)
+		free(table->philos);
 	if (table->forks)
 		free(table->forks);
 	free(table);
 }
 
-void	identify_philo_env(t_table *table)
+void	philo_think(t_table *table, int id)
 {
-	int	id;
-	int	n;
+	t_philo	*philo;
 
-	id = table->id;
-	n = table->number_of_philosophers;
-	table->lphilo = (id + n - 1) % n;
-	table->rphilo = (id + 1) % n;
-	table->lfork = id;
-	table->rfork = (id + 1) % n;
+	philo = &table->philos[id];
+	philo->state = THINKING;
+	printf("%llu\tPhilo %d is thinking\n", timestamp(table), philo->id);
 }
 
-void	philo_think(t_table *table)
+int	fork_test(t_philo *philo)
 {
-	table->states[table->id] = THINKING;
-	printf("%llu\tPhilo %d is thinking\n", timestamp(table), table->id);
+	t_philo	*philo_left;
+	t_philo	*philo_right;
+
+	philo_left = philo->philo_left;
+	philo_right = philo->philo_right;
+	if (philo->state == HUNGRY) 
+		if ((philo_left->state != EATING) && (philo_right->state != EATING))
+			return (1);
+	return (0);
 }
 
-void	philo_sleep(t_table *table)
+void	philo_eat(t_table *table, int id)
 {
-	table->states[table->id] = SLEEPING;
-	printf("%llu\tPhilo %d is sleeping\n", timestamp(table), table->id);
+	t_philo	*philo;
+
+	philo = &table->philos[id];
+	pthread_mutex_lock(philo->fork_left);
+	philo->state = HUNGRY;
+	while (!fork_test(philo))
+		usleep(5);
+	pthread_mutex_lock(philo->fork_right);
+	philo->state = EATING;
+	printf("%llu\tPhilo %d is eating\n", timestamp(table), philo->id);
+	usleep(table->time_to_eat);
+	pthread_mutex_unlock(philo->fork_left);
+	pthread_mutex_unlock(philo->fork_right);
+}
+
+void	philo_sleep(t_table *table, int id)
+{
+	t_philo	*philo;
+
+	philo = &table->philos[id];
+	philo->state = SLEEPING;
+	printf("%llu\tPhilo %d is sleeping\n", timestamp(table), philo->id);
 	usleep(table->time_to_sleep);
-}
-
-void	fork_test(int philo, int left, int right)
-{
-	int	pleft;
-	int	pright;
-
-	philo = table->id;
-	pleft = table->lphilo;
-	pright = table->rphilo;
-	if ((table->states[philo] == HUNGRY) && \
-		(table->states[pleft] != EATING) && (table->states[pright] != EATING))
-		return (1);
-	else
-		return (0);
-}
-
-void	philo_eat(t_table *table)
-{
-	identify_philo_env(table);
-	pthread_mutex_lock(&table->forks[table->lfork]);
-	table->states[table->id] = HUNGRY;
-	fork_test(table);
-	printf("%llu\tPhilo %d is eating\n", timestamp(table), table->id);
 }
 
 // https://www.thegeekstuff.com/2012/05/c-mutex-examples/
 void	*ft_thread(void *ptr)
 {
 	t_table	*table;
+	int		seat;
 
 	table = (t_table *)ptr;
+	seat = table->seat;
 	while (1)
 	{
-		philo_think(table);
-		philo_take_forks(table);
-		philo_eat(table);
-		philo_drop_forks(table);
-		philo_sleep(table);
+		philo_think(table, seat);
+		philo_eat(table, seat);
+		philo_sleep(table, seat);
 	}
 	return (ptr);
 }
 
+void	init_philo(t_table *table, int id)
+{
+	t_philo *philo;
+	int		n;
+
+	philo = &table->philos[id];
+	philo->id = id;
+	philo->state = THINKING;
+	philo->time_since_last_eaten = 0;
+	n = table->number_of_philosophers;
+	philo->philo_left = &table->philos[(id + n - 1) % n];
+	philo->philo_right = &table->philos[(id + 1) % n];
+	philo->fork_left = &table->forks[id];
+	philo->fork_right = &table->forks[(id + 1) % n];
+	pthread_create(&philo->tid, NULL, ft_thread, (void *)table);
+}
+
 // https://en.wikipedia.org/wiki/Dining_philosophers_problem
 // https://www.cc.gatech.edu/classes/AY2010/cs4210_fall/lectures/04-PthreadsIntro.pdf
+// printf("%llu\tPhilo %d has joined the table\n", timestamp(table), table->id);
 int	set_the_table(t_table *table)
 {
-	int	id;
+	int	n;
 
-	id = 0;
-	while (id < table->number_of_philosophers)
+	n = table->number_of_philosophers;
+	table->forks = malloc(sizeof(pthread_mutex_t) * n);
+	if (!table->forks)
+		return (1);
+	n = 0;
+	while (n < table->number_of_philosophers)
 	{
-		if (pthread_mutex_init(&table->forks[id], NULL))
-		{
-			free_table(table);
-			return (1);
-		}
-		id++;
+		pthread_mutex_init(&table->forks[n], NULL);
+		n++;
 	}
-	id = 0;
-	while (id < table->number_of_philosophers)
+	n = table->number_of_philosophers;
+	table->philos = malloc(sizeof(t_philo) * n);
+	if (!table->philos)
+		return (1);
+	n = 0;
+	while (n < table->number_of_philosophers)
 	{
-		table->id = id;
-		printf("%llu\tPhilo %d has joined the table\n", timestamp(table), table->id);
-		if (pthread_create(&table->tid[id], NULL, ft_thread, (void *)table))
-		{
-			free_table(table);
-			return (1);
-		}
-		id++;
+		init_philo(table, n);
+		n++;
 	}
 	return (0);
 }
 
 void	start_dinner(t_table *table)
 {
-	int	id;
+	t_philo	*philo;
+	int		seat;
 
-	table->states = malloc(sizeof(int) * table->number_of_philosophers);
-	if (!table->states)
-		return (free_table(table));
-	table->tid = malloc(sizeof(pthread_t) * table->number_of_philosophers);
-	if (!table->tid)
-		return (free_table(table));
-	table->forks = malloc(sizeof(pthread_mutex_t) * \
-											table->number_of_philosophers);
-	if (!table->forks)
-		return (free_table(table));
-	if (set_the_table(table))
+	if (!set_the_table(table))
 	{
+		seat = 0;
+		while (seat < table->number_of_philosophers)
+		{
+			table->seat = seat;
+			philo = &table->philos[seat];
+			pthread_join(philo->tid, NULL);
+			seat++;
+		}
+	}
+	else
 		printf("ERROR - Setting up table\n");
-		return (free_table(table));
-	}
-	id = 0;
-	while (id < table->number_of_philosophers)
-	{
-		table->id = id;
-		pthread_join(table->tid[id], NULL);
-		id++;
-	}
 }
 
 int	main(int ac, char **av)
