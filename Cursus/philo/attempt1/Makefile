@@ -6,7 +6,7 @@
 #    By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/04/14 02:10:56 by scottwillis      ###   ########.fr        #
+#    Updated: 2022/04/20 16:45:07 by scottwillis      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,10 @@ CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -g -fsanitize=address
 HEADERS := 	$(INC_DIR)/philo.h\
 
 SRCS	:= 	$(SRC_DIR)/main.c\
+			$(SRC_DIR)/init.c\
+			$(SRC_DIR)/actions.c\
+			$(SRC_DIR)/threads.c\
+			$(SRC_DIR)/timing.c\
 			$(SRC_DIR)/ft_atoi.c\
 
 # Make all ========================================
