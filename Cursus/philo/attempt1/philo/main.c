@@ -6,7 +6,7 @@
 /*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 19:05:58 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/20 17:48:26 by scottwillis      ###   ########.fr       */
+/*   Updated: 2022/04/22 16:43:18 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,44 +17,81 @@
 
 #include "philo.h"
 
-void	free_table(t_table *table)
+int	free_table(t_table *table)
 {
-	int	i;
+	t_philo	philo;
+	int		i;
 
 	if (table->philos)
 	{
 		i = 0;
 		while (i < table->number_of_philosophers)
-			free(&table->philos[i++]);
+		{
+			philo = table->philos[i++];
+			pthread_mutex_destroy(&philo.tlock);
+		}
 		free(table->philos);
 	}
 	if (table->forks)
 	{
-		// i = 0;
-		// while (i < table->number_of_philosophers)
-		// 	free(&table->forks[i++]);
+		i = 0;
+		while (i < table->number_of_philosophers)
+			pthread_mutex_destroy(&table->forks[i++]);
 		free(table->forks);
 	}
+	if (table->reaper)
+		free(table->reaper);
 	free(table);
+	return (1);
 }
 
-void	start_dinner(t_table *table)
+int	check_args(int ac, char **av)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	if ((ac < 5) || (ac > 6))
+		return (1);
+	i = 1;
+	while (i < ac)
+	{
+		str = av[i++];
+		j = 0;
+		while (str && str[j])
+		{
+			if ((str[j] < '0' || str[j] > '9') && \
+				(str[j] != '-' && str[j] != '+'))
+				return (2);
+			j++;
+		}
+		if (ft_atoi(str) < 1)
+			return (3);
+	}
+	return (0);
+}
+
+int	start_dinner(t_table *table)
 {
 	t_reaper	*reaper;
 	t_philo		*philo;
-	int		seat;
-	int		n;
+	int			seat;
+	int			n;
 
+	gettimeofday(&table->start_time, NULL);
 	reaper = table->reaper;
 	n = table->number_of_philosophers;
-	pthread_join(reaper->tid, NULL);
 	seat = 0;
 	while (seat < n)
 	{
 		philo = &table->philos[seat];
-		pthread_join(philo->tid, NULL);
+		if (pthread_join(philo->tid, NULL) != 0)
+			return (1);
 		seat++;
 	}
+	if (pthread_join(reaper->tid, NULL) != 0)
+		return (1);
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -62,25 +99,25 @@ int	main(int ac, char **av)
 	t_table	*table;
 	int		err;
 
-	if (ac != 5)
-		return (1);
-	table = init_table(av);
-	if (!table)
-		return (1);
-	if ((table->number_of_philosophers < 1) || (table->time_to_die < 1) \
-				|| (table->time_to_eat < 1) || (table->time_to_sleep < 1))
-	{
-		printf("ERROR - Make sure all inputs are greater than 0");
-		free_table(table);
-		return (1);
-	}
-	err = table_setup(table);
+	err = check_args(ac, av);
 	if (err)
 	{
-		free_table(table);
+		if (err == 1)
+		{
+			printf("Define \t-> number_of_philosophers\n \t-> time_to_die\n");
+			printf("\t-> time_to_eat\n \t-> time_to_sleep\n");
+			printf("\t-> (+ number_of_times_each_philosopher_must_eat)\n");
+		}
+		else if (err == 2)
+			printf("ERROR - Inputs contain non-digit characters\n");
+		else if (err == 3)
+			printf("ERROR - Make sure all inputs are greater than 0\n");
 		return (1);
 	}
-	start_dinner(table);
+	table = init_table(ac, av);
+	if (!table)
+		return (1);
+	err = start_dinner(table);
 	free_table(table);
-	return (0);
+	return (err);
 }

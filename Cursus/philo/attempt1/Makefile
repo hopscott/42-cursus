@@ -6,7 +6,7 @@
 #    By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/04/20 16:45:07 by scottwillis      ###   ########.fr        #
+#    Updated: 2022/04/21 15:09:22 by scottwillis      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ EXE :=	$(BIN_DIR)/philo
 
 CC := cc
 LDFLAGS ?= 
-CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -g -fsanitize=address
+CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) #-g -fsanitize=address
 
 # Src files ======================================
 
