@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
+#    By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/04/03 23:21:56 by swillis          ###   ########.fr        #
+#    Updated: 2022/04/21 15:09:22 by scottwillis      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,13 +29,17 @@ EXE :=	$(BIN_DIR)/philo
 
 CC := cc
 LDFLAGS ?= 
-CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -g -fsanitize=address
+CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) #-g -fsanitize=address
 
 # Src files ======================================
 
 HEADERS := 	$(INC_DIR)/philo.h\
 
 SRCS	:= 	$(SRC_DIR)/main.c\
+			$(SRC_DIR)/init.c\
+			$(SRC_DIR)/actions.c\
+			$(SRC_DIR)/threads.c\
+			$(SRC_DIR)/timing.c\
 			$(SRC_DIR)/ft_atoi.c\
 
 # Make all ========================================

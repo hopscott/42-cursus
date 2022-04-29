@@ -3,122 +3,121 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 19:05:58 by swillis           #+#    #+#             */
-/*   Updated: 2022/04/12 20:29:39 by swillis          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:43:18 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//******************** LINKS ********************//
+// https://en.wikipedia.org/wiki/Dining_philosophers_problem
+// https://www.cc.gatech.edu/classes/AY2010/cs4210_fall/lectures/04-PthreadsIntro.pdf
+//***********************************************//
+
 #include "philo.h"
-
-typedef struct s_table
-{
-	int					number_of_philosophers;
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	struct timeval		start_time;
-	struct timeval		current_time;
-	pthread_mutex_t		*forks;
-	pthread_t			*philos;
-	int					id;
-}	t_table;
-
-unsigned long long	timestamp(t_table *table)
-{
-	struct timeval	start;
-	struct timeval	end;
-	struct timeval	diff;
-
-	gettimeofday(&table->current_time, NULL);
-	start = table->start_time;
-	end = table->current_time;
-	diff.tv_sec = end.tv_sec - start.tv_sec ;
-	diff.tv_usec = end.tv_usec - start.tv_usec;
-	return (1000000 * diff.tv_sec + diff.tv_usec);
-}
-
-// https://www.thegeekstuff.com/2012/05/c-mutex-examples/
-void	*philo_thread(void *ptr)
-{
-	t_table	*table;
-
-	table = (t_table *)ptr;
-	printf("%llu\tPhilo %d has joined the table\n", timestamp(table), table->id);
-	return (ptr);
-}
 
 int	free_table(t_table *table)
 {
-	if (table->forks)
-		free(table->forks);
+	t_philo	philo;
+	int		i;
+
 	if (table->philos)
+	{
+		i = 0;
+		while (i < table->number_of_philosophers)
+		{
+			philo = table->philos[i++];
+			pthread_mutex_destroy(&philo.tlock);
+		}
 		free(table->philos);
+	}
+	if (table->forks)
+	{
+		i = 0;
+		while (i < table->number_of_philosophers)
+			pthread_mutex_destroy(&table->forks[i++]);
+		free(table->forks);
+	}
+	if (table->reaper)
+		free(table->reaper);
 	free(table);
 	return (1);
 }
 
-int	set_the_table(t_table *table)
+int	check_args(int ac, char **av)
 {
-	int	id;
+	char	*str;
+	int		i;
+	int		j;
 
-	table->forks = malloc(sizeof(table->forks) * table->number_of_philosophers);
-	table->philos = malloc(sizeof(pthread_t) * table->number_of_philosophers);
-	if (!table->forks || !table->philos)
-		return (free_table(table));
-	id = 0;
-	while (id < table->number_of_philosophers)
+	if ((ac < 5) || (ac > 6))
+		return (1);
+	i = 1;
+	while (i < ac)
 	{
-		table->id = id;
-		if (pthread_mutex_init(&table->forks[id], NULL))
-			return (free_table(table));
-		if (pthread_create(&table->philos[id], NULL, \
-												philo_thread, (void *)table))
-			return (free_table(table));
-		id++;
+		str = av[i++];
+		j = 0;
+		while (str && str[j])
+		{
+			if ((str[j] < '0' || str[j] > '9') && \
+				(str[j] != '-' && str[j] != '+'))
+				return (2);
+			j++;
+		}
+		if (ft_atoi(str) < 1)
+			return (3);
 	}
 	return (0);
 }
 
-void	start_dinner(t_table *table)
+int	start_dinner(t_table *table)
 {
-	int	id;
+	t_reaper	*reaper;
+	t_philo		*philo;
+	int			seat;
+	int			n;
 
-	if (set_the_table(table))
+	gettimeofday(&table->start_time, NULL);
+	reaper = table->reaper;
+	n = table->number_of_philosophers;
+	seat = 0;
+	while (seat < n)
 	{
-		printf("ERROR - Setting up table\n");
-		return ;
+		philo = &table->philos[seat];
+		if (pthread_join(philo->tid, NULL) != 0)
+			return (1);
+		seat++;
 	}
-	id = 0;
-	while (id < table->number_of_philosophers)
-	{
-		table->id = id;
-		pthread_join(table->philos[id], NULL);
-		id++;
-	}
+	if (pthread_join(reaper->tid, NULL) != 0)
+		return (1);
+	return (0);
 }
 
 int	main(int ac, char **av)
 {
 	t_table	*table;
+	int		err;
 
-	if (ac == 5)
+	err = check_args(ac, av);
+	if (err)
 	{
-		table = malloc(sizeof(t_table));
-		if (!table)
-			return (1);
-		gettimeofday(&table->start_time, NULL);
-		table->number_of_philosophers = ft_atoi(av[1]);
-		table->time_to_die = ft_atoi(av[2]);
-		table->time_to_eat = ft_atoi(av[3]);
-		table->time_to_sleep = ft_atoi(av[4]);
-		if ((table->number_of_philosophers > 0) && (table->time_to_die > 0) \
-					&& (table->time_to_eat > 0) && (table->time_to_sleep > 0))
-			start_dinner(table);
-		else
-			printf("ERROR - Make sure all inputs are greater than 0");
-		free_table(table);
+		if (err == 1)
+		{
+			printf("Define \t-> number_of_philosophers\n \t-> time_to_die\n");
+			printf("\t-> time_to_eat\n \t-> time_to_sleep\n");
+			printf("\t-> (+ number_of_times_each_philosopher_must_eat)\n");
+		}
+		else if (err == 2)
+			printf("ERROR - Inputs contain non-digit characters\n");
+		else if (err == 3)
+			printf("ERROR - Make sure all inputs are greater than 0\n");
+		return (1);
 	}
-	return (0);
+	table = init_table(ac, av);
+	if (!table)
+		return (1);
+	err = start_dinner(table);
+	free_table(table);
+	return (err);
 }
