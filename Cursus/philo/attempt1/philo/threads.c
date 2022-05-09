@@ -20,12 +20,13 @@ void	*philosophise(void *ptr)
 	philo = (t_philo *)ptr;
 	while ((philo->state != FULL) && (philo->state != DEAD))
 	{
-		if ((philo->state != FULL) && (philo->state != DEAD))
-			philo_eat(philo);
-		if ((philo->state != FULL) && (philo->state != DEAD))
-			philo_sleep(philo);
-		if ((philo->state != FULL) && (philo->state != DEAD))
-			philo_think(philo);
+		philo_eat(philo);
+		if ((philo->state == FULL) || (philo->state == DEAD))
+			break ;
+		philo_sleep(philo);
+		if ((philo->state == FULL) || (philo->state == DEAD))
+			break ;
+		philo_think(philo);
 	}
 	return (ptr);
 }
@@ -42,9 +43,14 @@ int	check_soul(t_philo *philo)
 		if ((timestamp(table) - philo->timestamp_last_meal) > t)
 		{
 			pthread_mutex_lock(&philo->tlock);
-			printf("%llu\tPhilo %d is dead\n", timestamp(philo->table), philo->seat);
 			philo->state = DEAD;
 			pthread_mutex_unlock(&philo->tlock);
+			printf("%llu\tPhilo %d is dead\n", timestamp(table), philo->seat);
+			pthread_mutex_lock(&table->tlock);
+			while (table->queue->id != philo->seat)
+				queue_rotate(&table->queue);
+			ft_lstpop(&table->queue);
+			pthread_mutex_unlock(&table->tlock);
 			return (1);
 		}
 	}

@@ -17,19 +17,17 @@
 
 #include "philo.h"
 
-int	free_table(t_table *table)
+t_table	*free_table(t_table *table)
 {
-	t_philo	philo;
 	int		i;
 
+	if (table->queue)
+		ft_lstclear(&table->queue, free);
 	if (table->philos)
 	{
 		i = 0;
 		while (i < table->number_of_philosophers)
-		{
-			philo = table->philos[i++];
-			pthread_mutex_destroy(&philo.tlock);
-		}
+			pthread_mutex_destroy(&table->philos[i++].tlock);
 		free(table->philos);
 	}
 	if (table->forks)
@@ -41,8 +39,9 @@ int	free_table(t_table *table)
 	}
 	if (table->reaper)
 		free(table->reaper);
+	pthread_mutex_destroy(&table->tlock);
 	free(table);
-	return (1);
+	return (NULL);
 }
 
 int	check_args(int ac, char **av)
@@ -78,7 +77,6 @@ int	start_dinner(t_table *table)
 	int			seat;
 	int			n;
 
-	gettimeofday(&table->start_time, NULL);
 	reaper = table->reaper;
 	n = table->number_of_philosophers;
 	seat = 0;
@@ -86,11 +84,11 @@ int	start_dinner(t_table *table)
 	{
 		philo = &table->philos[seat];
 		if (pthread_join(philo->tid, NULL) != 0)
-			return (1);
+			return (5);
 		seat++;
 	}
 	if (pthread_join(reaper->tid, NULL) != 0)
-		return (1);
+		return (6);
 	return (0);
 }
 
@@ -112,11 +110,11 @@ int	main(int ac, char **av)
 			printf("ERROR - Inputs contain non-digit characters\n");
 		else if (err == 3)
 			printf("ERROR - Make sure all inputs are greater than 0\n");
-		return (1);
+		return (err);
 	}
 	table = init_table(ac, av);
 	if (!table)
-		return (1);
+		return (4);
 	err = start_dinner(table);
 	free_table(table);
 	return (err);

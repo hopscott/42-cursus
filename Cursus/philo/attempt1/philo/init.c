@@ -71,10 +71,27 @@ int	table_setup(t_table *table)
 	return (0);
 }
 
+int	queue_setup(t_table *table)
+{
+	int		i;
+
+	i = 0;
+	table->queue = ft_lstnew(i);
+	if (!table->queue)
+		return (1);
+	while (i++ < table->number_of_philosophers)
+		if (i % 2 == 0)
+			ft_lstadd_back(&table->queue, ft_lstnew(i));
+	i = 0;
+	while (i++ < table->number_of_philosophers)
+		if (i % 2 != 0)
+			ft_lstadd_back(&table->queue, ft_lstnew(i));
+	return (0);
+}
+
 t_table	*init_table(int ac, char **av)
 {
 	t_table	*table;
-	int		err;
 
 	table = malloc(sizeof(t_table));
 	if (!table)
@@ -86,12 +103,12 @@ t_table	*init_table(int ac, char **av)
 	table->number_of_times_each_philosopher_must_eat = -1;
 	if (ac == 6)
 		table->number_of_times_each_philosopher_must_eat = ft_atoi(av[5]);
-	err = table_setup(table);
-	if (err)
-	{
-		free_table(table);
-		return (NULL);
-	}
+	if (queue_setup(table))
+		return (free_table(table));
+	if (pthread_mutex_init(&table->tlock, NULL) != 0)
+		return (free_table(table));
+	if (table_setup(table))
+		return (free_table(table));
 	gettimeofday(&table->start_time, NULL);
 	return (table);
 }

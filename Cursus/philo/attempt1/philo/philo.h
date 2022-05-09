@@ -29,6 +29,12 @@ enum {
 	DEAD = -1
 };
 
+typedef struct s_list
+{
+	int				id;
+	struct s_list	*next;
+}	t_list;
+
 typedef struct s_reaper {
 	pthread_t			tid;
 	int					souls;
@@ -50,6 +56,7 @@ typedef struct s_philo {
 }	t_philo;
 
 typedef struct s_table {
+	pthread_mutex_t		tlock;
 	int					number_of_philosophers;
 	int					time_to_die;
 	int					time_to_eat;
@@ -59,6 +66,7 @@ typedef struct s_table {
 	t_philo				*philos;
 	pthread_mutex_t		*forks;
 	t_reaper			*reaper;
+	t_list				*queue;
 }	t_table;
 
 //******************** LIBFT ********************//
@@ -80,6 +88,15 @@ void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_dies(t_philo *philo);
 
-int	free_table(t_table *table);
+//******************** LIST ********************//
+t_list		*ft_lstnew(int content);
+t_list		*ft_lstlast(t_list *lst);
+void		ft_lstadd_back(t_list **alst, t_list *new);
+void		ft_lstclear(t_list **lst, void (*del)(void *));
+void		ft_lstpop(t_list **lst);
+void		queue_rotate(t_list **lst);
+
+//******************** MAIN ********************//
+t_table	*free_table(t_table *table);
 
 #endif

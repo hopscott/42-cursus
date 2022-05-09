@@ -28,7 +28,7 @@ EXE :=	$(BIN_DIR)/philo
 # Compilation ====================================
 
 CC := cc
-LDFLAGS ?= 
+LDFLAGS ?= -pthread
 CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) #-g -fsanitize=address
 
 # Src files ======================================
@@ -41,6 +41,10 @@ SRCS	:= 	$(SRC_DIR)/main.c\
 			$(SRC_DIR)/threads.c\
 			$(SRC_DIR)/timing.c\
 			$(SRC_DIR)/ft_atoi.c\
+			$(SRC_DIR)/ft_lstadd_back.c\
+			$(SRC_DIR)/ft_lstclear.c\
+			$(SRC_DIR)/ft_lstlast.c\
+			$(SRC_DIR)/ft_lstnew.c\
 
 # Make all ========================================
 
