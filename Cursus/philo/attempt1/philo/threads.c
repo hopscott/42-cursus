@@ -20,12 +20,12 @@ void	*philosophise(void *ptr)
 	philo = (t_philo *)ptr;
 	while ((philo->state != FULL) && (philo->state != DEAD))
 	{
-		philo_eat(philo);
-		if ((philo->state == FULL) || (philo->state == DEAD))
-			break ;
-		philo_sleep(philo);
-		if ((philo->state == FULL) || (philo->state == DEAD))
-			break ;
+		// philo_eat(philo);
+		// if ((philo->state == FULL) || (philo->state == DEAD))
+		// 	break ;
+		// philo_sleep(philo);
+		// if ((philo->state == FULL) || (philo->state == DEAD))
+		// 	break ;
 		philo_think(philo);
 	}
 	return (ptr);

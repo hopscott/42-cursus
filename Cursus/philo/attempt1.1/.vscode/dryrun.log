@@ -1,0 +1,7 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/sgoinfre/goinfre/Perso/swillis/42-cursus/Cursus/philo/attempt1.1'
+ 
+cc -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread   -c -o philo/main.o philo/main.c
+cc -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread philo/main.o -pthread -o philo/philo
+make: Leaving directory '/sgoinfre/goinfre/Perso/swillis/42-cursus/Cursus/philo/attempt1.1'
+ 

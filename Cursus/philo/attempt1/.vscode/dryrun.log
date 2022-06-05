@@ -1,0 +1,15 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/sgoinfre/goinfre/Perso/swillis/42-cursus/Cursus/philo/attempt1'
+cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread -o philo/main.o philo/main.c
+cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread -o philo/init.o philo/init.c
+cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread -o philo/actions.o philo/actions.c
+cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread -o philo/threads.o philo/threads.c
+cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread -o philo/timing.o philo/timing.c
+cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread -o philo/ft_atoi.o philo/ft_atoi.c
+cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread -o philo/ft_lstadd_back.o philo/ft_lstadd_back.c
+cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread -o philo/ft_lstclear.o philo/ft_lstclear.c
+cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread -o philo/ft_lstlast.o philo/ft_lstlast.c
+cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread -o philo/ft_lstnew.o philo/ft_lstnew.c
+cc -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread philo/main.o philo/init.o philo/actions.o philo/threads.o philo/timing.o philo/ft_atoi.o philo/ft_lstadd_back.o philo/ft_lstclear.o philo/ft_lstlast.o philo/ft_lstnew.o -pthread -o philo/philo
+make: Leaving directory '/sgoinfre/goinfre/Perso/swillis/42-cursus/Cursus/philo/attempt1'
+ 
