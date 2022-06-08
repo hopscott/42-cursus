@@ -28,14 +28,19 @@ EXE :=	$(BIN_DIR)/philo
 # Compilation ====================================
 
 CC := cc
-LDFLAGS ?= -pthread
-CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -g -fsanitize=thread #-fsanitize=thread  address
+LDFLAGS ?= 
+CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) #-g -fsanitize=address
 
 # Src files ======================================
 
 HEADERS := 	$(INC_DIR)/philo.h\
 
 SRCS	:= 	$(SRC_DIR)/main.c\
+			$(SRC_DIR)/init.c\
+			$(SRC_DIR)/actions.c\
+			$(SRC_DIR)/threads.c\
+			$(SRC_DIR)/timing.c\
+			$(SRC_DIR)/ft_atoi.c\
 
 # Make all ========================================
 
