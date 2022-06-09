@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+         #
+#    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/04/21 15:09:22 by scottwillis      ###   ########.fr        #
+#    Updated: 2022/06/09 17:59:31 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,13 @@ CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -g -fsanitize=thread #-fsanitize=th
 
 HEADERS := 	$(INC_DIR)/philo.h\
 
-SRCS	:= 	$(SRC_DIR)/main.c\
+SRCS	:= 	$(SRC_DIR)/actions.c\
+			$(SRC_DIR)/checks.c\
+			$(SRC_DIR)/ft_atoi.c\
+			$(SRC_DIR)/init.c\
+			$(SRC_DIR)/main.c\
+			$(SRC_DIR)/routines.c\
+			$(SRC_DIR)/utils.c\
 
 # Make all ========================================
 

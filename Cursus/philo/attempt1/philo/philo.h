@@ -6,80 +6,74 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/06/09 18:03:15 by swillis          ###   ########.fr       */
+/*   Updated: 2022/06/09 18:02:26 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 # include <pthread.h>
-# include <sys/time.h>
+# include <stdio.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <sys/time.h>
 
 enum {
-	THINKING = 1,
-	HUNGRY = 2,
-	EATING = 3,
-	SLEEPING = 4,
-	FULL = 0,
-	DEAD = -1
+	DEAD = -1,
+	THINKING = 0,
+	HUNGRY = 1,
+	EATING = 2,
+	SLEEPING = 3
 };
 
-typedef struct s_reaper {
-	pthread_t			tid;
-	int					souls;
-	struct s_table		*table;
-}	t_reaper;
-
 typedef struct s_philo {
-	pthread_t			tid;
-	pthread_mutex_t		tlock;
-	int					seat;
+	pthread_mutex_t		lock;
+	pthread_mutex_t		*printable;
+	unsigned long long	start;
+	unsigned long long	time_of_last_meal;
+	int					index;
 	int					state;
-	int					times_eaten;
-	unsigned long long	timestamp_last_meal;
-	struct s_philo		*philo_left;
-	struct s_philo		*philo_right;
-	pthread_mutex_t		*fork_left;
-	pthread_mutex_t		*fork_right;
-	struct s_table		*table;
+	int					is_alive;
+	int					time_to_eat;
+	int					time_to_die;
+	int					time_to_sleep;
+	pthread_mutex_t		*fk_left;
+	pthread_mutex_t		*fk_right;
 }	t_philo;
 
-typedef struct s_table {
-	int					number_of_philosophers;
-	int					time_to_die;
+typedef struct s_reaper {
+	int					n;
+	int					souls;
+	struct s_vars		*vars;
+}	t_reaper;
+
+typedef struct s_vars {
+	pthread_t			*th;
+	pthread_mutex_t		*fk;
+	pthread_t			th_kill;
+	pthread_mutex_t		printable;
+	int					n;
+	unsigned long long	start;
 	int					time_to_eat;
+	int					time_to_die;
 	int					time_to_sleep;
-	int					number_of_times_each_philosopher_must_eat;
-	struct timeval		start_time;
-	t_philo				*philos;
-	pthread_mutex_t		*forks;
-	t_reaper			*reaper;
-}	t_table;
+	t_philo				*philo;
+	t_reaper			reaper;
+}	t_vars;
 
 //******************** LIBFT ********************//
-int	ft_atoi(char *str);
+
 
 //******************** INIT ********************//
-t_table	*init_table(int ac, char **av);
+
 
 //******************** THREADS ********************//
-void	*philosophise(void *ptr);
-void	*collect_souls(void *ptr);
 
 //******************** TIMING ********************//
-unsigned long long	timestamp(t_table *table);
+
 
 //******************** ACTIONS ********************//
-void	philo_think(t_philo *philo);
-void	philo_eat(t_philo *philo);
-void	philo_sleep(t_philo *philo);
-void	philo_dies(t_philo *philo);
 
-int	free_table(t_table *table);
 
 #endif

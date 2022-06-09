@@ -5,9 +5,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Thu Jun  9 17:59:53 2022
+# Make data base, printed on Thu Jun  9 16:08:52 2022
 
 # Variables
 
@@ -36,7 +35,7 @@ GDMSESSION = ubuntu
 # environment
 XMODIFIERS = @im=ibus
 # makefile
-CURDIR := /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo/attempt1
+CURDIR := /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo/attempt1-fail
 # makefile
 SHELL = /bin/sh
 # environment
@@ -46,7 +45,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/bin/code
 # makefile (from 'Makefile', line 32)
-CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -g -fsanitize=thread 
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) 
 # environment
 JOURNAL_STREAM = 9:986656
 # environment
@@ -67,14 +66,14 @@ XDG_DATA_DIRS = /usr/share/gnome:/usr/share/ubuntu:/mnt/nfs/homes/swillis/.local
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/40596/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from 'Makefile', line 57)
-OBJS := philo/actions.o philo/checks.o philo/ft_atoi.o philo/init.o philo/main.o philo/routines.o philo/utils.o
+# makefile (from 'Makefile', line 56)
+OBJS := philo/main.o philo/init.o philo/actions.o philo/threads.o philo/timing.o philo/ft_atoi.o
 # environment
 MANAGERPID = 260790
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/40596/vscode-ipc-c7331f99-0af8-4c52-9b2c-cfabe9a1c109.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/40596/vscode-ipc-6d86cf65-5f89-4a3b-ad79-19a01e6d01e2.sock
 # environment
-VSCODE_CWD = /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo/attempt1
+VSCODE_CWD = /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo/attempt1-fail
 # environment
 XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session6
 # environment
@@ -104,7 +103,7 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 INVOCATION_ID = c56e571967e04550a7acc0321699c002
 # makefile (from 'Makefile', line 31)
-LDFLAGS = -pthread
+LDFLAGS = 
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -124,7 +123,7 @@ DISPLAY = :0
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /mnt/nfs/homes/swillis/sgoinfre/cursus/Cursus/philo/attempt1
+PWD = /mnt/nfs/homes/swillis/sgoinfre/cursus/Cursus/philo/attempt1-fail
 # default
 .LOADED := 
 # environment
@@ -168,7 +167,7 @@ MAKECMDGOALS := all
 # environment
 QT_IM_MODULE = ibus
 # makefile (from 'Makefile', line 38)
-SRCS := philo/actions.c philo/checks.c philo/ft_atoi.c philo/init.c philo/main.c philo/routines.c philo/utils.c 
+SRCS := philo/main.c philo/init.c philo/actions.c philo/threads.c philo/timing.c philo/ft_atoi.c 
 # environment
 SHLVL = 1
 # makefile (from 'Makefile', line 30)
@@ -211,6 +210,8 @@ MFLAGS = -pqrR
 GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
+# environment
+NO_AT_BRIDGE = 1
 # environment
 QT_ACCESSIBILITY = 1
 # environment
@@ -256,7 +257,7 @@ DOCKER_HOST = unix:///run/user/40596/docker.sock
 # environment
 VSCODE_PID = 265071
 # variable set hash-table stats:
-# Load=122/1024=12%, Rehash=0, Collisions=29/172=17%
+# Load=123/1024=12%, Rehash=0, Collisions=29/172=17%
 
 # Pattern-specific Variable Values
 
@@ -264,27 +265,27 @@ VSCODE_PID = 265071
 
 # Directories
 
-# . (device 57, inode 19953840): 6 files, no impossibilities.
-# philo (device 57, inode 19953847): 10 files, no impossibilities so far.
+# . (device 57, inode 19953512): 5 files, no impossibilities.
+# philo (device 57, inode 19953514): 7 files, no impossibilities so far.
 
-# 16 files, no impossibilities in 2 directories.
+# 12 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
 %.o: %.c philo/philo.h
-#  recipe to execute (from 'Makefile', line 53):
+#  recipe to execute (from 'Makefile', line 52):
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 # 1 implicit rules, 0 (0.0%) terminal.
 
 # Files
 
+ 
 # Not a target:
-philo/checks.o:
+philo/timing.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 all: philo.a
 #  Phony target (prerequisite of .PHONY).
@@ -296,20 +297,27 @@ all: philo.a
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/6=0%
 
-philo: philo/actions.o philo/checks.o philo/ft_atoi.o philo/init.o philo/main.o philo/routines.o philo/utils.o
+philo: philo/main.o philo/init.o philo/actions.o philo/threads.o philo/timing.o philo/ft_atoi.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-09 17:59:52.900308627
+#  Last modified 2022-06-09 00:05:05.395022744
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/6=0%
-#  recipe to execute (from 'Makefile', line 64):
+#  recipe to execute (from 'Makefile', line 63):
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $(EXE)
 
 .PHONY: all clean fclean re
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+# Not a target:
+philo/main.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-09 00:05:05.387023092
+#  File has been updated.
+#  Successfully updated.
 
 philo.a: philo
 #  Implicit rule search has been done.
@@ -328,43 +336,28 @@ philo/init.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-09 17:59:31.257241806
+#  Last modified 2022-06-09 00:05:05.363024138
 #  File has been updated.
 #  Successfully updated.
 
-philo/actions.o: philo/actions.c philo/philo.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'philo/actions'
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := philo/actions.o
-# automatic
-# % := 
-# automatic
-# * := philo/actions
-# automatic
-# + := philo/actions.c philo/philo.h
-# automatic
-# | := 
-# automatic
-# < := philo/actions.c
-# automatic
-# ^ := philo/actions.c philo/philo.h
-# automatic
-# ? := philo/actions.c philo/philo.h
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/16=6%
-#  recipe to execute (from 'Makefile', line 53):
-	$(CC) -c $(CFLAGS) -o $@ $<
+# Not a target:
+philo/threads.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+philo/actions.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 fclean: clean
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 72):
+#  recipe to execute (from 'Makefile', line 71):
 	rm -rf $(EXE)
 
 # Not a target:
@@ -374,15 +367,9 @@ fclean: clean
 #  File has not been updated.
 
 # Not a target:
-philo/utils.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 philo/philo.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-09 17:59:52.900308627
+#  Last modified 2022-06-09 00:05:05.387023092
 #  File has been updated.
 #  Successfully updated.
 
@@ -397,27 +384,35 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 69):
+#  recipe to execute (from 'Makefile', line 68):
 	rm -rf $(OBJS)
 
-# Not a target:
-philo/actions.c:
+philo/main.o: philo/main.c philo/philo.h
 #  Implicit rule search has been done.
-#  Last modified 2022-06-09 16:03:46.001606359
+#  Implicit/static pattern stem: 'philo/main'
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-philo/routines.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-philo/main.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := philo/main.o
+# automatic
+# % := 
+# automatic
+# * := philo/main
+# automatic
+# + := philo/main.c philo/philo.h
+# automatic
+# | := 
+# automatic
+# < := philo/main.c
+# automatic
+# ^ := philo/main.c philo/philo.h
+# automatic
+# ? := philo/main.c philo/philo.h
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/16=6%
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 # Not a target:
 philo/ft_atoi.o:
@@ -426,19 +421,19 @@ philo/ft_atoi.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=19/1024=2%, Rehash=0, Collisions=4/53=8%
+# Load=18/1024=2%, Rehash=0, Collisions=2/51=4%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 36 / storage = 349 B / avg = 9 B
-# current buf: size = 8162 B / used = 349 B / count = 36 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 31 / storage = 290 B / avg = 9 B
+# current buf: size = 8162 B / used = 290 B / count = 31 / avg = 9 B
 
-# strcache performance: lookups = 64 / hit rate = 43%
+# strcache performance: lookups = 59 / hit rate = 47%
 # hash-table stats:
-# Load=36/8192=0%, Rehash=0, Collisions=2/64=3%
-# Finished Make data base on Thu Jun  9 17:59:53 2022
+# Load=31/8192=0%, Rehash=0, Collisions=2/59=3%
+# Finished Make data base on Thu Jun  9 16:08:52 2022
 
  
