@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:03:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/06/09 18:03:09 by swillis          ###   ########.fr       */
+/*   Updated: 2022/06/10 14:56:31 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,23 @@ int	is_alive(t_philo *philo)
 	pthread_mutex_lock(&philo->lock);
 	state = philo->state;
 	pthread_mutex_unlock(&philo->lock);
-	if (state != DEAD)
+	if ((state != FULL) && (state != DEAD))
 		return (1);
 	return (0);
+}
+
+void	state_change(t_philo *philo, int state, char *action)
+{
+	pthread_mutex_lock(&philo->lock);
+	philo->state = state;
+	if (state != FULL)
+	{
+		pthread_mutex_lock(philo->printable);
+		printf("%llu %d %s\n", timestamp_diff(philo->start), \
+				philo->index, action);
+		pthread_mutex_unlock(philo->printable);
+	}
+	pthread_mutex_unlock(&philo->lock);
 }
 
 unsigned long long	timestamp_ms(void)

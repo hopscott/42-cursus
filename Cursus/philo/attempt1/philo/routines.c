@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:02:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/06/09 18:03:30 by swillis          ###   ########.fr       */
+/*   Updated: 2022/06/10 15:05:26 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,29 @@ void	*routine(void *arg)
 	return (0);
 }
 
-void	*routine_kill(void *arg)
+void	*routine_reaper(void *arg)
 {
 	t_reaper	*reaper;
 	int			i;
 
 	reaper = (t_reaper *)arg;
-	while (reaper->souls < reaper->n)
+	while ((reaper->fulls < reaper->n) && (reaper->souls < 1))
 	{
 		i = -1;
-		while ((++i < reaper->n) && (reaper->souls < reaper->n))
-			reaper->souls += check_soul(&reaper->vars->philo[i]);
+		while ((++i < reaper->n) && \
+				((reaper->fulls < reaper->n) && (reaper->souls < 1)))
+			check_soul(&reaper->vars->philo[i], reaper);
+	}
+	i = -1;
+	while (++i < reaper->n)
+	{
+		state_change(&reaper->vars->philo[i], FULL, "");
 	}
 	return (0);
 }
+
+	/* ******************* PRINT END ******************************* */
+	/* pthread_mutex_lock(&reaper->vars->printable);                 */
+	/* printf("%llu END\n", timestamp_diff(reaper->vars->start));    */
+	/* pthread_mutex_unlock(&reaper->vars->printable);               */
+	/* ************************************************************* */

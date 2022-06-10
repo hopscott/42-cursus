@@ -1,14 +1,7 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory '/sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo/attempt1'
-cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread  -o philo/actions.o philo/actions.c
  
-cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread  -o philo/checks.o philo/checks.c
-cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread  -o philo/ft_atoi.o philo/ft_atoi.c
-cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread  -o philo/init.o philo/init.c
-cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread  -o philo/main.o philo/main.c
- 
-cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread  -o philo/routines.o philo/routines.c
-cc -c -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread  -o philo/utils.o philo/utils.c
-cc -Wall -Wextra -Werror -Iphilo -g -fsanitize=thread  philo/actions.o philo/checks.o philo/ft_atoi.o philo/init.o philo/main.o philo/routines.o philo/utils.o -pthread -o philo/philo
 make: Leaving directory '/sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo/attempt1'
  
+make: *** No targets specified and no makefile found.  Stop.
+

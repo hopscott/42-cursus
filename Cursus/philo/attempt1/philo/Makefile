@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/06/09 17:59:31 by swillis          ###   ########.fr        #
+#    Updated: 2022/06/10 15:14:47 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME := philo.a
 
 # Dirs ==========================================
 
-PHILO_DIR := philo
+PHILO_DIR := .
 SRC_DIR := $(PHILO_DIR)
 INC_DIR := $(PHILO_DIR)
 BIN_DIR := $(PHILO_DIR)
@@ -29,7 +29,7 @@ EXE :=	$(BIN_DIR)/philo
 
 CC := cc
 LDFLAGS ?= -pthread
-CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -g -fsanitize=thread #-fsanitize=thread  address
+CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) # -g -fsanitize=thread
 
 # Src files ======================================
 

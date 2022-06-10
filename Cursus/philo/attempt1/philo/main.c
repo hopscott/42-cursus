@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:05:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/06/09 18:02:49 by swillis          ###   ########.fr       */
+/*   Updated: 2022/06/10 14:51:17 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	join_threads(t_vars *vars)
 	int	i;
 
 	i = -1;
-	while (++i < vars.n)
-		if (pthread_join(vars.th[i], NULL) != 0)
+	while (++i < vars->n)
+		if (pthread_join(vars->th[i], NULL) != 0)
 			return (err_msg("Failed to join thread"));
-	if (pthread_join(vars.th_kill, NULL) != 0)
-		return (err_msg("Failed to join killer thread"));
+	if (pthread_join(vars->th_reap, NULL) != 0)
+		return (err_msg("Failed to join reaper thread"));
 	return (0);
 }
 
@@ -33,16 +33,16 @@ int	free_vars(t_vars *vars)
 	while (++i < vars->n)
 	{
 		pthread_mutex_destroy(&vars->fk[i]);
-		pthread_mutex_destroy(&vars->philo[i]->lock);
+		pthread_mutex_destroy(&vars->philo[i].lock);
 	}
 	pthread_mutex_destroy(&vars->printable);
-	free(vars.th);
-	free(vars.fk);
-	free(vars.philo);
+	free(vars->th);
+	free(vars->fk);
+	free(vars->philo);
 	return (1);
 }
 
-int	main(int ac, char **avs)
+int	main(int ac, char **av)
 {
 	t_vars	vars;
 	int		err;
