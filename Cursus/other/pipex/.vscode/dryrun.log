@@ -1,0 +1,15 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/sgoinfre/goinfre/Perso/swillis/pip'
+cc -c -Wall -Wextra -Werror -Iinclude -o src/main.o src/main.c
+ 
+cc -c -Wall -Wextra -Werror -Iinclude -o src/utils.o src/utils.c
+cc -c -Wall -Wextra -Werror -Iinclude -o src/ft_split.o src/ft_split.c
+cc -c -Wall -Wextra -Werror -Iinclude -o src/ft_strdup.o src/ft_strdup.c
+cc -c -Wall -Wextra -Werror -Iinclude -o src/ft_strjoin.o src/ft_strjoin.c
+cc -c -Wall -Wextra -Werror -Iinclude -o src/ft_strlen.o src/ft_strlen.c
+cc -c -Wall -Wextra -Werror -Iinclude -o src/ft_strncmp.o src/ft_strncmp.c
+cc -c -Wall -Wextra -Werror -Iinclude -o src/ft_strnstr.o src/ft_strnstr.c
+cc -c -Wall -Wextra -Werror -Iinclude -o src/ft_substr.o src/ft_substr.c
+cc -Wall -Wextra -Werror -Iinclude  src/main.o src/utils.o src/ft_split.o src/ft_strdup.o src/ft_strjoin.o src/ft_strlen.o src/ft_strncmp.o src/ft_strnstr.o src/ft_substr.o -o ./pipex
+make: Leaving directory '/sgoinfre/goinfre/Perso/swillis/pip'
+ 
