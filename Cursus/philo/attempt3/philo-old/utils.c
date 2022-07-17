@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:03:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/18 00:16:47 by swillis          ###   ########.fr       */
+/*   Updated: 2022/06/10 14:56:31 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	state_change(t_philo *philo, int state, char *action)
 	philo->state = state;
 	if (state != FULL)
 	{
-		pthread_mutex_lock(&philo->vars->printable);
-		printf("%llu %d %s\n", timestamp_diff(philo->vars->start), \
+		pthread_mutex_lock(philo->printable);
+		printf("%llu %d %s\n", timestamp_diff(philo->start), \
 				philo->index, action);
-		pthread_mutex_unlock(&philo->vars->printable);
+		pthread_mutex_unlock(philo->printable);
 	}
 	pthread_mutex_unlock(&philo->lock);
 }
@@ -54,21 +54,8 @@ unsigned long long	timestamp_diff(unsigned long long start)
 	return ((((1000000 * tv.tv_sec) + tv.tv_usec) / 1000) - start);
 }
 
-int	err_msg(char *msg, t_vars *vars, pthread_mutex_t *mut)
+int	err_msg(char *msg)
 {
-	if (vars != NULL)
-	{
-		if (vars->philo)
-			free(vars->philo);
-		if (vars->th)
-			free(vars->th);
-		if (vars->fk)
-			free(vars->fk);
-		if (vars->philo_locks)
-			free(vars->philo_locks);
-	}
-	if (mut != NULL)
-		pthread_mutex_destroy(mut);
 	perror(msg);
 	return (1);
 }

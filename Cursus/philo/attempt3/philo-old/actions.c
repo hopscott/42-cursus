@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:54:11 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/17 23:06:33 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/12 16:11:40 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	goto_sleep(t_philo *philo)
 	{
 		state_change(philo, SLEEPING, "is sleeping");
 		pthread_mutex_lock(&philo->lock);
-		time_to_sleep = philo->vars->time_to_sleep;
+		time_to_sleep = philo->time_to_sleep;
 		pthread_mutex_unlock(&philo->lock);
 		usleep(time_to_sleep * 1000);
 		return (1);
@@ -47,7 +47,7 @@ void	eat(t_philo *philo)
 		pthread_mutex_lock(&philo->lock);
 		philo->time_of_last_meal = timestamp_ms();
 		philo->n_meals += 1;
-		time_to_eat = philo->vars->time_to_eat;
+		time_to_eat = philo->time_to_eat;
 		pthread_mutex_unlock(&philo->lock);
 		if (is_alive(philo))
 			usleep(time_to_eat * 1000);
@@ -88,13 +88,13 @@ void	check_soul(t_philo *philo, t_reaper *reaper)
 	int	time_of_last_meal;
 	int	time_to_die;
 
-	time_to_die = reaper->vars->time_to_die;
-	n_meals_needed = reaper->vars->n_meals_needed;
 	if (is_alive(philo))
 	{
 		pthread_mutex_lock(&philo->lock);
 		time_of_last_meal = philo->time_of_last_meal;
+		time_to_die = philo->time_to_die;
 		n_meals = philo->n_meals;
+		n_meals_needed = philo->n_meals_needed;
 		pthread_mutex_unlock(&philo->lock);
 		if ((n_meals_needed != -1) && (n_meals >= n_meals_needed))
 		{

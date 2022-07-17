@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/07/18 00:23:16 by swillis          ###   ########.fr        #
+#    Updated: 2022/07/12 16:39:59 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ EXE :=	$(BIN_DIR)/philo
 
 CC := cc
 LDFLAGS ?= -pthread
-CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -g -fsanitize=thread
+CFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) #-g -fsanitize=thread
 
 # Src files ======================================
 
