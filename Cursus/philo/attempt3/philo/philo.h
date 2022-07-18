@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/17 23:07:31 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/18 17:43:19 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ enum {
 //******************** STRUCTS ********************//
 
 typedef struct s_philo {
-	pthread_mutex_t		lock;
+	pthread_mutex_t		*lock;
 	int					index;
 	int					state;
 	int					is_alive;
@@ -43,18 +43,17 @@ typedef struct s_philo {
 }	t_philo;
 
 typedef struct s_reaper {
-	int					n;
 	int					souls;
 	int					fulls;
 	struct s_vars		*vars;
 }	t_reaper;
 
 typedef struct s_vars {
-	pthread_t			*th;
-	pthread_mutex_t		*fk;
-	pthread_mutex_t		*philo_locks;
-	pthread_t			th_reap;
 	pthread_mutex_t		printable;
+	pthread_mutex_t		*fk;
+	pthread_mutex_t		*locks;
+	pthread_t			*th;
+	pthread_t			th_reap;
 	int					n;
 	unsigned long long	start;
 	int					time_to_eat;

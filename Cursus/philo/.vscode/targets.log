@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 18 17:53:56 2022
+# Make data base, printed on Mon Jul 18 13:55:38 2022
 
 # Variables
 
@@ -37,7 +37,7 @@ GDMSESSION = ubuntu
 # environment
 XMODIFIERS = @im=ibus
 # makefile
-CURDIR := /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo/attempt3
+CURDIR := /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo
 # makefile
 SHELL = /bin/sh
 # environment
@@ -69,9 +69,9 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 MANAGERPID = 242886
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/40596/vscode-ipc-a3754b78-6df8-4abb-ba7c-a05d37c7c4ff.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/40596/vscode-ipc-1f3b67b2-5aa2-4df9-af83-9deee82eaaeb.sock
 # environment
-VSCODE_CWD = /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo/attempt3
+VSCODE_CWD = /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo
 # environment
 XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session5
 # environment
@@ -117,7 +117,7 @@ DISPLAY = :0
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /mnt/nfs/homes/swillis/sgoinfre/cursus/Cursus/philo/attempt3
+PWD = /mnt/nfs/homes/swillis/sgoinfre/cursus/Cursus/philo
 # default
 .LOADED := 
 # environment
@@ -137,7 +137,7 @@ VSCODE_CODE_CACHE_PATH = /mnt/nfs/homes/swillis/.config/Code/CachedData/30d9c6cd
 # environment
 LOGNAME = swillis
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 ZSH = /mnt/nfs/homes/swillis/.oh-my-zsh
 # environment
@@ -177,7 +177,7 @@ LESS = -R
 # default
 MAKE_COMMAND := make
 # environment
-OLDPWD = /mnt/nfs/homes/swillis/sgoinfre/cursus/Cursus/philo
+OLDPWD = /mnt/nfs/homes/swillis/sgoinfre/cursus
 # environment
 TERMINATOR_DBUS_PATH = /net/tenshu/Terminator2
 # default
@@ -235,7 +235,7 @@ TERMINATOR_DBUS_NAME = net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873
 # environment
 DOCKER_HOST = unix:///run/user/40596/docker.sock
 # environment
-VSCODE_PID = 246034
+VSCODE_PID = 245743
 # environment
 TERMINATOR_UUID = urn:uuid:2a6feddb-831a-4c6e-81da-2b3a661249bf
 # variable set hash-table stats:
@@ -247,9 +247,9 @@ TERMINATOR_UUID = urn:uuid:2a6feddb-831a-4c6e-81da-2b3a661249bf
 
 # Directories
 
-# . (device 55, inode 659780): 6 files, no impossibilities.
+# . (device 55, inode 19953511): 9 files, no impossibilities.
 
-# 6 files, no impossibilities in 1 directories.
+# 9 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -279,7 +279,6 @@ makefile:
 #  Failed to be updated.
 
 # Not a target:
- 
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -295,17 +294,18 @@ GNUmakefile:
 # files hash-table stats:
 # Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
+ 
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 14 / storage = 124 B / avg = 8 B
-# current buf: size = 8162 B / used = 124 B / count = 14 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 17 / storage = 181 B / avg = 10 B
+# current buf: size = 8162 B / used = 181 B / count = 17 / avg = 10 B
 
-# strcache performance: lookups = 17 / hit rate = 17%
+# strcache performance: lookups = 20 / hit rate = 15%
 # hash-table stats:
-# Load=14/8192=0%, Rehash=0, Collisions=1/17=6%
-# Finished Make data base on Mon Jul 18 17:53:56 2022
+# Load=17/8192=0%, Rehash=0, Collisions=1/20=5%
+# Finished Make data base on Mon Jul 18 13:55:38 2022
 
  

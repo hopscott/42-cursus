@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:54:11 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/18 01:31:43 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/18 18:22:07 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,19 @@
 
 int	goto_think(t_philo *philo)
 {
+	int	time_to_think;
+	int	time_to_sleep;
+	int	time_to_eat;
+	int	time_to_die;
+
+	time_to_die = philo->vars->time_to_die;
+	time_to_eat = philo->vars->time_to_eat;
+	time_to_sleep = philo->vars->time_to_sleep;
+
+	time_to_think = (time_to_die - time_to_eat - time_to_sleep) / 2;
 	if (is_alive(philo))
 	{
+		usleep(time_to_think * 1000);
 		state_change(philo, THINKING, "is thinking");
 		return (1);
 	}
@@ -43,10 +54,10 @@ void	eat(t_philo *philo)
 	time_to_eat = philo->vars->time_to_eat;
 	if (is_alive(philo))
 	{
-		pthread_mutex_lock(&philo->lock);
+		pthread_mutex_lock(philo->lock);
 		philo->time_of_last_meal = timestamp_ms();
 		philo->n_meals += 1;
-		pthread_mutex_unlock(&philo->lock);
+		pthread_mutex_unlock(philo->lock);
 		if (is_alive(philo))
 			usleep(time_to_eat * 1000);
 	}
@@ -87,10 +98,10 @@ void	check_soul(t_philo *philo, t_reaper *reaper)
 	n_meals_needed = reaper->vars->n_meals_needed;
 	if (is_alive(philo))
 	{
-		pthread_mutex_lock(&philo->lock);
+		pthread_mutex_lock(philo->lock);
 		time_of_last_meal = philo->time_of_last_meal;
 		n_meals = philo->n_meals;
-		pthread_mutex_unlock(&philo->lock);
+		pthread_mutex_unlock(philo->lock);
 		if ((n_meals_needed != -1) && (n_meals >= n_meals_needed))
 		{
 			state_change(philo, FULL, "");

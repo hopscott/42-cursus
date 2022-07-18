@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:05:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/18 00:18:08 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/18 18:14:06 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	init_vars(int ac, char **av, t_vars *vars)
 	vars->fk = malloc(sizeof(pthread_mutex_t) * vars->n);
 	if (!vars->fk)
 		return (err_msg("Failed to malloc fork mutexes", vars, NULL));
-	vars->philo_locks = malloc(sizeof(pthread_mutex_t) * vars->n);
-	if (!vars->philo_locks)
+	vars->locks = malloc(sizeof(pthread_mutex_t) * vars->n);
+	if (!vars->locks)
 		return (err_msg("Failed to malloc philo lock mutexes", vars, NULL));
 	return (0);
 }
@@ -40,7 +40,7 @@ int	init_vars(int ac, char **av, t_vars *vars)
 int	init_mutexes(t_vars *vars, int i)
 {
 	if (pthread_mutex_init(&vars->printable, NULL) != 0)
-		return (err_msg("Failed to create printable mutex", vars, NULL));
+		return (err_msg("Failed init printable mutex", vars, NULL));
 	i = -1;
 	while (++i < vars->n)
 	{
@@ -48,19 +48,19 @@ int	init_mutexes(t_vars *vars, int i)
 		{
 			while (--i >= 0)
 				pthread_mutex_destroy(&vars->fk[i]);
-			return (err_msg("Failed on fork mutex", vars, &vars->printable));
+			return (err_msg("Failed init fork mutex", vars, &vars->printable));
 		}
 	}
 	i = -1;
 	while (++i < vars->n)
 	{
-		if (pthread_mutex_init(&vars->philo_locks[i], NULL) != 0)
+		if (pthread_mutex_init(&vars->locks[i], NULL) != 0)
 		{
 			while (--i >= 0)
-				pthread_mutex_destroy(&vars->philo_locks[i]);
+				pthread_mutex_destroy(&vars->locks[i]);
 			while (++i < vars->n)
 				pthread_mutex_destroy(&vars->fk[i]);
-			return (err_msg("Failed on ph_lk mutex", vars, &vars->printable));
+			return (err_msg("Failed init lock mutex", vars, &vars->printable));
 		}
 	}
 	return (0);
@@ -81,31 +81,40 @@ int	init_mutexes(t_vars *vars, int i)
 /* -------------------------------------------------------------	*/
 void	allocate_fks(t_vars *vars, int i)
 {
-	t_philo	philo;
-
-	philo = vars->philo[i];
-	philo.fk_left = &vars->fk[(i + vars->n) % vars->n];
 	if (vars->n == 1)
-		philo.fk_right = NULL;
+	{
+		vars->philo[i].fk_left = &vars->fk[(i + vars->n) % vars->n];
+		vars->philo[i].fk_right = NULL;
+	}
 	else
-		philo.fk_right = &vars->fk[(i + 1) % vars->n];
+	{
+		if (i % 2 != 0)
+		{
+			vars->philo[i].fk_left = &vars->fk[(i + vars->n) % vars->n];
+			vars->philo[i].fk_right = &vars->fk[(i + 1) % vars->n];
+		}
+		else
+		{
+			vars->philo[i].fk_left = &vars->fk[(i + 1) % vars->n];
+			vars->philo[i].fk_right = &vars->fk[(i + vars->n) % vars->n];
+		}
+	}
 }
 
 int	init_philos(t_vars *vars)
 {
 	int		i;
-	t_philo	philo;
 
 	i = -1;
 	while (++i < vars->n)
 	{
-		philo = vars->philo[i];
-		philo.index = i + 1;
-		philo.state = THINKING;
-		philo.n_meals = 0;
-		philo.time_of_last_meal = vars->start;
+		vars->philo[i].vars = vars;
+		vars->philo[i].index = i + 1;
+		vars->philo[i].state = THINKING;
+		vars->philo[i].n_meals = 0;
+		vars->philo[i].time_of_last_meal = vars->start;
 		allocate_fks(vars, i);
-		philo.lock = vars->philo_locks[i];
+		vars->philo[i].lock = &vars->locks[i];
 		if (pthread_create(&vars->th[i], NULL, &routine, \
 									(void *)&vars->philo[i]) != 0)
 		{
@@ -118,7 +127,6 @@ int	init_philos(t_vars *vars)
 
 int	init_reaper(t_vars *vars)
 {
-	vars->reaper.n = vars->n;
 	vars->reaper.souls = 0;
 	vars->reaper.fulls = 0;
 	vars->reaper.vars = vars;

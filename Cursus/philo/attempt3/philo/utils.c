@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:03:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/18 00:16:47 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/18 18:19:20 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	is_alive(t_philo *philo)
 {
 	int	state;
 
-	pthread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(philo->lock);
 	state = philo->state;
-	pthread_mutex_unlock(&philo->lock);
+	pthread_mutex_unlock(philo->lock);
 	if ((state != FULL) && (state != DEAD))
 		return (1);
 	return (0);
@@ -26,8 +26,9 @@ int	is_alive(t_philo *philo)
 
 void	state_change(t_philo *philo, int state, char *action)
 {
-	pthread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(philo->lock);
 	philo->state = state;
+	pthread_mutex_unlock(philo->lock);
 	if (state != FULL)
 	{
 		pthread_mutex_lock(&philo->vars->printable);
@@ -35,7 +36,6 @@ void	state_change(t_philo *philo, int state, char *action)
 				philo->index, action);
 		pthread_mutex_unlock(&philo->vars->printable);
 	}
-	pthread_mutex_unlock(&philo->lock);
 }
 
 unsigned long long	timestamp_ms(void)
@@ -64,8 +64,8 @@ int	err_msg(char *msg, t_vars *vars, pthread_mutex_t *mut)
 			free(vars->th);
 		if (vars->fk)
 			free(vars->fk);
-		if (vars->philo_locks)
-			free(vars->philo_locks);
+		if (vars->locks)
+			free(vars->locks);
 	}
 	if (mut != NULL)
 		pthread_mutex_destroy(mut);
