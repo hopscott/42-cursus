@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
+/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:10:10 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/19 10:56:07 by scottwillis      ###   ########.fr       */
+/*   Updated: 2022/07/19 14:00:24 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_args(int ac, char **av)
 		else if (err == 2)
 			printf("ERROR - Inputs contain non-digit characters\n");
 		else if (err == 3)
-			printf("ERROR - Inputs are not integers\n");
+			printf("ERROR - Inputs are not within integer range\n");
 		else if (err == 4)
 			printf("ERROR - Make sure all inputs are greater than 0\n");
 		return (1);

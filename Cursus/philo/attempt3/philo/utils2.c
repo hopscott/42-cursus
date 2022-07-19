@@ -6,11 +6,24 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 17:36:12 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/16 17:37:51 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/19 13:39:40 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	is_alive(t_philo *philo)
+{
+	int	is_alive;
+
+	pthread_mutex_lock(philo->lock);
+	if (philo->is_alive)
+		is_alive = 1;
+	else
+		is_alive = 0;
+	pthread_mutex_unlock(philo->lock);
+	return (is_alive);
+}
 
 size_t	ft_strlen(const char *str)
 {

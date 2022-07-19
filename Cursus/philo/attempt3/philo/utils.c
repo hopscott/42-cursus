@@ -3,25 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
+/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:03:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/19 11:16:48 by scottwillis      ###   ########.fr       */
+/*   Updated: 2022/07/19 13:40:19 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	is_alive(t_philo *philo)
+void	opti_sleep(int t_ms, t_philo *philo)
 {
-	int	is_alive;
+	int	response_time_ms;
+	int	num_iter;
+	int	i;
 
-	pthread_mutex_lock(philo->lock);
-	is_alive = philo->is_alive;
-	pthread_mutex_unlock(philo->lock);
-	if (is_alive)
-		return (1);
-	return (0);
+	response_time_ms = 100;
+	num_iter = t_ms / response_time_ms;
+	i = 0;
+	while (is_alive(philo) && (i < num_iter))
+	{
+		usleep(response_time_ms * 1000);
+		i++;
+	}
 }
 
 void	state_change(t_philo *philo, int state, char *action)

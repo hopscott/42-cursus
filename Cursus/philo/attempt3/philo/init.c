@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
+/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:05:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/19 11:18:02 by scottwillis      ###   ########.fr       */
+/*   Updated: 2022/07/19 13:59:04 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	init_vars(int ac, char **av, t_vars *vars)
 {
 	vars->n = ft_atoi(av[1]);
 	vars->time_to_die = ft_atoi(av[2]);
+	printf(">>%d\n", vars->time_to_die);
 	vars->time_to_eat = ft_atoi(av[3]);
 	vars->time_to_sleep = ft_atoi(av[4]);
 	vars->n_meals_needed = -1;
@@ -33,7 +34,7 @@ int	init_vars(int ac, char **av, t_vars *vars)
 		return (err_msg("Failed to malloc fork mutexes", vars, NULL));
 	vars->locks = malloc(sizeof(pthread_mutex_t) * vars->n);
 	if (!vars->locks)
-		return (err_msg("Failed to malloc philo lock mutexes", vars, NULL));
+		return (err_msg("Failed to malloc lock mutexes", vars, NULL));
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+         #
+#    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/07/19 10:59:34 by scottwillis      ###   ########.fr        #
+#    Updated: 2022/07/19 13:34:53 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

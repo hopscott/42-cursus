@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
+/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:05:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/19 11:15:08 by scottwillis      ###   ########.fr       */
+/*   Updated: 2022/07/19 14:01:18 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	join_threads(t_vars *vars, int n, int th_reap_running)
+void	join_threads(t_vars *vars, int n, int reaper_err)
 {
 	int	i;
 
-	if ((vars->n != n) || (!th_reap_running))
+	if ((vars->n != n) || (reaper_err != 0))
 	{
 		i = -1;
 		while (++i < vars->n)
@@ -26,7 +26,7 @@ void	join_threads(t_vars *vars, int n, int th_reap_running)
 			pthread_mutex_unlock(vars->philo[i].lock);
 		}
 	}
-	if (th_reap_running)
+	if (reaper_err == 0)
 		pthread_join(vars->th_reap, NULL);
 	i = -1;
 	while (++i < vars->n)
@@ -54,6 +54,7 @@ int	main(int ac, char **av)
 {
 	t_vars	vars;
 	int		n;
+	int		reaper_err;
 
 	if (check_args(ac, av) != 0)
 		return (1);
@@ -63,7 +64,8 @@ int	main(int ac, char **av)
 		return (3);
 	n = vars.n;
 	init_philos(&vars);
-	join_threads(&vars, n, init_reaper(&vars));
+	reaper_err = init_reaper(&vars);
+	join_threads(&vars, n, reaper_err);
 	vars.n = n;
 	free_vars(&vars);
 	return (0);

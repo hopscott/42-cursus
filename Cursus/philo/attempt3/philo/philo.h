@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
+/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/19 11:01:21 by scottwillis      ###   ########.fr       */
+/*   Updated: 2022/07/19 13:39:11 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,14 @@ void				*routine(void *arg);
 void				*routine_reaper(void *arg);
 
 /* ******************* UTILS ******************* */
-int					is_alive(t_philo *philo);
+void				opti_sleep(int t_ms, t_philo *philo);
 void				state_change(t_philo *philo, int state, char *action);
 unsigned long long	timestamp_ms(void);
 unsigned long long	timestamp_diff(unsigned long long start);
 int					err_msg(char *msg, t_vars *vars, pthread_mutex_t *mut);
 
 /* ******************* UTILS2 ******************* */
+int					is_alive(t_philo *philo);
 size_t				ft_strlen(const char *str);
 char				*ft_strdup(const char *src);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);

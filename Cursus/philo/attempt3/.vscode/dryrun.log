@@ -1,6 +1,0 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory '/sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo/attempt3'
-make: Leaving directory '/sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo/attempt3'
- 
-make: *** No targets specified and no makefile found.  Stop.
-
