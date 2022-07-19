@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:47:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/18 17:43:19 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/19 11:01:21 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ enum {
 	SLEEPING	= 4
 };
 
-//******************** STRUCTS ********************//
+/* ******************* STRUCTS ******************* */
 
 typedef struct s_philo {
 	pthread_mutex_t		*lock;
@@ -64,33 +64,41 @@ typedef struct s_vars {
 	t_reaper			reaper;
 }	t_vars;
 
-//******************** ACTIONS ********************//
+/* ******************* ACTIONS ******************* */
 int					goto_think(t_philo *philo);
 int					goto_sleep(t_philo *philo);
 int					goto_eat(t_philo *philo);
 void				check_soul(t_philo *philo, t_reaper *reaper);
 
-//******************** CHECKS ********************//
+/* ******************* CHECKS ******************* */
 int					check_args(int ac, char **av);
 
-//******************** FT_ATOI ********************//
+/* ******************* FT_ATOI ******************* */
 int					ft_atoi(char *str);
 
-//******************** INIT ********************//
+/* ******************* INIT ******************* */
 int					init_vars(int ac, char **av, t_vars *vars);
 int					init_mutexes(t_vars *vars, int i);
 int					init_philos(t_vars *vars);
 int					init_reaper(t_vars *vars);
 
-//******************** ROUTINES ********************//
+/* ******************* ROUTINES ******************* */
 void				*routine(void *arg);
 void				*routine_reaper(void *arg);
 
-//******************** UTILS ********************//
+/* ******************* UTILS ******************* */
 int					is_alive(t_philo *philo);
 void				state_change(t_philo *philo, int state, char *action);
 unsigned long long	timestamp_ms(void);
 unsigned long long	timestamp_diff(unsigned long long start);
 int					err_msg(char *msg, t_vars *vars, pthread_mutex_t *mut);
+
+/* ******************* UTILS2 ******************* */
+size_t				ft_strlen(const char *str);
+char				*ft_strdup(const char *src);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
+
+/* ******************* ISINT ******************* */
+int					str_is_int(char *str);
 
 #endif

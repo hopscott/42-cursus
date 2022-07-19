@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:05:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/18 18:14:06 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/19 11:18:02 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	init_philos(t_vars *vars)
 		vars->philo[i].vars = vars;
 		vars->philo[i].index = i + 1;
 		vars->philo[i].state = THINKING;
+		vars->philo[i].is_alive = 1;
 		vars->philo[i].n_meals = 0;
 		vars->philo[i].time_of_last_meal = vars->start;
 		allocate_fks(vars, i);

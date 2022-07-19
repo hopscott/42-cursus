@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:10:10 by swillis           #+#    #+#             */
-/*   Updated: 2022/06/09 18:02:45 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/19 10:56:07 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int	check_av_atoi(int ac, char **av)
 				return (2);
 			j++;
 		}
-		if (ft_atoi(str) < 1)
+		if (!str_is_int(str))
 			return (3);
+		if (ft_atoi(str) < 1)
+			return (4);
 	}
 	return (0);
 }
@@ -54,6 +56,8 @@ int	check_args(int ac, char **av)
 		else if (err == 2)
 			printf("ERROR - Inputs contain non-digit characters\n");
 		else if (err == 3)
+			printf("ERROR - Inputs are not integers\n");
+		else if (err == 4)
 			printf("ERROR - Make sure all inputs are greater than 0\n");
 		return (1);
 	}

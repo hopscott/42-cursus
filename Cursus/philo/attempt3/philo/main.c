@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:05:50 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/18 18:26:11 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/19 11:15:08 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ void	join_threads(t_vars *vars, int n, int th_reap_running)
 {
 	int	i;
 
-	if (vars->n != n)
+	if ((vars->n != n) || (!th_reap_running))
 	{
 		i = -1;
 		while (++i < vars->n)
+		{
+			pthread_mutex_lock(vars->philo[i].lock);
 			vars->philo[i].is_alive = 0;
+			pthread_mutex_unlock(vars->philo[i].lock);
+		}
 	}
 	if (th_reap_running)
 		pthread_join(vars->th_reap, NULL);

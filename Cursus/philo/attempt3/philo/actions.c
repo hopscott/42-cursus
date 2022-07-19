@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:54:11 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/18 18:22:07 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/19 11:07:50 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	goto_think(t_philo *philo)
 	int	time_to_sleep;
 	int	time_to_eat;
 	int	time_to_die;
+	int	n;
 
 	time_to_die = philo->vars->time_to_die;
 	time_to_eat = philo->vars->time_to_eat;
@@ -26,30 +27,38 @@ int	goto_think(t_philo *philo)
 	time_to_think = (time_to_die - time_to_eat - time_to_sleep) / 2;
 	if (is_alive(philo))
 	{
-		usleep(time_to_think * 1000);
+		n = 0;
 		state_change(philo, THINKING, "is thinking");
-		return (1);
+		while (is_alive(philo) && (n++ < 100))
+			usleep(time_to_think * 10);
 	}
+	if (is_alive(philo))
+		return (1);
 	return (0);
 }
 
 int	goto_sleep(t_philo *philo)
 {
 	int	time_to_sleep;
+	int	n;
 
 	time_to_sleep = philo->vars->time_to_sleep;
 	if (is_alive(philo))
 	{
 		state_change(philo, SLEEPING, "is sleeping");
-		usleep(time_to_sleep * 1000);
-		return (1);
+		n = 0;
+		while (is_alive(philo) && (n++ < 100))
+			usleep(time_to_sleep * 10);
 	}
+	if (is_alive(philo))
+		return (1);
 	return (0);
 }
 
 void	eat(t_philo *philo)
 {
 	int	time_to_eat;
+	int	n;
 
 	time_to_eat = philo->vars->time_to_eat;
 	if (is_alive(philo))
@@ -58,8 +67,9 @@ void	eat(t_philo *philo)
 		philo->time_of_last_meal = timestamp_ms();
 		philo->n_meals += 1;
 		pthread_mutex_unlock(philo->lock);
-		if (is_alive(philo))
-			usleep(time_to_eat * 1000);
+		n = 0;
+		while (is_alive(philo) && (n++ < 100))
+			usleep(time_to_eat * 10);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:03:18 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/18 18:19:20 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/19 11:16:48 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	is_alive(t_philo *philo)
 {
-	int	state;
+	int	is_alive;
 
 	pthread_mutex_lock(philo->lock);
-	state = philo->state;
+	is_alive = philo->is_alive;
 	pthread_mutex_unlock(philo->lock);
-	if ((state != FULL) && (state != DEAD))
+	if (is_alive)
 		return (1);
 	return (0);
 }
@@ -28,6 +28,8 @@ void	state_change(t_philo *philo, int state, char *action)
 {
 	pthread_mutex_lock(philo->lock);
 	philo->state = state;
+	if ((state == FULL) || (state == DEAD))
+		philo->is_alive = 0;
 	pthread_mutex_unlock(philo->lock);
 	if (state != FULL)
 	{

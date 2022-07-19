@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 16:02:25 by swillis           #+#    #+#             */
-/*   Updated: 2022/07/18 18:15:48 by swillis          ###   ########.fr       */
+/*   Updated: 2022/07/19 11:15:04 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	*routine_reaper(void *arg)
 	i = -1;
 	while (++i < reaper->vars->n)
 	{
-		state_change(&reaper->vars->philo[i], FULL, "");
+		pthread_mutex_lock(reaper->vars->philo[i].lock);
+		reaper->vars->philo[i].is_alive = 0;
+		pthread_mutex_unlock(reaper->vars->philo[i].lock);
 	}
 	return (0);
 }

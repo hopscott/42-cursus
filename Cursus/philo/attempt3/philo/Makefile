@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
+#    By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/07/18 17:53:35 by swillis          ###   ########.fr        #
+#    Updated: 2022/07/19 10:59:34 by scottwillis      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,8 @@ SRCS	:= 	$(SRC_DIR)/actions.c\
 			$(SRC_DIR)/main.c\
 			$(SRC_DIR)/routines.c\
 			$(SRC_DIR)/utils.c\
+			$(SRC_DIR)/utils2.c\
+			$(SRC_DIR)/isint.c\
 
 # Make all ========================================
 
