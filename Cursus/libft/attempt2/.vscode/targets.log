@@ -8,7 +8,7 @@ make: *** No rule to make target 'ft_isalpha.o', needed by 'libft.a'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jul 16 17:36:06 2022
+# Make data base, printed on Thu Aug 11 21:23:55 2022
 
 # Variables
 
@@ -24,8 +24,6 @@ DESKTOP_SESSION = ubuntu
 XDG_SESSION_CLASS = user
 # environment
 XDG_SESSION_TYPE = x11
-# environment
-VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
@@ -37,7 +35,7 @@ GDMSESSION = ubuntu
 # environment
 XMODIFIERS = @im=ibus
 # makefile
-CURDIR := /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/libft/attempt2
+CURDIR := /sgoinfre/goinfre/Perso/swillis/42-cursus/Cursus/libft/attempt2
 # makefile
 SHELL = /bin/sh
 # makefile (from 'Makefile', line 56)
@@ -51,7 +49,7 @@ _ = /usr/bin/code
 # makefile (from 'Makefile', line 54)
 CFLAGS = -Wall -Wextra -Werror
 # environment
-JOURNAL_STREAM = 9:259796
+JOURNAL_STREAM = 9:3419530
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -68,20 +66,16 @@ MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
 XDG_DATA_DIRS = /usr/share/gnome:/usr/share/ubuntu:/mnt/nfs/homes/swillis/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/40596/bus
-# environment
-VSCODE_VERBOSE_LOGGING = true
 # makefile (from 'Makefile', line 46)
 OBJS = ${SRCS:.c=.o}
 # environment
-MANAGERPID = 42623
+MANAGERPID = 499206
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/40596/vscode-ipc-2cb70ce3-513c-4f17-ad8e-029f4c6537ce.sock
+VSCODE_CWD = /sgoinfre/goinfre/Perso/swillis/42-cursus/Cursus/libft/attempt2
 # environment
-VSCODE_CWD = /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/libft/attempt2
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session5
 # environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session2
-# environment
-KRB5CCNAME = FILE:/tmp/krb5cc_40596_ISEIrG
+KRB5CCNAME = FILE:/tmp/krb5cc_40596_cHbwrH
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
@@ -91,17 +85,15 @@ GPG_AGENT_INFO = /run/user/40596/gnupg/S.gpg-agent:0:1
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/e1r5p12.clusters.42paris.fr:@/tmp/.ICE-unix/43139,unix/e1r5p12.clusters.42paris.fr:/tmp/.ICE-unix/43139
+SESSION_MANAGER = local/e1r8p3.clusters.42paris.fr:@/tmp/.ICE-unix/499763,unix/e1r8p3.clusters.42paris.fr:/tmp/.ICE-unix/499763
 # environment
 XDG_RUNTIME_DIR = /run/user/40596
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
-VSCODE_LOG_STACK = false
-# environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = a8f0ddd0d3874392a6bf9b546bf05e62
+INVOCATION_ID = caebc4a88fc24374bf9b93bb0d364e75
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -115,7 +107,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/40596/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 63504
+GIO_LAUNCHED_DESKTOP_FILE_PID = 500172
 # automatic
 %F = $(notdir $%)
 # environment
@@ -123,13 +115,11 @@ DISPLAY = :0
 # makefile (from 'Makefile', line 36)
 BONUS_SRCS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstmap.c ft_lstiter.c
 # environment
-VSCODE_PIPE_LOGGING = true
-# environment
-PWD = /mnt/nfs/homes/swillis/sgoinfre/cursus/Cursus/libft/attempt2
+PWD = /mnt/nfs/homes/swillis/sgoinfre/42-cursus/Cursus/libft/attempt2
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 43103
+SSH_AGENT_PID = 499727
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -141,11 +131,11 @@ HOME = /mnt/nfs/homes/swillis
 # environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = /mnt/nfs/homes/swillis/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CODE_CACHE_PATH = /mnt/nfs/homes/swillis/.config/Code/CachedData/6d9b74a70ca9c7733b29f0456fd8195364076dda
 # environment
 LOGNAME = swillis
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 ZSH = /mnt/nfs/homes/swillis/.oh-my-zsh
 # environment
@@ -189,7 +179,7 @@ LESS = -R
 # default
 MAKE_COMMAND := make
 # environment
-OLDPWD = /mnt/nfs/homes/swillis/sgoinfre/minishell
+OLDPWD = /mnt/nfs/homes/swillis/sgoinfre/42-cursus/Cursus/libft
 # environment
 TERMINATOR_DBUS_PATH = /net/tenshu/Terminator2
 # default
@@ -199,7 +189,7 @@ TERMINATOR_DBUS_PATH = /net/tenshu/Terminator2
 # environment
 XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
 # environment
-VSCODE_IPC_HOOK = /run/user/40596/vscode-f6bb8478-1.68.1-main.sock
+VSCODE_IPC_HOOK = /run/user/40596/vscode-f6bb8478-1.70.1-main.sock
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -253,11 +243,11 @@ TERMINATOR_DBUS_NAME = net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873
 # environment
 DOCKER_HOST = unix:///run/user/40596/docker.sock
 # environment
-VSCODE_PID = 63712
+VSCODE_PID = 503266
 # environment
-TERMINATOR_UUID = urn:uuid:445a2c40-dbb3-490b-a1ae-9e575054881f
+TERMINATOR_UUID = urn:uuid:97ca3d64-c4f3-46fc-81c4-d0b60fdd4aef
 # variable set hash-table stats:
-# Load=122/1024=12%, Rehash=0, Collisions=25/153=16%
+# Load=117/1024=11%, Rehash=0, Collisions=23/148=16%
 
 # Pattern-specific Variable Values
 
@@ -265,7 +255,7 @@ TERMINATOR_UUID = urn:uuid:445a2c40-dbb3-490b-a1ae-9e575054881f
 
 # Directories
 
-# . (device 54, inode 19953343): 48 files, no impossibilities.
+# . (device 58, inode 12751718): 48 files, no impossibilities.
 
 # 48 files, no impossibilities in 1 directories.
 
@@ -282,7 +272,6 @@ ft_strmapi.o:
 #  File has not been updated.
 
 # Not a target:
- 
 ft_lstiter.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -290,6 +279,7 @@ ft_lstiter.o:
 
 # Not a target:
 ft_memcpy.o:
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -382,7 +372,7 @@ ft_strlcat.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-09 00:05:04.643055513
+#  Last modified 2022-08-11 13:53:21.402361146
 #  File has been updated.
 #  Successfully updated.
 
@@ -567,6 +557,7 @@ ft_putstr_fd.o:
 #  Modification time never checked.
 #  File has not been updated.
 
+ 
 # Not a target:
 ft_atoi.o:
 #  Implicit rule search has not been done.
@@ -602,7 +593,6 @@ ft_putendl_fd.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # files hash-table stats:
 # Load=54/1024=5%, Rehash=0, Collisions=6/117=5%
@@ -618,6 +608,6 @@ ft_putendl_fd.o:
 # strcache performance: lookups = 124 / hit rate = 16%
 # hash-table stats:
 # Load=103/8192=1%, Rehash=0, Collisions=4/124=3%
-# Finished Make data base on Sat Jul 16 17:36:06 2022
+# Finished Make data base on Thu Aug 11 21:23:55 2022
 
  
