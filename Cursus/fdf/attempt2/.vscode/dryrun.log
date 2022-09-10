@@ -1,0 +1,19 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/sgoinfre/goinfre/Perso/swillis/42-cursus/Cursus/fdf/attempt2'
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/main.o src/main.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/utils.o src/utils.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/parsing.o src/parsing.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/maps.o src/maps.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/tracing.o src/tracing.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/tracing_rev.o src/tracing_rev.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/matrices.o src/matrices.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/rotations.o src/rotations.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/shifts.o src/shifts.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/lines.o src/lines.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/fitting.o src/fitting.c
+cc -c -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address -o src/renders.o src/renders.c
+make -C lib/libft -f Makefile
+make -C lib/libftprintf -f Makefile
+cc -Wall -Wextra -Werror -Iinclude -I/usr/include -Imlx_linux -O3 -g -fsanitize=address src/main.o src/utils.o src/parsing.o src/maps.o src/tracing.o src/tracing_rev.o src/matrices.o src/rotations.o src/shifts.o src/lines.o src/fitting.o src/renders.o lib/libft/libft.a lib/libftprintf/libftprintf.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o ./fdf
+make: Leaving directory '/sgoinfre/goinfre/Perso/swillis/42-cursus/Cursus/fdf/attempt2'
+ 

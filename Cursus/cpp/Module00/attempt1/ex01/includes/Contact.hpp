@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/08/15 16:15:00 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/10 20:15:29 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ private:
 	std::string	_lastName;
 	std::string	_nickname;
 	std::string	_phoneNumber;
-	std::string	_darkestSecret
+	std::string	_darkestSecret;
 
 };
 

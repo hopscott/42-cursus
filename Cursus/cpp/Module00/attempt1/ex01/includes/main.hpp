@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   main.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/10 22:08:02 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/10 21:52:22 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_H
-# define PHONEBOOK_H
+#ifndef MAIN_H
+# define MAIN_H
 
 # include "Contact.hpp"
+# include "PhoneBook.hpp"
 
-class PhoneBook {
-
-public:
-
-	PhoneBook( void );
-	~PhoneBook( void );
-
-private:
-
-	Contact	*_contacts[8];
-
-};
+Contact	buildNewContact ( void );
 
 #endif

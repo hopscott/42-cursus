@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 18 13:55:38 2022
+# Make data base, printed on Thu Aug 18 18:54:08 2022
 
 # Variables
 
@@ -24,8 +24,6 @@ DESKTOP_SESSION = ubuntu
 XDG_SESSION_CLASS = user
 # environment
 XDG_SESSION_TYPE = x11
-# environment
-VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
@@ -37,7 +35,7 @@ GDMSESSION = ubuntu
 # environment
 XMODIFIERS = @im=ibus
 # makefile
-CURDIR := /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo
+CURDIR := /sgoinfre/goinfre/Perso/swillis/42-cursus/Cursus/philo
 # makefile
 SHELL = /bin/sh
 # environment
@@ -47,7 +45,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/bin/code
 # environment
-JOURNAL_STREAM = 9:1873551
+JOURNAL_STREAM = 9:1754933
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile
@@ -65,17 +63,13 @@ XDG_DATA_DIRS = /usr/share/gnome:/usr/share/ubuntu:/mnt/nfs/homes/swillis/.local
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/40596/bus
 # environment
-VSCODE_VERBOSE_LOGGING = true
+MANAGERPID = 270980
 # environment
-MANAGERPID = 242886
+VSCODE_CWD = /sgoinfre/goinfre/Perso/swillis/42-cursus/Cursus/philo
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/40596/vscode-ipc-1f3b67b2-5aa2-4df9-af83-9deee82eaaeb.sock
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session3
 # environment
-VSCODE_CWD = /sgoinfre/goinfre/Perso/swillis/cursus/Cursus/philo
-# environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session5
-# environment
-KRB5CCNAME = FILE:/tmp/krb5cc_40596_aJUHA8
+KRB5CCNAME = FILE:/tmp/krb5cc_40596_ZjxPO2
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
@@ -85,17 +79,15 @@ GPG_AGENT_INFO = /run/user/40596/gnupg/S.gpg-agent:0:1
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/e1r10p17.clusters.42paris.fr:@/tmp/.ICE-unix/243431,unix/e1r10p17.clusters.42paris.fr:/tmp/.ICE-unix/243431
+SESSION_MANAGER = local/e1r6p20.clusters.42paris.fr:@/tmp/.ICE-unix/271512,unix/e1r6p20.clusters.42paris.fr:/tmp/.ICE-unix/271512
 # environment
 XDG_RUNTIME_DIR = /run/user/40596
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
-VSCODE_LOG_STACK = false
-# environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 5453230365224070bf453d6e7d18064c
+INVOCATION_ID = 58732ef4eaab4726b26b9a5f664019da
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -109,19 +101,17 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/40596/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 244162
+GIO_LAUNCHED_DESKTOP_FILE_PID = 278011
 # automatic
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
 # environment
-VSCODE_PIPE_LOGGING = true
-# environment
-PWD = /mnt/nfs/homes/swillis/sgoinfre/cursus/Cursus/philo
+PWD = /mnt/nfs/homes/swillis/sgoinfre/42-cursus/Cursus/philo
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 243384
+SSH_AGENT_PID = 271476
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -133,7 +123,7 @@ HOME = /mnt/nfs/homes/swillis
 # environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = /mnt/nfs/homes/swillis/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CODE_CACHE_PATH = /mnt/nfs/homes/swillis/.config/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
 # environment
 LOGNAME = swillis
 # environment
@@ -177,7 +167,7 @@ LESS = -R
 # default
 MAKE_COMMAND := make
 # environment
-OLDPWD = /mnt/nfs/homes/swillis/sgoinfre/cursus
+OLDPWD = /mnt/nfs/homes/swillis/sgoinfre/42-cursus/Cursus/fdf/attempt2/src
 # environment
 TERMINATOR_DBUS_PATH = /net/tenshu/Terminator2
 # default
@@ -187,7 +177,7 @@ TERMINATOR_DBUS_PATH = /net/tenshu/Terminator2
 # environment
 XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
 # environment
-VSCODE_IPC_HOOK = /run/user/40596/vscode-f6bb8478-1.68.1-main.sock
+VSCODE_IPC_HOOK = /run/user/40596/vscode-f6bb8478-1.69.2-main.sock
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -200,6 +190,8 @@ MFLAGS = -pqrR
 GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
+# environment
+NO_AT_BRIDGE = 1
 # environment
 QT_ACCESSIBILITY = 1
 # environment
@@ -235,11 +227,11 @@ TERMINATOR_DBUS_NAME = net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873
 # environment
 DOCKER_HOST = unix:///run/user/40596/docker.sock
 # environment
-VSCODE_PID = 245743
+VSCODE_PID = 277157
 # environment
-TERMINATOR_UUID = urn:uuid:2a6feddb-831a-4c6e-81da-2b3a661249bf
+TERMINATOR_UUID = urn:uuid:019c0e7b-1dfb-4108-b5a9-dce532fd86f2
 # variable set hash-table stats:
-# Load=113/1024=11%, Rehash=0, Collisions=13/135=10%
+# Load=109/1024=11%, Rehash=0, Collisions=13/131=10%
 
 # Pattern-specific Variable Values
 
@@ -247,7 +239,7 @@ TERMINATOR_UUID = urn:uuid:2a6feddb-831a-4c6e-81da-2b3a661249bf
 
 # Directories
 
-# . (device 55, inode 19953511): 9 files, no impossibilities.
+# . (device 58, inode 12752010): 9 files, no impossibilities.
 
 # 9 files, no impossibilities in 1 directories.
 
@@ -287,6 +279,7 @@ makefile:
 # Not a target:
 GNUmakefile:
 #  Implicit rule search has been done.
+ 
 #  File does not exist.
 #  File has been updated.
 #  Failed to be updated.
@@ -294,7 +287,6 @@ GNUmakefile:
 # files hash-table stats:
 # Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
- 
 
 # No 'vpath' search paths.
 
@@ -306,6 +298,6 @@ GNUmakefile:
 # strcache performance: lookups = 20 / hit rate = 15%
 # hash-table stats:
 # Load=17/8192=0%, Rehash=0, Collisions=1/20=5%
-# Finished Make data base on Mon Jul 18 13:55:38 2022
+# Finished Make data base on Thu Aug 18 18:54:08 2022
 
  
