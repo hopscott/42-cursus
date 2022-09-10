@@ -6,12 +6,14 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/10 20:15:29 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/10 22:43:52 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONTACT_H
 # define CONTACT_H
+
+# include <iostream>
 
 class Contact {
 
@@ -26,6 +28,7 @@ public:
 	void	setNickname( std::string str );
 	void	setPhoneNumber( std::string str );
 	void	setDarkestSecret( std::string str );
+	void	promptDetails ( void );
 
 	int			getIndex( void ) const;
 	std::string	getFirstName( void ) const;

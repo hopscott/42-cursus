@@ -6,11 +6,10 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/10 21:59:43 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/10 22:44:00 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
 #include "Contact.hpp"
 
 Contact::Contact( void ) {
@@ -89,4 +88,29 @@ std::string	Contact::getPhoneNumber( void ) const {
 std::string	Contact::getDarkestSecret( void ) const {
 
 	return this->_darkestSecret;
+}
+
+void	Contact::promptDetails ( void ) {
+
+	std::string	str;
+
+	std::cout << "Enter First Name : ";
+	std::getline (std::cin, str);
+	this->setFirstName(str);
+	
+	std::cout << "Enter Last Name : ";
+	std::getline (std::cin, str);
+	this->setLastName(str);
+	
+	std::cout << "Enter Nickname : ";
+	std::getline (std::cin, str);
+	this->setNickname(str);
+	
+	std::cout << "Enter Phone Number : ";
+	std::getline (std::cin, str);
+	this->setPhoneNumber(str);
+	
+	std::cout << "Enter Darkest Secret : ";
+	std::getline (std::cin, str);
+	this->setDarkestSecret(str);
 }
