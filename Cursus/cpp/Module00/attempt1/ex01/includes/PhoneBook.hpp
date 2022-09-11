@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/10 22:42:49 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/11 20:50:19 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ public:
 	~PhoneBook( void );
 
 	void	addNewContact( void );
+	void	setContact( int idx, Contact *contact );
 
 	Contact	*getContact( int idx ) const;
 
