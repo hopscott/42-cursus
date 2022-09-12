@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/12 18:42:09 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/12 21:32:49 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ private:
 	Contact	_contacts[8];
 
 	void	setContact( int idx );
-
-	Contact	*getContact( int idx );
 
 };
 

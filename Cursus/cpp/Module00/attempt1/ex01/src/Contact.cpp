@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/12 18:50:26 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/12 21:33:31 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ Contact::Contact( void ) {
 	
 	std::cout << "Constructor called - Contact" << std::endl;
 	this->setIndex(-1);
-	this->setFirstName("");
-	this->setLastName("");
-	this->setNickname("");
-	this->setPhoneNumber("");
-	this->setDarkestSecret("");
 	return;
 }
 
@@ -30,15 +25,19 @@ Contact::~Contact( void ) {
 	return;
 }
 
+/* **************** */
+/* 		SETTERS		*/
+/* **************** */
+
 void	Contact::setIndex( int idx ) {
 	
 	if ((idx >= -1) && (idx < 9))
 		this->_index = idx;
 }
 
-void	Contact::setFirstName( std::string str ) {
+void	Contact::setFirstName( std::string& str ) {
 	
-	this->_firstName = str;
+	_firstName = str;
 }
 
 void	Contact::setLastName( std::string str ) {
@@ -46,20 +45,24 @@ void	Contact::setLastName( std::string str ) {
 	this->_lastName = str;
 }
 
-void	Contact::setNickname( std::string str ){
+void	Contact::setNickname( std::string str ) {
 	
 	this->_nickname = str;
 }
 
-void	Contact::setPhoneNumber( std::string str ){
+void	Contact::setPhoneNumber( std::string str ) {
 	
 	this->_phoneNumber = str;
 }
 
-void	Contact::setDarkestSecret( std::string str ){
+void	Contact::setDarkestSecret( std::string str ) {
 	
 	this->_darkestSecret = str;
 }
+
+/* **************** */
+/* 		GETTERS		*/
+/* **************** */
 
 int			Contact::getIndex( void ) const {
 
@@ -97,21 +100,21 @@ void	Contact::promptDetails ( void ) {
 
 	std::cout << "Enter First Name : ";
 	std::getline (std::cin, str);
-	this->setFirstName(str);
+	setFirstName(str);
 	
 	std::cout << "Enter Last Name : ";
 	std::getline (std::cin, str);
-	this->setLastName(str);
+	setLastName(str);
 	
 	std::cout << "Enter Nickname : ";
 	std::getline (std::cin, str);
-	this->setNickname(str);
+	setNickname(str);
 	
 	std::cout << "Enter Phone Number : ";
 	std::getline (std::cin, str);
-	this->setPhoneNumber(str);
+	setPhoneNumber(str);
 	
 	std::cout << "Enter Darkest Secret : ";
 	std::getline (std::cin, str);
-	this->setDarkestSecret(str);
+	setDarkestSecret(str);
 }

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/12 16:03:30 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/12 21:07:15 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CONTACT_H
 
 # include <iostream>
+# include <string>
 
 class Contact {
 
@@ -23,7 +24,7 @@ public:
 	~Contact( void );
 
 	void		setIndex( int idx );
-	void		setFirstName( std::string str );
+	void		setFirstName( std::string& str );
 	void		setLastName( std::string str );
 	void		setNickname( std::string str );
 	void		setPhoneNumber( std::string str );
@@ -37,7 +38,6 @@ public:
 	std::string	getPhoneNumber( void ) const;
 	std::string	getDarkestSecret( void ) const;
 
-private:
 
 	int			_index;
 	std::string	_firstName;
@@ -45,6 +45,7 @@ private:
 	std::string	_nickname;
 	std::string	_phoneNumber;
 	std::string	_darkestSecret;
+private:
 
 };
 
