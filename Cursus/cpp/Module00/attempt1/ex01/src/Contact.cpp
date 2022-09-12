@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/10 22:44:00 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/12 18:50:26 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 Contact::Contact( void ) {
 	
 	std::cout << "Constructor called - Contact" << std::endl;
+	this->setIndex(-1);
+	this->setFirstName("");
+	this->setLastName("");
+	this->setNickname("");
+	this->setPhoneNumber("");
+	this->setDarkestSecret("");
 	return;
 }
 
@@ -26,38 +32,33 @@ Contact::~Contact( void ) {
 
 void	Contact::setIndex( int idx ) {
 	
-	if ((idx > 0) && (idx < 9))
+	if ((idx >= -1) && (idx < 9))
 		this->_index = idx;
 }
 
 void	Contact::setFirstName( std::string str ) {
 	
-	if (!str.empty())
-		this->_firstName = str;
+	this->_firstName = str;
 }
 
 void	Contact::setLastName( std::string str ) {
 	
-	if (!str.empty())
-		this->_lastName = str;
+	this->_lastName = str;
 }
 
 void	Contact::setNickname( std::string str ){
 	
-	if (!str.empty())
-		this->_nickname = str;
+	this->_nickname = str;
 }
 
 void	Contact::setPhoneNumber( std::string str ){
 	
-	if (!str.empty())
-		this->_phoneNumber = str;
+	this->_phoneNumber = str;
 }
 
 void	Contact::setDarkestSecret( std::string str ){
 	
-	if (!str.empty())
-		this->_darkestSecret = str;
+	this->_darkestSecret = str;
 }
 
 int			Contact::getIndex( void ) const {

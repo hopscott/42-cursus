@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/08/15 16:07:30 by swillis          ###   ########.fr        #
+#    Updated: 2022/09/12 18:44:13 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ EXE := $(BIN_DIR)/$(NAME)
 # Compilation ====================================
 
 CC := c++
-CPPFLAGS ?= -Wall -Wextra -Werror -std=c++98 -I$(INC_DIR)
+CPPFLAGS ?= -Wall -Wextra -Werror -std=c++98 -I$(INC_DIR) -fsanitize=address -g
 LDFLAGS ?=
 
 # Src files ======================================

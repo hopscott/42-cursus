@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/10 22:43:52 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/12 16:03:30 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ public:
 	Contact( void );
 	~Contact( void );
 
-	void	setIndex( int idx );
-	void	setFirstName( std::string str );
-	void	setLastName( std::string str );
-	void	setNickname( std::string str );
-	void	setPhoneNumber( std::string str );
-	void	setDarkestSecret( std::string str );
-	void	promptDetails ( void );
+	void		setIndex( int idx );
+	void		setFirstName( std::string str );
+	void		setLastName( std::string str );
+	void		setNickname( std::string str );
+	void		setPhoneNumber( std::string str );
+	void		setDarkestSecret( std::string str );
+	void		promptDetails ( void );
 
 	int			getIndex( void ) const;
 	std::string	getFirstName( void ) const;
