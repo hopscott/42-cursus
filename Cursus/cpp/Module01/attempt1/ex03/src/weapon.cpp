@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*   weapon.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/14 15:54:04 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/15 13:28:24 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "Weapon.hpp"
 
-Zombie::Zombie( void ) {
+Weapon::Weapon( std::string type ) {
 	
-	std::cout << "Constructor called - Zombie" << std::endl;
+	std::cout << "Constructor called - Weapon";
+	setType(type);
+	std::cout << " of type " << getType() << std::endl;
 	return;
 }
 
-Zombie::~Zombie( void ) {
+Weapon::~Weapon( void ) {
 	
-	std::cout << "Destructor called - Zombie named " << getName() << std::endl;
+	std::cout << "Destructor called - Weapon type " << getType() << std::endl;
 	return;
 }
 
-void	Zombie::announce( void ) {
+void	Weapon::setType( std::string type ) {
 
-	std::cout << _name << ": BraiiiiiiinnnzzzZ..." << std::endl;
+	_type = type;
 }
 
-void	Zombie::setName( std::string name ) {
+const std::string&	Weapon::getType( void ) const {
 
-	_name = name;
-}
-
-std::string	Zombie::getName( void ) const {
-
-	return _name;
+	const std::string&	typeREF = _type;
+	return typeREF;
 }

@@ -1,38 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/14 15:53:57 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/15 13:37:32 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIE_H
-# define ZOMBIE_H
+#ifndef HUMANA_H
+# define HUMANA_H
 
+# include "Weapon.hpp"
 # include <iostream>
 # include <iomanip>
 # include <string>
 
-class Zombie {
+class HumanA {
 
 	public:
 
-		Zombie( void );
-		~Zombie( void );
+		HumanA( std::string name, Weapon& weapon );
+		~HumanA( void );
 
-		void		announce( void );
-		void		setName( std::string name );
-		std::string	getName( void ) const;
+		void			setName( std::string name );
+		void			setWeapon( Weapon& weapon );
+
+		const std::string&	getName( void ) const;
+		const Weapon&		getWeapon( void ) const;
+
+		void			attack( void ) const;
 
 	private:
 
 		std::string	_name;
-};
+		Weapon&		_weapon;
 
-Zombie* zombieHorde( int N, std::string name );
+};
 
 #endif

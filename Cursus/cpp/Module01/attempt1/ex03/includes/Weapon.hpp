@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/15 13:25:49 by scottwillis      ###   ########.fr       */
+/*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
+/*   Updated: 2022/09/15 13:28:35 by scottwillis      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Weapon.hpp"
-#include "HumanA.hpp"
+#ifndef WEAPON_H
+# define WEAPON_H
 
-int	main( void )
-{
-    Weapon  club = Weapon("crude spiked club");
-    HumanA bob("Bob", club);
-    bob.attack();
-    club.setType("some other type of club");
-    bob.attack();
+# include <iostream>
+# include <iomanip>
+# include <string>
 
-	return (0);
-}
+class Weapon {
+
+	public:
+
+		Weapon( std::string type );
+		~Weapon( void );
+
+		void			setType( std::string type );
+		const std::string&	getType( void ) const;
+
+	private:
+
+		std::string	_type;
+};
+
+#endif

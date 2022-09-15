@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
+#    By: scottwillis <scottwillis@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/09/14 15:37:59 by swillis          ###   ########.fr        #
+#    Updated: 2022/09/15 13:39:42 by scottwillis      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := zombie
+NAME := violence
 
 # Dirs ==========================================
 
@@ -33,11 +33,12 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/Zombie.hpp\
+HEADERS := 	$(INC_DIR)/Weapon.hpp\
+			$(INC_DIR)/HumanA.hpp\
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/Zombie.cpp\
-			$(SRC_DIR)/zombieHorde.cpp\
+			$(SRC_DIR)/weapon.cpp\
+			$(SRC_DIR)/humanA.cpp\
 
 # Make all ========================================
 
@@ -54,7 +55,7 @@ OBJS := $(SRCS:.cpp=.o)
 
 # Recipes ========================================
 
-zombie : $(OBJS)
+violence : $(OBJS)
 	$(CC) $(CPPFLAGS) $^ $(LDFLAGS) -o $(EXE)
 
 # Cleanup ========================================
