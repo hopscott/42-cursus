@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/12 21:07:15 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/21 19:38:46 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include <string>
+# include <sstream>
 
 class Contact {
 
@@ -48,5 +49,8 @@ public:
 private:
 
 };
+
+int		containsNonPrintables( std::string& str );
+void	streamClean( std::string& str );
 
 #endif

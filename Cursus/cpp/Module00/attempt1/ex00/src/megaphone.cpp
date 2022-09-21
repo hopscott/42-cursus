@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/08/15 15:30:50 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/21 18:53:01 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ int	main(int ac, char **av)
 		{
 			std::string str=av[i];
 			for (std::string::size_type j=0; j<str.length(); ++j)
-				str[j] = std::toupper(str[j]);
+				if (std::isprint(str[j]))
+					str[j] = std::toupper(str[j]);
+				else
+					str[j] = ' ';
+					
 			std::cout << str;
 		}
 	}

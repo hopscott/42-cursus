@@ -6,12 +6,13 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/12 21:09:17 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/21 19:37:57 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "Contact.hpp"
 # include "PhoneBook.hpp"
+
 
 int	main( void )
 {
@@ -22,11 +23,14 @@ int	main( void )
 	{
 		std::cout << "Enter a command [\"ADD\", \"SEARCH\" or \"EXIT\"]: " << std::endl;
 		std::getline (std::cin, str);
+		if (str.empty() || containsNonPrintables(str))
+			std::cout << "Please try again..." << std::endl;
+		streamClean(str);
 		if (str == "ADD")
 			phonebook.addNewContact();
-		if (str == "SEARCH")
+		else if (str == "SEARCH")
 			phonebook.searchContacts();
-		if (str == "EXIT")
+		else if (str == "EXIT")
 			break ;
 	}
 	return (0);

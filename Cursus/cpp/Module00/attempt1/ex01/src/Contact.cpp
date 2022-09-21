@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/12 21:33:31 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/21 19:51:44 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,22 @@ void	Contact::setFirstName( std::string& str ) {
 
 void	Contact::setLastName( std::string str ) {
 	
-	this->_lastName = str;
+	_lastName = str;
 }
 
 void	Contact::setNickname( std::string str ) {
 	
-	this->_nickname = str;
+	_nickname = str;
 }
 
 void	Contact::setPhoneNumber( std::string str ) {
 	
-	this->_phoneNumber = str;
+	_phoneNumber = str;
 }
 
 void	Contact::setDarkestSecret( std::string str ) {
 	
-	this->_darkestSecret = str;
+	_darkestSecret = str;
 }
 
 /* **************** */
@@ -66,55 +66,117 @@ void	Contact::setDarkestSecret( std::string str ) {
 
 int			Contact::getIndex( void ) const {
 
-	return this->_index;
+	return _index;
 }
 
 std::string	Contact::getFirstName( void ) const {
 
-	return this->_firstName;
+	return _firstName;
 }
 
 std::string	Contact::getLastName( void ) const {
 
-	return this->_lastName;
+	return _lastName;
 }
 
 std::string	Contact::getNickname( void ) const {
 
-	return this->_nickname;
+	return _nickname;
 }
 
 std::string	Contact::getPhoneNumber( void ) const {
 
-	return this->_phoneNumber;
+	return _phoneNumber;
 }
 
 std::string	Contact::getDarkestSecret( void ) const {
 
-	return this->_darkestSecret;
+	return _darkestSecret;
+}
+
+/* **************** */
+/* 		OTHERS		*/
+/* **************** */
+
+int	containsNonPrintables( std::string& str ) {
+
+	for (int i=0; i<(int)str.length(); i++) {
+		
+		if (!std::isprint(str[i]))
+			return (1);
+	}
+	return (0);
+}
+
+bool	containsGraph( std::string& str ) {
+
+	for (int i = 0; i < (int)str.length(); i++) {
+		
+		if (std::isgraph(str[i]))
+			return (true);
+	}
+	return (false);
+}
+
+void	streamClean( std::string& str ) {
+
+	std::stringstream	stream;
+	std::string			s;
+
+	stream << str;
+	str.clear();
+	while (stream >> s)
+		str.append(s + ' ');
+	str.resize(str.length() - 1);
 }
 
 void	Contact::promptDetails ( void ) {
 
-	std::string	str;
+	std::string	details[5];
 
-	std::cout << "Enter First Name : ";
-	std::getline (std::cin, str);
-	setFirstName(str);
+	for (int i=0; i<5; i++) {
+		switch (i) {
+			case 0:	
+				std::cout << "Enter First Name : ";
+				break;
+			case 1:	
+				std::cout << "Enter Last Name : ";
+				break;
+			case 2:	
+				std::cout << "Enter Nickname : ";
+				break;
+			case 3:	
+				std::cout << "Enter Phone Number : ";
+				break;
+			case 4:	
+				std::cout << "Enter Darkest Secret : ";
+				break;
+		}
+		std::getline (std::cin, details[i]);
+		if (details[i].empty() || containsNonPrintables(details[i])) {
+			std::cout << "Error ";
+			return;
+		}
+		streamClean(details[i]);
+	}
 	
-	std::cout << "Enter Last Name : ";
-	std::getline (std::cin, str);
-	setLastName(str);
-	
-	std::cout << "Enter Nickname : ";
-	std::getline (std::cin, str);
-	setNickname(str);
-	
-	std::cout << "Enter Phone Number : ";
-	std::getline (std::cin, str);
-	setPhoneNumber(str);
-	
-	std::cout << "Enter Darkest Secret : ";
-	std::getline (std::cin, str);
-	setDarkestSecret(str);
+	for (int i=0; i<5; i++) {
+		switch (i) {
+			case 0:	
+				setFirstName(details[i]);
+				break;
+			case 1:	
+				setLastName(details[i]);
+				break;
+			case 2:	
+				setNickname(details[i]);
+				break;
+			case 3:	
+				setPhoneNumber(details[i]);
+				break;
+			case 4:	
+				setDarkestSecret(details[i]);
+				break;
+		}
+	}
 }
