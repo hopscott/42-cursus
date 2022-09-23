@@ -24,7 +24,7 @@ PhoneBook::~PhoneBook( void ) {
 	return;
 }
 
-void	PhoneBook::setContact( int idx ) {
+void	PhoneBook::_setContact( int idx ) {
 	
 	int	err;
 
@@ -32,6 +32,13 @@ void	PhoneBook::setContact( int idx ) {
 	if (err)
 		return;
 	_contacts[idx].setIndex(idx);
+}
+
+Contact&	PhoneBook::_getContact( int idx ) {
+	
+	Contact&	contact = _contacts[idx];
+	
+	return contact;
 }
 
 void	PhoneBook::addNewContact ( void ) {
@@ -48,7 +55,7 @@ void	PhoneBook::addNewContact ( void ) {
 	}
 	if (idx == -1)
 		idx = 0;
-	setContact(idx);
+	_setContact(idx);
 }
 
 bool	isInt( std::string& str ) {
@@ -118,21 +125,34 @@ void	PhoneBook::searchContacts ( void ) {
 	}
 
 	for (int i=0; i < 3; i++) {
+		idx = -1;
 		std::cout << "Enter index to diplay: ";
 		std::getline (std::cin, str);
 		if (!containsGraph(str) || containsNonPrintables(str)) {
-			std::cout << "Invalid input - Please try a valid number [0-8]..." << std::endl;
+			std::cout << "Invalid input - Please try a valid number [1-8]..." << std::endl;
 			continue;
 		}
 		streamClean(str);
 		if (!isInt(str)) {
-			std::cout << "Invalid input - Please try a valid number [0-8] without spaces or letters..." << std::endl;
+			std::cout << "Invalid input - Please try a valid number [1-8] without spaces or letters..." << std::endl;
 			continue;
 		}
 		idx = std::atoi(str.c_str());
-		if ((idx < 1) || (idx > 8)) {
-			std::cout << "Invalid input - Number lies outside phonebook range [0-8]..." << std::endl;
-			continue;
-		}
+		if ((idx > 0) && (idx < 9))
+			break;
+		else
+			std::cout << "Invalid input - Number lies outside phonebook range [1-8]..." << std::endl;
+	}
+
+	if (idx != -1) {
+
+		idx -= 1;
+		std::cout << std::endl;
+		std::cout << "First Name: " << _getContact(idx).getFirstName() << std::endl;
+		std::cout << "Last Name: " << _getContact(idx).getLastName() << std::endl;
+		std::cout << "Nickname: " << _getContact(idx).getNickname() << std::endl;
+		std::cout << "Phone Number: " << _getContact(idx).getPhoneNumber() << std::endl;
+		std::cout << "Darkest Secret: " << _getContact(idx).getDarkestSecret() << std::endl;
+		std::cout << std::endl;
 	}
 }
