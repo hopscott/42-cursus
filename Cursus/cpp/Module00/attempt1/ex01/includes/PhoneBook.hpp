@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/12 21:32:49 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/23 14:57:55 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include <iomanip>
+# include <stdlib.h>
 # include "Contact.hpp"
 
 class PhoneBook {
@@ -34,5 +35,7 @@ private:
 	void	setContact( int idx );
 
 };
+
+bool	isInt( std::string& str );
 
 #endif

@@ -26,8 +26,12 @@ PhoneBook::~PhoneBook( void ) {
 
 void	PhoneBook::setContact( int idx ) {
 	
+	int	err;
+
+	err = _contacts[idx].promptDetails();
+	if (err)
+		return;
 	_contacts[idx].setIndex(idx);
-	_contacts[idx].promptDetails();
 }
 
 void	PhoneBook::addNewContact ( void ) {
@@ -47,11 +51,26 @@ void	PhoneBook::addNewContact ( void ) {
 	setContact(idx);
 }
 
+bool	isInt( std::string& str ) {
+
+	if ((int)str.length() > 10)
+		return (false);
+
+	for (int i = 0; i < (int)str.length(); i++) {
+		
+		if (std::isdigit(str[i]))
+			return (true);
+	}
+	return (false);
+}
+
 void	PhoneBook::searchContacts ( void ) {
 
 	std::string	firstname;
 	std::string	lastname;
 	std::string	nickname;
+	std::string	str;
+	int			idx;
 
 	std::cout << std::endl <<
 				 std::setw(10) << "Index" << "|" <<
@@ -96,5 +115,24 @@ void	PhoneBook::searchContacts ( void ) {
 					 std::setw(10) << firstname << "|" <<
 					 std::setw(10) << lastname << "|" <<
 					 std::setw(10) << nickname << std::endl;
+	}
+
+	for (int i=0; i < 3; i++) {
+		std::cout << "Enter index to diplay: ";
+		std::getline (std::cin, str);
+		if (!containsGraph(str) || containsNonPrintables(str)) {
+			std::cout << "Invalid input - Please try a valid number [0-8]..." << std::endl;
+			continue;
+		}
+		streamClean(str);
+		if (!isInt(str)) {
+			std::cout << "Invalid input - Please try a valid number [0-8] without spaces or letters..." << std::endl;
+			continue;
+		}
+		idx = std::atoi(str.c_str());
+		if ((idx < 1) || (idx > 8)) {
+			std::cout << "Invalid input - Number lies outside phonebook range [0-8]..." << std::endl;
+			continue;
+		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/21 19:51:44 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/23 14:57:18 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,14 @@ std::string	Contact::getDarkestSecret( void ) const {
 /* 		OTHERS		*/
 /* **************** */
 
-int	containsNonPrintables( std::string& str ) {
+bool	containsNonPrintables( std::string& str ) {
 
 	for (int i=0; i<(int)str.length(); i++) {
 		
 		if (!std::isprint(str[i]))
-			return (1);
+			return (true);
 	}
-	return (0);
+	return (false);
 }
 
 bool	containsGraph( std::string& str ) {
@@ -130,7 +130,7 @@ void	streamClean( std::string& str ) {
 	str.resize(str.length() - 1);
 }
 
-void	Contact::promptDetails ( void ) {
+int	Contact::promptDetails ( void ) {
 
 	std::string	details[5];
 
@@ -153,9 +153,9 @@ void	Contact::promptDetails ( void ) {
 				break;
 		}
 		std::getline (std::cin, details[i]);
-		if (details[i].empty() || containsNonPrintables(details[i])) {
-			std::cout << "Error ";
-			return;
+		if (!containsGraph(details[i]) || containsNonPrintables(details[i])) {
+			std::cout << std::endl << "Invalid entry - Please try again..." << std::endl << std::endl;
+			return 1;
 		}
 		streamClean(details[i]);
 	}
@@ -179,4 +179,5 @@ void	Contact::promptDetails ( void ) {
 				break;
 		}
 	}
+	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/21 19:38:46 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/23 14:57:25 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ public:
 	void		setNickname( std::string str );
 	void		setPhoneNumber( std::string str );
 	void		setDarkestSecret( std::string str );
-	void		promptDetails ( void );
+	int			promptDetails ( void );
 
 	int			getIndex( void ) const;
 	std::string	getFirstName( void ) const;
@@ -50,7 +50,8 @@ private:
 
 };
 
-int		containsNonPrintables( std::string& str );
+bool	containsNonPrintables( std::string& str );
+bool	containsGraph( std::string& str );
 void	streamClean( std::string& str );
 
 #endif
