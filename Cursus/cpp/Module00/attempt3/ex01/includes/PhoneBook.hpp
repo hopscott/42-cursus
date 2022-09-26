@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.hpp                                         :+:      :+:    :+:   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/23 20:40:57 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/26 16:07:44 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WEAPON_H
-# define WEAPON_H
+#ifndef PHONEBOOK_H
+# define PHONEBOOK_H
 
 # include <iostream>
 # include <iomanip>
-# include <string>
+# include <stdlib.h>
+# include "Contact.hpp"
 
-class Weapon {
+class PhoneBook {
 
-	public:
+public:
 
-		Weapon( std::string type );
-		~Weapon( void );
+	PhoneBook( void );
+	~PhoneBook( void );
 
-		void				setType( std::string type );
-		const std::string&	getType( void ) const;
+	void	addNewContact( void );
+	void	searchContacts( void );
 
-	private:
+private:
 
-		std::string	_type;
+	Contact	_contacts[8];
+	int		_overwriteIdx;
+
+	int			_setContact( int idx );
+	Contact&	_getContact( int idx );
+
 };
+
+bool	isInt( std::string& str );
 
 #endif

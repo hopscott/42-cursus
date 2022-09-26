@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/09/14 15:59:38 by swillis          ###   ########.fr        #
+#    Updated: 2022/09/26 16:23:00 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,9 @@ NAME := brain
 # Dirs ==========================================
 
 SRC_DIR := src
-LIB_DIR := lib
 INC_DIR := includes
+OBJ_DIR = build
+LIB_DIR := lib
 BIN_DIR := .
 
 # Exes ==========================================
@@ -28,7 +29,7 @@ EXE := $(BIN_DIR)/$(NAME)
 # Compilation ====================================
 
 CC := c++
-CPPFLAGS ?= -Wall -Wextra -Werror -std=c++98 -I$(INC_DIR) -fsanitize=address -g
+CPPFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -std=c++98
 LDFLAGS ?=
 
 # Src files ======================================
@@ -41,12 +42,13 @@ SRCS	:= 	$(SRC_DIR)/main.cpp\
 
 all : $(NAME)
 
-%.o: %.c $(HEADERS)
-	$(CC) -c $(CPPFLAGS) -o $@ $<
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CPPFLAGS) -c $< -o $@ 
 
 # Objects ========================================
 
-OBJS := $(SRCS:.cpp=.o)
+OBJS := $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 # Libs ==========================================
 
@@ -58,7 +60,7 @@ brain : $(OBJS)
 # Cleanup ========================================
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(OBJ_DIR)
 
 fclean : clean
 	rm -rf $(EXE)

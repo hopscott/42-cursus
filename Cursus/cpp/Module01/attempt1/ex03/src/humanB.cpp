@@ -1,60 +1,72 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   humanA.cpp                                         :+:      :+:    :+:   */
+/*   humanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/23 21:02:30 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/26 16:25:50 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Weapon.hpp"
-#include "HumanA.hpp"
+#include "HumanB.hpp"
 
-HumanA::HumanA( const std::string& name, Weapon& weapon ) 
-: _name(name), _weapon( weapon ) {
+HumanB::HumanB( const std::string& name ) 
+: _name(name) {
 
-	std::cout << "Constructor called - HumanA called " << getName();
-	std::cout << " armed with " << getWeapon().getType() << std::endl;
+	std::cout << "Constructor called - HumanB called " << getName() << std::endl;
+	_weapon = NULL;
 }
 
-HumanA::~HumanA( void ) {
-	
-	std::cout << "Destructor called - HumanA called " << getName() << std::endl;
+HumanB::~HumanB( void ) {
+
+	std::cout << "Destructor called - HumanB called " << getName() << std::endl;
 }
 
 // =========
 //  Setters
 // =========
 
-void	HumanA::setName( std::string name ) {
+void	HumanB::setName( std::string name ) {
 
 	_name = name;
+}
+
+void	HumanB::setWeapon( Weapon& weapon ) {
+
+	_weapon = &weapon;
 }
 
 // =========
 //  Getters
 // =========
 
-const std::string&	HumanA::getName( void ) const {
+const std::string&	HumanB::getName( void ) const {
 
 	const std::string&	nameREF = _name;
 	return nameREF;
 }
 
-const Weapon&	HumanA::getWeapon( void ) const {
+Weapon*	HumanB::getWeapon( void ) const {
 
-	const Weapon&	weaponREF = _weapon;
-	return weaponREF;
+	Weapon*	weaponPTR = _weapon;
+	return weaponPTR;
 }
 
 // =========
 //  Others
 // =========
 
-void	HumanA::attack( void ) const {
+void	HumanB::attack( void ) const {
 
-	std::cout << getName() << " attacks with their " << getWeapon().getType() << std::endl;
+	Weapon*	weapon;
+
+	std::cout << getName() << " attacks with their "; 
+	weapon = getWeapon();
+	if (weapon == NULL)
+		std::cout << "non-existant weapon" << std::endl;
+	else
+		std::cout << weapon->getType() << std::endl;
 }

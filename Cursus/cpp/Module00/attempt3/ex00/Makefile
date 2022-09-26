@@ -6,18 +6,17 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/09/26 16:23:29 by swillis          ###   ########.fr        #
+#    Updated: 2022/09/26 16:13:19 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := zombie
+NAME := megaphone
 
 # Dirs ==========================================
 
 SRC_DIR := src
-INC_DIR := includes
 OBJ_DIR = build
 LIB_DIR := lib
 BIN_DIR := .
@@ -29,16 +28,12 @@ EXE := $(BIN_DIR)/$(NAME)
 # Compilation ====================================
 
 CC := c++
-CPPFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -std=c++98
+CPPFLAGS ?= -Wall -Wextra -Werror -std=c++98
 LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/Zombie.hpp\
-
-SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/Zombie.cpp\
-			$(SRC_DIR)/zombieHorde.cpp\
+SRCS	:= 	$(SRC_DIR)/megaphone.cpp
 
 # Make all ========================================
 
@@ -56,7 +51,7 @@ OBJS := $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 # Recipes ========================================
 
-zombie : $(OBJS)
+megaphone : $(OBJS)
 	$(CC) $(CPPFLAGS) $^ $(LDFLAGS) -o $(EXE)
 
 # Cleanup ========================================

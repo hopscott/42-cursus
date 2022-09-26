@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/09/26 16:23:29 by swillis          ###   ########.fr        #
+#    Updated: 2022/09/26 16:17:18 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := zombie
+NAME := phonebook
 
 # Dirs ==========================================
 
@@ -34,11 +34,13 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/Zombie.hpp\
+HEADERS := 	$(INC_DIR)/PhoneBook.hpp\
+			$(INC_DIR)/Contact.hpp\
 
-SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/Zombie.cpp\
-			$(SRC_DIR)/zombieHorde.cpp\
+SRCS	:= 	$(SRC_DIR)/PhoneBook.cpp\
+			$(SRC_DIR)/Contact.cpp\
+			$(SRC_DIR)/main.cpp\
+
 
 # Make all ========================================
 
@@ -56,7 +58,7 @@ OBJS := $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 # Recipes ========================================
 
-zombie : $(OBJS)
+phonebook : $(OBJS)
 	$(CC) $(CPPFLAGS) $^ $(LDFLAGS) -o $(EXE)
 
 # Cleanup ========================================

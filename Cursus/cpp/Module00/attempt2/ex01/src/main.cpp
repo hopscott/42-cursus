@@ -6,35 +6,31 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/26 16:25:56 by swillis          ###   ########.fr       */
+/*   Updated: 2022/09/23 14:27:56 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Weapon.hpp"
-#include "HumanA.hpp"
-#include "HumanB.hpp"
+# include "Contact.hpp"
+# include "PhoneBook.hpp"
 
 int	main( void )
 {
-    std::cout << std::endl << "=== HumanA example with reference to weapon (weapon cannot be NULL) ===" << std::endl << std::endl;
-    {
-        Weapon club = Weapon("crude spiked club");
-        HumanA bob("Bob", club);
-        bob.attack();
-        club.setType("some other type of club");
-        bob.attack();
-    }
+	std::string	str;
+	PhoneBook	phonebook;
 
-    std::cout << std::endl << "=== HumanB example with pointer to weapon (weapon can be NULL) ===" << std::endl << std::endl;
-    {
-        Weapon  club = Weapon("crude spiked club");
-        HumanB  jim("Jim");
-        jim.attack();
-        jim.setWeapon(club);
-        jim.attack();
-        club.setType("some other type of club");
-        jim.attack();
-    }
-
+	while (std::cin)
+	{
+		std::cout << "Enter a command [\"ADD\", \"SEARCH\" or \"EXIT\"]: " << std::endl;
+		std::getline (std::cin, str);
+		if (!containsGraph(str) || containsNonPrintables(str))
+			continue;
+		streamClean(str);
+		if (str == "ADD")
+			phonebook.addNewContact();
+		else if (str == "SEARCH")
+			phonebook.searchContacts();
+		else if (str == "EXIT")
+			break;
+	}
 	return (0);
 }
