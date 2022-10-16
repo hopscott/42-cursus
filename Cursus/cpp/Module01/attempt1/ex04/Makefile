@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/09/26 16:25:43 by swillis          ###   ########.fr        #
+#    Updated: 2022/10/16 23:17:33 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := violence
+NAME := sed
 
 # Dirs ==========================================
 
@@ -34,14 +34,9 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/Weapon.hpp\
-			$(INC_DIR)/HumanA.hpp\
-			$(INC_DIR)/HumanB.hpp\
+HEADERS := 	$(INC_DIR)/
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/weapon.cpp\
-			$(SRC_DIR)/humanA.cpp\
-			$(SRC_DIR)/humanB.cpp\
 
 # Make all ========================================
 
@@ -59,7 +54,7 @@ OBJS := $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 # Recipes ========================================
 
-violence : $(OBJS)
+sed : $(OBJS)
 	$(CC) $(CPPFLAGS) $^ $(LDFLAGS) -o $(EXE)
 
 # Cleanup ========================================
