@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/16 23:37:46 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/17 15:58:09 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	main( int ac, char **av )
     std::string         s1;
     std::string         s2;
     std::string         str;
-    std::size_t         found;
+    std::string         substr;
+    std::string         nstr;
 
     if (ac != 4)
         return 1;
@@ -39,18 +40,27 @@ int	main( int ac, char **av )
     ifs.close();
 
     str = ss.str();
-    found = str.find(s1);
+
+    std::size_t found = str.find(s1);
+    std::cout << "FOUND->" << found;
+
     while (found != std::string::npos) {
-         
+
+        substr = str.substr(0, found);
+        nstr.append(substr);
+        nstr.append(s2);
+        found = str.find(s1);
     }
-    
+
+    substr = str.substr(found, str.length());
+    nstr.append(substr);
 
     filename.append(".replace");
     std::ofstream   ofs(filename.c_str());
     if (!ofs)
         return 4;
         
-    ofs << ss.str();
+    ofs << nstr;
     ofs.close();
     
     return 0;

@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/10/16 22:32:05 by swillis          ###   ########.fr        #
+#    Updated: 2022/10/17 20:06:30 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := phonebook
+NAME := account
 
 # Dirs ==========================================
 
@@ -34,10 +34,10 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/Account.hpp\
+HEADERS := 	$(INC_DIR)/Account.hpp
 
 SRCS	:= 	$(SRC_DIR)/tests.cpp\
-			$(SRC_DIR)/Account.cpp\
+			$(SRC_DIR)/Account.cpp
 
 # Make all ========================================
 
@@ -55,7 +55,7 @@ OBJS := $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 # Recipes ========================================
 
-phonebook : $(OBJS)
+account : $(OBJS)
 	$(CC) $(CPPFLAGS) $^ $(LDFLAGS) -o $(EXE)
 
 # Cleanup ========================================
