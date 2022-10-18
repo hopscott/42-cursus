@@ -67,6 +67,7 @@
         "iterator": "cpp",
         "utility": "cpp",
         "*.tcc": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "numbers": "cpp"
     }
 }

@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/10/18 18:25:16 by swillis          ###   ########.fr        #
+#    Updated: 2022/10/18 18:56:47 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := sed4losers
+NAME := Harl
 
 # Dirs ==========================================
 
@@ -34,10 +34,10 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/sed4losers.hpp
+HEADERS := 	$(INC_DIR)/Harl.hpp
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/sed4losers.cpp
+			$(SRC_DIR)/Harl.cpp
 
 # Make all ========================================
 
@@ -55,7 +55,7 @@ OBJS := $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 # Recipes ========================================
 
-sed4losers : $(OBJS)
+Harl : $(OBJS)
 	$(CC) $(CPPFLAGS) $^ $(LDFLAGS) -o $(EXE)
 
 # Cleanup ========================================
