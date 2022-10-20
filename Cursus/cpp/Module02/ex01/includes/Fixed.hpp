@@ -28,6 +28,10 @@ class Fixed {
 		// Default Constructor - initializes the fixed-point number value to 0
 		Fixed( void );
 
+		// Parameterised Constructors
+		Fixed( int const i );
+		Fixed( float const f );
+
 		// Copy Constructor
 		Fixed( Fixed const & src );
 
@@ -40,7 +44,12 @@ class Fixed {
 		// Member functions
 		int		getRawBits( void ) const;
 		void	setRawBits( int const raw );
+		float	toFloat( void ) const;
+		int		toInt( void ) const;
 
 };
+
+// Insertion Assignment Operator Overload
+std::ostream &	operator<<( std::ostream & o, Fixed const & rhs );
 
 #endif

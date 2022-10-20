@@ -28,6 +28,30 @@ Fixed::Fixed(Fixed const & src) {
 	return;
 }
 
+Fixed::Fixed(int const i) {
+
+	int	x;
+
+	std::cout << "Int constructor called" << std::endl;
+
+	x = i * (2 ^ _nfract_bits);
+	setRawBits(x);
+
+	return;
+}
+
+Fixed::Fixed(float const f) {
+
+	int	x;
+
+	std::cout << "Float constructor called" << std::endl;
+
+	x = f * (2 ^ _nfract_bits);
+	setRawBits(x);
+
+	return;
+}
+
 Fixed::~Fixed(void) {
 
 	std::cout << "Destructor called" << std::endl;
@@ -57,4 +81,21 @@ int		Fixed::getRawBits( void ) const {
 void	Fixed::setRawBits( int const raw ) {
 
 	_nval = raw;
+}
+
+float	Fixed::toFloat( void ) const {
+
+	return (_nval);
+}
+
+int		Fixed::toInt( void ) const {
+
+	return (_nval);
+}
+
+// https://stackoverflow.com/questions/67517939/how-to-connect-the-theory-of-fixed-point-numbers-and-its-practical-implementatio
+std::ostream &	operator<<( std::ostream & o, Fixed const & rhs ) {
+
+	o << rhs.getRawBits();
+	return o;
 }
