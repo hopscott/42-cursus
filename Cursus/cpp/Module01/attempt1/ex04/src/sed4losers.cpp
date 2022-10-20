@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/18 18:24:26 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/21 01:26:31 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ int	sed4losers( std::string& filename, std::string& s1, std::string& s2 )
 
     // Input file
     std::ifstream   ifs(filename.c_str());
-    if (!ifs)
+    if (!ifs) {
+
+       std::cout << "[ ERROR ]" << std::endl << "Input file: " << filename << " could not be opened" << std::endl << std::endl;
        return 1;
+    }
 
     // Read buffer into stringstream then convert to string
     ss << ifs.rdbuf();
@@ -48,8 +51,11 @@ int	sed4losers( std::string& filename, std::string& s1, std::string& s2 )
     // Output file
     filename.append(".replace");
     std::ofstream   ofs(filename.c_str());
-    if (!ofs)
+    if (!ofs) {
+
+        std::cout << "[ ERROR ]" << std::endl << "Output file: " << filename << " could not be opened" << std::endl << std::endl;
         return 2;
+    }
 
     // Replaced string into output file
     ofs << nstr;

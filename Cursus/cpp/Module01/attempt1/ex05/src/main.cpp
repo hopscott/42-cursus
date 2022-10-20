@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/18 18:57:33 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/21 00:52:43 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,21 @@
 
 int	main( int ac, char **av )
 {
-    Harl    harl;
+    Harl        harl;
+    std::string str;
 
-    harl.complain(3);
-    harl.complain(2);
-    harl.complain(1);
-    harl.complain(0);
+    if (ac != 2) {
+        
+        std::cout << "Needs only one argument such as: DEBUG or INFO or WARNING or ERROR" << std::endl << std::endl;
+        return 1;
+    }
+
+    str = av[1];
+    for (std::string::size_type i=0; i<str.length(); ++i)
+        if (std::isprint(str[i]))
+            str[i] = std::toupper(str[i]);
+    
+    harl.complain(str);
     
     return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/18 18:24:01 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/21 01:29:32 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ int	main( int ac, char **av )
     std::string s2;
 
     // Check args
-    if (ac != 4)
+    if ((ac != 4) || (!av[1] || !av[2] || !av[3])) {
+        
+        std::cout << "[ ERROR ]" << std::endl << "Wrong arguments => Need filename, string to find, and string for replacing" << std::endl << std::endl;
         return 1;
-    if (!av[1] || !av[2] || !av[3])
-        return 2;
+    }
 
     // Set inputs
     filename = av[1];
