@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/19 17:39:29 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/21 16:34:45 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ class Fixed {
 		// Member functions
 		int		getRawBits( void ) const;
 		void	setRawBits( int const raw );
+
+		
 
 };
 
