@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/10/23 17:20:37 by swillis          ###   ########.fr        #
+#    Updated: 2022/10/23 19:18:07 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := fixed
+NAME := bsp
 
 # Dirs ==========================================
 
@@ -34,10 +34,12 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/Fixed.hpp
+HEADERS := 	$(INC_DIR)/Fixed.hpp\
+			$(INC_DIR)/Point.hpp
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/Fixed.cpp
+			$(SRC_DIR)/Fixed.cpp\
+			$(SRC_DIR)/Point.cpp
 
 # Make all ========================================
 
