@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/21 18:54:37 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/23 02:42:24 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <iostream>
 # include <string>
 # include <cmath>
+# include <limits>
 
 class Fixed {
 
@@ -47,12 +48,12 @@ class Fixed {
 		Fixed &	operator=(const Fixed & rhs);
 
 		// Comparison Operator Overloads
-		Fixed &	operator>(const Fixed & rhs);
-		Fixed &	operator<(const Fixed & rhs);
-		Fixed &	operator>=(const Fixed & rhs);
-		Fixed &	operator<=(const Fixed & rhs);
-		Fixed &	operator==(const Fixed & rhs);
-		Fixed &	operator!=(const Fixed & rhs);
+		bool	operator>(const Fixed & rhs) const;
+		bool	operator<(const Fixed & rhs) const;
+		bool	operator>=(const Fixed & rhs) const;
+		bool	operator<=(const Fixed & rhs) const;
+		bool	operator==(const Fixed & rhs) const;
+		bool	operator!=(const Fixed & rhs) const;
 
 		// Arithmetic Operator Overloads
 		Fixed &	operator+(const Fixed & rhs);
@@ -75,7 +76,10 @@ class Fixed {
 		int		toInt( void ) const;
 
 		// Static functions
-		static float	max( const Fixed & a, const Fixed & b );
+		static Fixed & min( Fixed & a, Fixed & b );
+		static Fixed & max( Fixed & a, Fixed & b );
+		static const Fixed & min( const Fixed & a, const Fixed & b );
+		static const Fixed & max( const Fixed & a, const Fixed & b );
 
 };
 

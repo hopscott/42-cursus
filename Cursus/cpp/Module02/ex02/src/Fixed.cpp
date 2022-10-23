@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/21 18:57:13 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/23 03:00:12 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 // Default Constructor - initializes the fixed-point number value to 0
 Fixed::Fixed(void) {
 
-	std::cout << "Default constructor called" << std::endl;
     _nval = 0;
 
 	return;
@@ -29,9 +28,7 @@ Fixed::Fixed(int const i) {
 
 	int	x;
 
-	std::cout << "Int constructor called" << std::endl;
-
-	x = roundf(i * (1 << _nfract_bits));
+	x = i * (1 << _nfract_bits);
 	setRawBits(x);
 
 	return;
@@ -40,8 +37,6 @@ Fixed::Fixed(int const i) {
 Fixed::Fixed(float const f) {
 
 	int	x;
-
-	std::cout << "Float constructor called" << std::endl;
 
 	x = roundf(f * (1 << _nfract_bits));
 	setRawBits(x);
@@ -52,7 +47,6 @@ Fixed::Fixed(float const f) {
 // Copy Constructor
 Fixed::Fixed(Fixed const & src) {
 
-	std::cout << "Copy constructor called" << std::endl;
 	*this = src;
 
 	return;
@@ -61,17 +55,14 @@ Fixed::Fixed(Fixed const & src) {
 // Destructor
 Fixed::~Fixed(void) {
 
-	std::cout << "Destructor called" << std::endl;
-
     return;
 }
+
 
 // --------------- OPERATOR OVERLOADS ---------------
 
 // Copy Assignment Operator Overload
 Fixed &	Fixed::operator=(const Fixed & rhs) {
-
-	std::cout << "Copy assignment operator called" << std::endl;
 
     if (this == &rhs)
         return *this;
@@ -82,64 +73,176 @@ Fixed &	Fixed::operator=(const Fixed & rhs) {
 }
 
 // Comparison Operator Overloads
-Fixed &	Fixed::operator>(const Fixed & rhs) {
+bool	Fixed::operator>(const Fixed & rhs) const {
 	
+	return (getRawBits() > rhs.getRawBits());
 }
 
-Fixed &	Fixed::operator<(const Fixed & rhs) {
+bool	Fixed::operator<(const Fixed & rhs) const {
 	
+	return (getRawBits() < rhs.getRawBits());
 }
 
-Fixed &	Fixed::operator>=(const Fixed & rhs) {
+bool	Fixed::operator>=(const Fixed & rhs) const {
 	
+	return (getRawBits() >= rhs.getRawBits());
 }
 
-Fixed &	Fixed::operator<=(const Fixed & rhs) {
-	
+bool	Fixed::operator<=(const Fixed & rhs) const {
+
+	return (getRawBits() <= rhs.getRawBits());
 }
 
-Fixed &	Fixed::operator==(const Fixed & rhs) {
-	
+bool	Fixed::operator==(const Fixed & rhs) const {
+
+	return (getRawBits() == rhs.getRawBits());
 }
 
-Fixed &	Fixed::operator!=(const Fixed & rhs) {
-	
+bool	Fixed::operator!=(const Fixed & rhs) const {
+
+	return (getRawBits() != rhs.getRawBits());
 }
 
 
 // Arithmetic Operator Overloads
+
+// https://en.wikipedia.org/wiki/Q_%28number_format%29#Math_operations
+// Addition with saturation
 Fixed &	Fixed::operator+(const Fixed & rhs) {
 	
+	signed long tmp;
+
+	tmp = getRawBits() + rhs.getRawBits();
+
+	if (tmp > std::numeric_limits<int>::max())
+		tmp = std::numeric_limits<int>::max();
+	else if (tmp < std::numeric_limits<int>::min())
+		tmp = std::numeric_limits<int>::min();
+
+	Fixed *result = new Fixed((int)tmp);
+	return *result;
 }
 
+// Subtraction with saturation
 Fixed &	Fixed::operator-(const Fixed & rhs) {
 	
+	signed long tmp;
+
+	tmp = getRawBits() - rhs.getRawBits();
+
+	if (tmp > std::numeric_limits<int>::max())
+		tmp = std::numeric_limits<int>::max();
+	else if (tmp < std::numeric_limits<int>::min())
+		tmp = std::numeric_limits<int>::min();
+	
+	Fixed *result = new Fixed((int)tmp);
+	return *result;
 }
 
+// Multiplication with saturation
 Fixed &	Fixed::operator*(const Fixed & rhs) {
-	
+
+	signed long tmp;
+
+	tmp = getRawBits() * rhs.getRawBits();
+
+	tmp += (1 << (_nfract_bits - 1));
+
+	if (tmp > std::numeric_limits<int>::max())
+		tmp = std::numeric_limits<int>::max();
+	else if (tmp < std::numeric_limits<int>::min())
+		tmp = std::numeric_limits<int>::min();
+
+	Fixed *result = new Fixed((int)tmp);
+	return *result;
 }
 
+// Division with saturation
 Fixed &	Fixed::operator/(const Fixed & rhs) {
+
+	int			b;
+	signed long tmp;
+
+	tmp = getRawBits() << _nfract_bits;
+	b = rhs.getRawBits();
 	
+	if ((tmp >= 0 && b >= 0) || (tmp < 0 && b < 0))
+		tmp += b >> 1;
+	else
+		tmp -= b >> 1;
+
+	if (tmp > std::numeric_limits<int>::max())
+		tmp = std::numeric_limits<int>::max();
+	else if (tmp < std::numeric_limits<int>::min())
+		tmp = std::numeric_limits<int>::min();
+
+	Fixed *result = new Fixed((int)tmp);
+	return *result;
 }
 
 
 // Increment/Decrement Operator Overloads
 Fixed &	Fixed::operator++( void ) {
+
+	signed long tmp;
 	
+	tmp = getRawBits() + (1 << _nfract_bits);
+
+	if (tmp > std::numeric_limits<int>::max())
+		tmp = std::numeric_limits<int>::max();
+	else if (tmp < std::numeric_limits<int>::min())
+		tmp = std::numeric_limits<int>::min();
+
+	Fixed *result = new Fixed((int)tmp);
+	return *result;
 }
 
-Fixed &	Fixed::operator++( int n ) {
+Fixed &	Fixed::operator++( int ) {
 	
+	signed long tmp;
+	
+	tmp = (getRawBits() >> _nfract_bits) + 1;
+	tmp = tmp << _nfract_bits;
+
+	if (tmp > std::numeric_limits<int>::max())
+		tmp = std::numeric_limits<int>::max();
+	else if (tmp < std::numeric_limits<int>::min())
+		tmp = std::numeric_limits<int>::min();
+
+	Fixed *result = new Fixed((int)tmp);
+	return *result;
 }
 
 Fixed &	Fixed::operator--( void ) {
 	
+	signed long tmp;
+	
+	tmp = (getRawBits() >> _nfract_bits) - 1;
+	tmp = tmp << _nfract_bits;
+
+	if (tmp > std::numeric_limits<int>::max())
+		tmp = std::numeric_limits<int>::max();
+	else if (tmp < std::numeric_limits<int>::min())
+		tmp = std::numeric_limits<int>::min();
+
+	Fixed *result = new Fixed((int)tmp);
+	return *result;
 }
 
-Fixed &	Fixed::operator--( int n ) {
+Fixed &	Fixed::operator--( int ) {
 	
+	signed long tmp;
+	
+	tmp = (getRawBits() >> _nfract_bits) - 1;
+	tmp = tmp << _nfract_bits;
+
+	if (tmp > std::numeric_limits<int>::max())
+		tmp = std::numeric_limits<int>::max();
+	else if (tmp < std::numeric_limits<int>::min())
+		tmp = std::numeric_limits<int>::min();
+
+	Fixed *result = new Fixed((int)tmp);
+	return *result;
 }
 
 
@@ -164,6 +267,40 @@ float	Fixed::toFloat( void ) const {
 int		Fixed::toInt( void ) const {
 
 	return _nval >> _nfract_bits;
+}
+
+
+// Static functions
+Fixed & Fixed::min( Fixed & a, Fixed & b ) {
+	
+	if (a < b)
+		return a;
+	else
+		return b;
+}
+
+const Fixed & Fixed::min( const Fixed & a, const Fixed & b ) {
+
+	if (a < b)
+		return a;
+	else
+		return b;
+}
+
+Fixed & Fixed::max( Fixed & a, Fixed & b ) {
+
+	if (a > b)
+		return a;
+	else
+		return b;
+}
+
+const Fixed & Fixed::max( const Fixed & a, const Fixed & b ) {
+
+	if (a > b)
+		return a;
+	else
+		return b;
 }
 
 // --------------- PRINTING ---------------
