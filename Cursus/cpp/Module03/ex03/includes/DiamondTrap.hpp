@@ -1,57 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.hpp                                          :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/24 16:01:59 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/25 01:37:55 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef POINT_H
-# define POINT_H
+#ifndef DIAMONDTRAP_H
+# define DIAMONDTRAP_H
 
-# include "Fixed.hpp"
+# include <iostream>
+# include <string>
+# include <cmath>
+# include <limits>
 
-class Point {
+# include "ClapTrap.hpp"
+# include "ScavTrap.hpp"
+# include "FragTrap.hpp"
+
+class DiamondTrap : public FragTrap, public ScavTrap {
 
 	private:
 
-		const Fixed		_x;
-		const Fixed		_y;
+		std::string &	_name;
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Point( void );
-
-		// Parameterised Constructors
-		Point( float const x, float const y );
+		DiamondTrap( std::string & name );
 
 		// Copy Constructor
-		Point( Point const & src );
+		DiamondTrap( DiamondTrap const & src );
 	
 		// Destructor
-		~Point( void );
+		~DiamondTrap( void );
 
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Point &	operator=(const Point & rhs);
+		DiamondTrap &	operator=(const DiamondTrap & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		const Fixed &		getX( void ) const;
-		const Fixed &		getY( void ) const;
+		void	whoAmI(void);
+
+		// Static functions
 
 };
-
-// Insertion Assignment Operator Overload
-std::ostream &	operator<<( std::ostream & o, Point const & rhs );
 
 #endif

@@ -1,57 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.hpp                                          :+:      :+:    :+:   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/24 16:01:59 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/24 22:30:44 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef POINT_H
-# define POINT_H
+#ifndef CLAPTRAP_H
+# define CLAPTRAP_H
 
-# include "Fixed.hpp"
+# include <iostream>
+# include <string>
+# include <cmath>
+# include <limits>
 
-class Point {
+class ClapTrap {
 
 	private:
 
-		const Fixed		_x;
-		const Fixed		_y;
+		std::string &	_name;
+		unsigned int	_hit_points;
+		unsigned int	_energy_points;
+		unsigned int	_attack_damage;
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Point( void );
-
-		// Parameterised Constructors
-		Point( float const x, float const y );
+		ClapTrap( std::string & name );
 
 		// Copy Constructor
-		Point( Point const & src );
+		ClapTrap( ClapTrap const & src );
 	
 		// Destructor
-		~Point( void );
+		~ClapTrap( void );
 
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Point &	operator=(const Point & rhs);
+		ClapTrap &	operator=(const ClapTrap & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		const Fixed &		getX( void ) const;
-		const Fixed &		getY( void ) const;
+		void	attack(const std::string& target);
+		void	beRepaired(unsigned int amount);
+		void	takeDamage(unsigned int amount);
+
+		// Static functions
 
 };
-
-// Insertion Assignment Operator Overload
-std::ostream &	operator<<( std::ostream & o, Point const & rhs );
 
 #endif

@@ -6,19 +6,19 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/10/24 18:52:13 by swillis          ###   ########.fr        #
+#    Updated: 2022/10/25 01:24:18 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := bsp
+NAME := fragtrap
 
 # Dirs ==========================================
 
 SRC_DIR := src
 INC_DIR := includes
-OBJ_DIR = build
+OBJ_DIR := build
 LIB_DIR := lib
 BIN_DIR := .
 
@@ -34,14 +34,14 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/Fixed.hpp\
-			$(INC_DIR)/Point.hpp\
-			$(INC_DIR)/bsp.hpp
+HEADERS := 	$(INC_DIR)/ClapTrap.hpp\
+			$(INC_DIR)/ScavTrap.hpp\
+			$(INC_DIR)/FragTrap.hpp
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/Fixed.cpp\
-			$(SRC_DIR)/Point.cpp\
-			$(SRC_DIR)/bsp.cpp
+			$(SRC_DIR)/ClapTrap.cpp\
+			$(SRC_DIR)/ScavTrap.cpp\
+			$(SRC_DIR)/FragTrap.cpp
 
 # Make all ========================================
 

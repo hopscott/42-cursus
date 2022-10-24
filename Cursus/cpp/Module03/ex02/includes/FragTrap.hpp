@@ -1,57 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.hpp                                          :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/24 16:01:59 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/25 01:14:33 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef POINT_H
-# define POINT_H
+#ifndef FRAGTRAP_H
+# define FRAGTRAP_H
 
-# include "Fixed.hpp"
+# include <iostream>
+# include <string>
+# include <cmath>
+# include <limits>
 
-class Point {
+# include "ClapTrap.hpp"
 
-	private:
-
-		const Fixed		_x;
-		const Fixed		_y;
+class FragTrap : public ClapTrap {
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Point( void );
-
-		// Parameterised Constructors
-		Point( float const x, float const y );
+		FragTrap( std::string & name );
 
 		// Copy Constructor
-		Point( Point const & src );
+		FragTrap( FragTrap const & src );
 	
 		// Destructor
-		~Point( void );
+		~FragTrap( void );
 
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Point &	operator=(const Point & rhs);
+		FragTrap &	operator=(const FragTrap & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		const Fixed &		getX( void ) const;
-		const Fixed &		getY( void ) const;
+		void	highFivesGuys(void);
+
+		// Static functions
 
 };
-
-// Insertion Assignment Operator Overload
-std::ostream &	operator<<( std::ostream & o, Point const & rhs );
 
 #endif

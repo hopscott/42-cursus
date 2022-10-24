@@ -6,16 +6,15 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/19 17:37:45 by swillis          ###   ########.fr       */
+/*   Updated: 2022/10/24 17:59:12 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-Fixed::Fixed(void) {
+Fixed::Fixed(void) : _nval(0) {
 
 	std::cout << "Default constructor called" << std::endl;
-    _nval = 0;
 
 	return;
 }
@@ -23,6 +22,7 @@ Fixed::Fixed(void) {
 Fixed::Fixed(Fixed const & src) {
 
 	std::cout << "Copy constructor called" << std::endl;
+
 	*this = src;
 
 	return;
@@ -39,10 +39,10 @@ Fixed &	Fixed::operator=(const Fixed & rhs) {
 
 	std::cout << "Copy assignment operator called" << std::endl;
 
-    if (this == &rhs)
-        return *this;
-
-    setRawBits(rhs.getRawBits());
+    if (this != &rhs) {
+		
+		_nval = rhs._nval;
+	}
 
     return *this;
 }
