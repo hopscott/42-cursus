@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/12 02:33:21 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 16:50:54 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ class Cat: public Animal {
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		std::string &	getType( void ) const;
-		void			makeSound( void ) const;
+		const std::string &	getType( void ) const;
+		void				makeSound( void ) const;
 
 		// Static functions
 

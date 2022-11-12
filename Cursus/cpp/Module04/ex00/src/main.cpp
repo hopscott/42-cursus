@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/12 02:16:47 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 17:08:29 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,13 @@ int	main(void)
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;
 	
-	i->makeSound(); //will output the cat sound!
 	j->makeSound();
+	i->makeSound(); //will output the cat sound!
 	meta->makeSound();
 	
+	delete i;
+	delete j;
+	delete meta;
+
 	return 0;
 }
