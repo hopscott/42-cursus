@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/25 00:38:19 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 00:24:21 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,13 @@ class ClapTrap {
 
 	protected:
 
-		std::string &	_name;
+		// Diamond Constructor
+		ClapTrap(	const std::string & name, 
+					unsigned int hit_points,
+					unsigned int energy_points,
+					unsigned int attack_damage );
+
+		std::string 	_name;
 		unsigned int	_hit_points;
 		unsigned int	_energy_points;
 		unsigned int	_attack_damage;
@@ -32,7 +38,7 @@ class ClapTrap {
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		ClapTrap( std::string & name );
+		ClapTrap( const std::string & name );
 
 		// Copy Constructor
 		ClapTrap( ClapTrap const & src );

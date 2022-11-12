@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/25 01:37:55 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 00:24:35 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ class DiamondTrap : public FragTrap, public ScavTrap {
 
 	private:
 
-		std::string &	_name;
+		std::string		_name;
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		DiamondTrap( std::string & name );
+		DiamondTrap( const std::string & name );
 
 		// Copy Constructor
 		DiamondTrap( DiamondTrap const & src );

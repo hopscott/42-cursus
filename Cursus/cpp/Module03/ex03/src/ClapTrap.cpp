@@ -6,16 +6,31 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/25 00:41:43 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 00:25:56 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
+// Diamond Constructor
+ ClapTrap::ClapTrap( const std::string & name, 
+					 unsigned int hit_points, 
+					 unsigned int energy_points, 
+					 unsigned int attack_damage )
+:	_name(name),
+	_hit_points(hit_points), 
+	_energy_points(energy_points), 
+	_attack_damage(attack_damage)
+{
+	std::cout << "ClapTrap (" << _name << ") - Default Constructor called" << std::endl;
+
+	return;
+}
+
 // --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 
 // Default Constructor
-ClapTrap::ClapTrap( std::string & name )
+ClapTrap::ClapTrap( const std::string & name )
 : _name(name), _hit_points(10), _energy_points(10), _attack_damage(0)
 {
 	std::cout << "ClapTrap (" << _name << ") - Default Constructor called" << std::endl;

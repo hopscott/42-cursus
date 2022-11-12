@@ -1,45 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.cpp                                       :+:      :+:    :+:   */
+/*   Animal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/25 01:18:19 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 02:35:30 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FragTrap.hpp"
+#include "Animal.hpp"
 
 // --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 
 // Default Constructor
-FragTrap::FragTrap( std::string & name )
-: ClapTrap(name)
+Animal::Animal( void )
+: _type("Animal")
 {
-	_hit_points = 100;
-	_energy_points = 100;
-	_attack_damage = 30;
-	
-	std::cout << "FragTrap (" << _name << ") - Default Constructor called" << std::endl;
+	std::cout << "Animal (" << _type << ") - Default Constructor called" << std::endl;
 	
 	return;
 }
 
 // Copy Constructor
-FragTrap::FragTrap( FragTrap const & src )
-: ClapTrap(src)
+Animal::Animal( Animal const & src )
+: _type(src._type)
 {
-	std::cout << "FragTrap (" << _name << ") - Copy Constructor called" << std::endl;
+	std::cout << "Animal (" << _type << ") - Copy Constructor called" << std::endl;
 
 	return;
 }
 
 // Destructor
-FragTrap::~FragTrap( void )
+Animal::~Animal( void )
 {
-	std::cout << "FragTrap (" << _name << ") - Destructor called" << std::endl;
+	std::cout << "Animal (" << _type << ") - Destructor called" << std::endl;
 	
 	return;
 }
@@ -47,12 +43,15 @@ FragTrap::~FragTrap( void )
 // --------------- OPERATOR OVERLOADS ---------------
 
 // Copy Assignment Operator Overload
-FragTrap &	FragTrap::operator=(const FragTrap & rhs)
+Animal &	Animal::operator=(const Animal & rhs)
 {
 
-	ClapTrap::operator=(rhs);
+	if (this != &rhs)
+	{
+		_type = rhs._type;
+	}
 	
-	std::cout << "FragTrap (" << _name << ") - Copy Assignment Operator called" << std::endl;
+	std::cout << "Animal (" << _type << ") - Copy Assignment Operator called" << std::endl;
 
 	return *this;
 }
@@ -60,14 +59,13 @@ FragTrap &	FragTrap::operator=(const FragTrap & rhs)
 // --------------- FUNCTIONS ---------------
 
 // Member functions
-void	FragTrap::highFivesGuys( void ) 
-{
-	// Check hp
-	if (!_hit_points) {
-	
-		std::cout << "FragTrap [" << _name << "] is dead!" << std::endl;
-		return;
-	}
 
-	std::cout << "FragTrap [" << _name << "] Come on guys lets high five (☞ ͡° ͜ʖ ͡°)☞ ✋" << std::endl;
+std::string &	Animal::getType(void)
+{
+	return _type;
+}
+
+void			Animal::makeSound(void)
+{
+	std::cout << "*Weird grumbling mixed animal noises*" << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/25 01:18:19 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 00:25:31 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 
 // Default Constructor
-FragTrap::FragTrap( std::string & name )
+FragTrap::FragTrap( const std::string & name )
 : ClapTrap(name)
 {
 	_hit_points = 100;

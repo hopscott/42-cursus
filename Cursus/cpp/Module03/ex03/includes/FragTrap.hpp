@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/25 01:34:54 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 00:24:52 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class FragTrap : virtual public ClapTrap {
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		FragTrap( std::string & name );
+		FragTrap( const std::string & name );
 
 		// Copy Constructor
 		FragTrap( FragTrap const & src );

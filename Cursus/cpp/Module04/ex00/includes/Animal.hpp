@@ -1,56 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/25 00:38:19 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 02:32:52 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLAPTRAP_H
-# define CLAPTRAP_H
+#ifndef ANIMAL_H
+# define ANIMAL_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
 
-class ClapTrap {
+class Animal {
 
 	protected:
 
-		std::string &	_name;
-		unsigned int	_hit_points;
-		unsigned int	_energy_points;
-		unsigned int	_attack_damage;
+		std::string		_type;
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		ClapTrap( std::string & name );
+		Animal( void );
 
 		// Copy Constructor
-		ClapTrap( ClapTrap const & src );
+		Animal( Animal const & src );
 	
 		// Destructor
-		~ClapTrap( void );
+		~Animal( void );
 
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		ClapTrap &	operator=(const ClapTrap & rhs);
+		Animal &	operator=(const Animal & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		void	attack(const std::string& target);
-		void	beRepaired(unsigned int amount);
-		void	takeDamage(unsigned int amount);
+		std::string &	getType( void ) const;
+		void			makeSound( void ) const;
 
 		// Static functions
 

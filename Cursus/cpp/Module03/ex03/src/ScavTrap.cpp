@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/25 01:01:48 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 00:25:23 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 
 // Default Constructor
-ScavTrap::ScavTrap( std::string & name )
+ScavTrap::ScavTrap( const std::string & name )
 : ClapTrap(name)
 {
 	_hit_points = 100;

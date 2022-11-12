@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/10/25 01:24:18 by swillis          ###   ########.fr        #
+#    Updated: 2022/11/12 02:19:36 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := fragtrap
+NAME := animals 
 
 # Dirs ==========================================
 
@@ -34,14 +34,14 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/ClapTrap.hpp\
-			$(INC_DIR)/ScavTrap.hpp\
-			$(INC_DIR)/FragTrap.hpp
+HEADERS := 	$(INC_DIR)/Animal.hpp\
+			$(INC_DIR)/Dog.hpp\
+			$(INC_DIR)/Cat.hpp
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/ClapTrap.cpp\
-			$(SRC_DIR)/ScavTrap.cpp\
-			$(SRC_DIR)/FragTrap.cpp
+			$(SRC_DIR)/Animal.cpp\
+			$(SRC_DIR)/Dog.cpp\
+			$(SRC_DIR)/Cat.cpp
 
 # Make all ========================================
 

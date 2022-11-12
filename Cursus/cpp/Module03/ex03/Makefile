@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/10/25 01:24:18 by swillis          ###   ########.fr        #
+#    Updated: 2022/11/09 12:01:31 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := fragtrap
+NAME := diamondtrap
 
 # Dirs ==========================================
 
@@ -36,12 +36,14 @@ LDFLAGS ?=
 
 HEADERS := 	$(INC_DIR)/ClapTrap.hpp\
 			$(INC_DIR)/ScavTrap.hpp\
-			$(INC_DIR)/FragTrap.hpp
+			$(INC_DIR)/FragTrap.hpp\
+			$(INC_DIR)/DiamondTrap.hpp
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
 			$(SRC_DIR)/ClapTrap.cpp\
 			$(SRC_DIR)/ScavTrap.cpp\
-			$(SRC_DIR)/FragTrap.cpp
+			$(SRC_DIR)/FragTrap.cpp\
+			$(SRC_DIR)/DiamondTrap.cpp
 
 # Make all ========================================
 

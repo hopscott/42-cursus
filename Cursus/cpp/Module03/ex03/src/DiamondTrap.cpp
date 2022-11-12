@@ -6,27 +6,18 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/09 00:50:12 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 00:33:27 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "DiamondTrap.hpp"
 
-
-// Make a custom claptrap protected constructor with all variables
-
-
 // --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 
 // Default Constructor
-DiamondTrap::DiamondTrap( std::string & name )
-: _name(name), FragTrap(name), ScavTrap(name)
+DiamondTrap::DiamondTrap( const std::string & name )
+: ClapTrap(name + "_clap_name", 100, 50, 30), FragTrap(name), ScavTrap(name), _name(name) 
 {
-	ClapTrap::_name = name.append("_clap_name");
-	_hit_points = FragTrap::_hit_points;
-	_energy_points = ScavTrap::_energy_points;
-	_attack_damage = FragTrap::_attack_damage;
-	
 	std::cout << "DiamondTrap (" << _name << ") - Default Constructor called" << std::endl;
 	
 	return;
@@ -34,7 +25,7 @@ DiamondTrap::DiamondTrap( std::string & name )
 
 // Copy Constructor
 DiamondTrap::DiamondTrap( DiamondTrap const & src )
-: ClapTrap(src)
+: ClapTrap(src._name + "_clap_name", 100, 50, 30), FragTrap(src._name), ScavTrap(src._name), _name(src._name) 
 {
 	std::cout << "DiamondTrap (" << _name << ") - Copy Constructor called" << std::endl;
 
@@ -67,5 +58,5 @@ DiamondTrap &	DiamondTrap::operator=(const DiamondTrap & rhs)
 // Member functions
 void	DiamondTrap::whoAmI( void ) 
 {
-	std::cout << "DiamondTrap [" << _name << "] Come on guys lets high five (☞ ͡° ͜ʖ ͡°)☞ ✋" << std::endl;
+	std::cout << "DiamondTrap [" << _name << "] --> ClapTrap [" << ClapTrap::_name << "]" << std::endl;
 }

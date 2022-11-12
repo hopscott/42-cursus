@@ -1,49 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/10/25 01:14:33 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/12 02:33:10 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRAGTRAP_H
-# define FRAGTRAP_H
+#ifndef DOG_H
+# define DOG_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
+# include "Animal.hpp"
 
-# include "ClapTrap.hpp"
-
-class FragTrap : public ClapTrap {
+class Dog: public Animal {
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		FragTrap( std::string & name );
+		Dog( void );
 
 		// Copy Constructor
-		FragTrap( FragTrap const & src );
+		Dog( Dog const & src );
 	
 		// Destructor
-		~FragTrap( void );
+		~Dog( void );
 
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		FragTrap &	operator=(const FragTrap & rhs);
+		Dog &	operator=(const Dog & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		void	highFivesGuys(void);
+		std::string &	getType( void ) const;
+		void			makeSound( void ) const;
 
 		// Static functions
 
