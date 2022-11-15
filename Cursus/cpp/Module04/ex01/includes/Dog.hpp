@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/15 18:35:38 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/15 21:29:35 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@
 # include <cmath>
 # include <limits>
 # include "Animal.hpp"
+# include "Brain.hpp"
 
 class Dog: public Animal {
+
+	private:
+
+		Brain*	_brain;
 
 	public:
 
@@ -42,8 +47,9 @@ class Dog: public Animal {
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		const std::string &	getType( void ) const;
-		void				makeSound( void ) const;
+		const std::string &		getType( void ) const;
+		void					makeSound( void ) const;
+		const Brain*			getBrain( void ) const;
 
 		// Static functions
 

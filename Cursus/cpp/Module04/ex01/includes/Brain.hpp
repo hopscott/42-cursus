@@ -1,52 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/15 18:35:38 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/15 21:55:23 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_H
-# define DOG_H
+#ifndef BRAIN_H
+# define BRAIN_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
-# include "Animal.hpp"
+# include <ctime>
+# include <cstdlib>
+# include <unistd.h>
 
-class Dog: public Animal {
+class Brain {
+
+	private:
+
+		std::string		_ideas[100];
+		void			deepCopy( const Brain& src );
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Dog( void );
+		Brain( void );
 
 		// Copy Constructor
-		Dog( Dog const & src );
+		Brain( Brain const & src );
 	
 		// Destructor
-		~Dog( void );
-
+		virtual ~Brain( void );
+	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Dog &	operator=(const Dog & rhs);
+		Brain &	operator=(const Brain & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		const std::string &	getType( void ) const;
-		void				makeSound( void ) const;
-
-		// Static functions
-
+		std::string			ideaGenerator( void ) const;
+		void				firstFiveIdeas( void ) const;
 };
 
 #endif

@@ -1,43 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/15 18:40:45 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/15 22:05:07 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cat.hpp"
+#include "Dog.hpp"
+#include "Brain.hpp"
 
 // --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 
 // Default Constructor
-Cat::Cat( void )
+Dog::Dog( void )
 {
-	_type = "Cat";
+	_type = "Dog";
+	_brain = new Brain();
 
-	std::cout << _type << " - Cat Default Constructor called" << std::endl;
+	std::cout << _type << " - Dog Default Constructor called" << std::endl;
 	
 	return;
 }
 
 // Copy Constructor
-Cat::Cat( Cat const & src )
+Dog::Dog( Dog const & src )
 {
 	_type = src._type;
+	_brain = new Brain(*src._brain);
 
-	std::cout << _type << " - Cat Copy Constructor called" << std::endl;
+	std::cout << _type << " - Dog Copy Constructor called" << std::endl;
 
 	return;
 }
 
 // Destructor
-Cat::~Cat( void )
+Dog::~Dog( void )
 {
-	std::cout << _type << " - Cat Destructor called" << std::endl;
+	delete _brain;
+
+	std::cout << _type << " - Dog Destructor called" << std::endl;
 	
 	return;
 }
@@ -45,15 +50,16 @@ Cat::~Cat( void )
 // --------------- OPERATOR OVERLOADS ---------------
 
 // Copy Assignment Operator Overload
-Cat &	Cat::operator=(const Cat & rhs)
+Dog &	Dog::operator=(const Dog & rhs)
 {
 
 	if (this != &rhs)
 	{
 		_type = rhs._type;
+		*_brain = *rhs._brain;
 	}
 	
-	std::cout << _type << " - Cat Copy Assignment Operator called" << std::endl;
+	std::cout << _type << " - Dog Copy Assignment Operator called" << std::endl;
 
 	return *this;
 }
@@ -62,13 +68,17 @@ Cat &	Cat::operator=(const Cat & rhs)
 
 // Member functions
 
-const std::string &	Cat::getType(void) const
+const std::string &		Dog::getType(void) const
 {
 	return _type;
 }
 
-void				Cat::makeSound(void) const
+void					Dog::makeSound(void) const
 {
-	std::cout << "*MEOW*" << std::endl;
+	std::cout << "*WOOF*" << std::endl;
 }
 
+const Brain*			Dog::getBrain(void) const
+{
+	return _brain;
+}

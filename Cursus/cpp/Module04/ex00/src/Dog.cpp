@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/12 17:06:59 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/15 18:42:38 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ Dog::Dog( void )
 {
 	_type = "Dog";
 
-	std::cout << _type << " - Default Constructor called" << std::endl;
+	std::cout << _type << " - Dog Default Constructor called" << std::endl;
 	
 	return;
 }
@@ -29,7 +29,7 @@ Dog::Dog( Dog const & src )
 {
 	_type = src._type;
 
-	std::cout << _type << " - Copy Constructor called" << std::endl;
+	std::cout << _type << " - Dog Copy Constructor called" << std::endl;
 
 	return;
 }
@@ -37,7 +37,7 @@ Dog::Dog( Dog const & src )
 // Destructor
 Dog::~Dog( void )
 {
-	std::cout << _type << " - Destructor called" << std::endl;
+	std::cout << _type << " - Dog Destructor called" << std::endl;
 	
 	return;
 }
@@ -53,7 +53,7 @@ Dog &	Dog::operator=(const Dog & rhs)
 		_type = rhs._type;
 	}
 	
-	std::cout << _type << " - Copy Assignment Operator called" << std::endl;
+	std::cout << _type << " - Dog Copy Assignment Operator called" << std::endl;
 
 	return *this;
 }

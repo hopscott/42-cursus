@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/11/15 18:49:02 by swillis          ###   ########.fr        #
+#    Updated: 2022/11/15 22:05:47 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ EXE := $(BIN_DIR)/$(NAME)
 # Compilation ====================================
 
 CC := c++
-CPPFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -std=c++98
+CPPFLAGS ?= -Wall -Wextra -Werror -I$(INC_DIR) -std=c++98 -g
 LDFLAGS ?=
 
 # Src files ======================================
@@ -37,15 +37,13 @@ LDFLAGS ?=
 HEADERS := 	$(INC_DIR)/Animal.hpp\
 			$(INC_DIR)/Dog.hpp\
 			$(INC_DIR)/Cat.hpp\
-			$(INC_DIR)/WrongAnimal.hpp\
-			$(INC_DIR)/WrongCat.hpp
+			$(INC_DIR)/Brain.hpp
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
 			$(SRC_DIR)/Animal.cpp\
 			$(SRC_DIR)/Dog.cpp\
 			$(SRC_DIR)/Cat.cpp\
-			$(SRC_DIR)/WrongAnimal.cpp\
-			$(SRC_DIR)/WrongCat.cpp
+			$(SRC_DIR)/Brain.cpp
 
 # Make all ========================================
 

@@ -1,49 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   AAnimal.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/15 18:35:38 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/15 23:12:50 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_H
-# define DOG_H
+#ifndef AANIMAL_H
+# define AANIMAL_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
-# include "Animal.hpp"
 
-class Dog: public Animal {
+class AAnimal {
+
+	protected:
+
+		std::string		_type;
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Dog( void );
+		AAnimal( void );
 
 		// Copy Constructor
-		Dog( Dog const & src );
+		AAnimal( AAnimal const & src );
 	
 		// Destructor
-		~Dog( void );
-
+		virtual ~AAnimal( void );
+	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Dog &	operator=(const Dog & rhs);
+		AAnimal &	operator=(const AAnimal & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		const std::string &	getType( void ) const;
-		void				makeSound( void ) const;
+		const std::string &		getType( void ) const;
+		virtual void			makeSound( void ) const = 0; // Pure virtual function
 
 		// Static functions
 

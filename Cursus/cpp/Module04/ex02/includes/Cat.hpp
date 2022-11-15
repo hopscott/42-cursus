@@ -1,49 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/15 18:35:38 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/15 23:15:06 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_H
-# define DOG_H
+#ifndef CAT_H
+# define CAT_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
-# include "Animal.hpp"
+# include "AAnimal.hpp"
+# include "Brain.hpp"
 
-class Dog: public Animal {
+class Cat: public AAnimal {
+
+	private:
+
+		Brain*	_brain;
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Dog( void );
+		Cat( void );
 
 		// Copy Constructor
-		Dog( Dog const & src );
+		Cat( Cat const & src );
 	
 		// Destructor
-		~Dog( void );
+		~Cat( void );
 
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Dog &	operator=(const Dog & rhs);
+		Cat &	operator=(const Cat & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		const std::string &	getType( void ) const;
-		void				makeSound( void ) const;
+		const std::string &		getType( void ) const;
+		void					makeSound( void ) const;
+		const Brain*			getBrain( void ) const;
 
 		// Static functions
 
