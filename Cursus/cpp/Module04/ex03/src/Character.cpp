@@ -16,8 +16,9 @@
 
 // Default Constructor
 Character::Character( std::string const & name )
-: _name(name)
+: _name(name), _droplst(NULL)
 {
+
 	for (int i=0; i<MAX_INVENTORY; ++i)
 	{
 		_inventory[i] = NULL;
@@ -28,11 +29,18 @@ Character::Character( std::string const & name )
 
 // Copy Constructor
 Character::Character( Character const & src )
-: _name(src._name)
+: _name(src._name), _droplst(NULL)
 {
+
 	for (int i=0; i<MAX_INVENTORY; ++i)
 	{
-		_inventory[i] = src._inventory[i];
+		_inventory[i] = NULL;
+	}
+
+	for (int i=0; i<MAX_INVENTORY; ++i)
+	{
+		if (src._inventory[i])
+			_inventory[i] = src._inventory[i]->clone();
 	}
 
 	return;
@@ -40,7 +48,26 @@ Character::Character( Character const & src )
 
 // Destructor
 Character::~Character( void )
-{	
+{
+	Node*	next;
+
+	for (int i=0; i<MAX_INVENTORY; ++i)
+	{
+		if (_inventory[i])
+		{
+			delete _inventory[i];
+			_inventory[i] = NULL;
+		}
+	}
+
+	while (_droplst)
+	{
+		delete _droplst->_drop_addr;
+		next = _droplst->next;
+		delete _droplst;
+		_droplst = next;
+	}
+
 	return;
 }
 
@@ -59,12 +86,17 @@ Character &	Character::operator=(const Character & rhs)
 
 		for (int i=0; i<MAX_INVENTORY; ++i)
 		{
-			delete _inventory[i];
+			if (_inventory[i])
+			{
+				delete _inventory[i];
+				_inventory[i] = NULL;
+			}
 		}
 
 		for (int i=0; i<MAX_INVENTORY; ++i)
 		{
-			_inventory[i] = rhs._inventory[i];
+			if (rhs._inventory[i])
+				_inventory[i] = rhs._inventory[i]->clone();
 		}
 		
 	}
@@ -76,7 +108,59 @@ Character &	Character::operator=(const Character & rhs)
 
 // Member functions
 
-std::string const &		getName() const;
-		void					equip(AMateria* m);
-		void					unequip(int idx);
-		void					use(int idx, ICharacter& target);
+const std::string &	Character::getName() const 
+{
+	return _name;
+}
+
+void				Character::equip(AMateria* materia)
+{
+	for (int i=0; i<MAX_INVENTORY; ++i)
+	{
+		if (!_inventory[i])
+		{
+			std::cout << "Character [" << i << "] " << materia->getType() << " equipped" << std::endl;
+			_inventory[i] = materia;
+			return;
+		}
+	}
+}
+
+void				Character::unequip(int idx)
+{
+	// outside inventory
+	if (idx<0 || idx>=MAX_INVENTORY)
+		return;
+
+	if (_inventory[idx])
+	{
+		std::cout << "Character [" << idx << "] " << _inventory[idx]->getType() << " dropped" << std::endl;
+		_dropItem(_inventory[idx]);
+		_inventory[idx] = NULL;
+	}
+}
+
+void				Character::use(int idx, ICharacter& target)
+{
+	// outside inventory
+	if (idx<0 || idx>=MAX_INVENTORY)
+		return;
+
+	if (_inventory[idx])
+	{
+		std::cout << "Character [" << idx << "] " << _inventory[idx]->getType() << " used" << std::endl;
+		_inventory[idx]->use(target);
+		delete _inventory[idx];
+		_inventory[idx] = NULL;
+	}
+}
+
+void				Character::_dropItem(AMateria* materia)
+{
+	Node*	tbd = new Node();
+
+	// push front
+	tbd->_drop_addr = materia;
+	tbd->next = _droplst;
+	_droplst = tbd; 
+}

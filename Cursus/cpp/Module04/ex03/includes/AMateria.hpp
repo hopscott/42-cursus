@@ -18,6 +18,8 @@
 # include <cmath>
 # include <limits>
 
+class ICharacter;
+
 # include "ICharacter.hpp"
 
 class AMateria {

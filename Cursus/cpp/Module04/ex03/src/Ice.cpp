@@ -24,9 +24,9 @@ Ice::Ice(void)
 
 // Copy Constructor
 Ice::Ice( Ice const & src )
-: AMateria(src._type)
+: AMateria("ice")
 {
-
+	(void)src;
 	return;
 }
 
@@ -44,7 +44,7 @@ Ice &	Ice::operator=(const Ice & rhs)
 
 	if (this != &rhs)
 	{
-		_type = rhs._type;
+		_type = "ice";
 	}
 	
 	return *this;
@@ -61,7 +61,7 @@ std::string const &		Ice::getType(void) const
 
 Ice*					Ice::clone(void) const
 {
-	return new Ice();
+	return new Ice(*this);
 }
 
 void					Ice::use(ICharacter& target)

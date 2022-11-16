@@ -15,7 +15,7 @@
 // --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 
 // Default Constructor
-AMateria::AMateria(std::string const & type)
+AMateria::AMateria( std::string const & type )
 : _type(type)
 {
 

@@ -27,10 +27,18 @@ class Character: public ICharacter {
 
 	private:
 
-		const std::string &		_name;
-		AMateria*				_inventory[MAX_INVENTORY];
-		
-		// build linked list to store
+		// linked list to store dropped items
+		struct Node {
+			AMateria*		_drop_addr;
+			struct Node		*next;
+		};
+	
+		std::string			_name;
+		AMateria*			_inventory[MAX_INVENTORY];
+
+		// dropped items
+		Node*				_droplst;
+		void				_dropItem(AMateria* materia);
 
 	public:
 
@@ -53,7 +61,7 @@ class Character: public ICharacter {
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		std::string const &		getName() const;
+		const std::string &		getName() const;
 		void					equip(AMateria* materia);
 		void					unequip(int idx);
 		void					use(int idx, ICharacter& target);

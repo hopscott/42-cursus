@@ -24,9 +24,9 @@ Cure::Cure(void)
 
 // Copy Constructor
 Cure::Cure( Cure const & src )
-: AMateria(src._type)
+: AMateria("cure")
 {
-
+	(void)src;
 	return;
 }
 
@@ -44,7 +44,7 @@ Cure &	Cure::operator=(const Cure & rhs)
 
 	if (this != &rhs)
 	{
-		_type = rhs._type;
+		_type = "cure";
 	}
 	
 	return *this;
@@ -61,7 +61,7 @@ std::string const &		Cure::getType(void) const
 
 Cure*					Cure::clone(void) const
 {
-	return new Cure();
+	return new Cure(*this);
 }
 
 void					Cure::use(ICharacter& target)
