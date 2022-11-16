@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AAnimal.hpp                                        :+:      :+:    :+:   */
+/*   AMateria.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/15 23:12:50 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/15 23:33:32 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AANIMAL_H
-# define AANIMAL_H
+#ifndef AMATERIA_H
+# define AMATERIA_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
 
-class AAnimal {
+# include "ICharacter.hpp"
+
+class AMateria {
 
 	protected:
 
@@ -29,24 +31,25 @@ class AAnimal {
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		AAnimal( void );
+		AMateria(std::string const & type);
 
 		// Copy Constructor
-		AAnimal( AAnimal const & src );
+		AMateria( AMateria const & src );
 	
 		// Destructor
-		virtual ~AAnimal( void );
+		virtual ~AMateria( void );
 	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		AAnimal &	operator=(const AAnimal & rhs);
+		AMateria &	operator=(const AMateria & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		const std::string &		getType( void ) const;
-		virtual void			makeSound( void ) const = 0; // Pure virtual function
+		std::string const &		getType(void) const; 		// Returns the materia type
+		virtual AMateria*		clone(void) const = 0;		// Pure virtual function
+		virtual void			use(ICharacter& target);	// Prints
 
 		// Static functions
 

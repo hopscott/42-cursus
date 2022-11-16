@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AAnimal.cpp                                        :+:      :+:    :+:   */
+/*   Ice.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,42 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "AAnimal.hpp"
+#include "Ice.hpp"
 
 // --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 
 // Default Constructor
-AAnimal::AAnimal( void )
+Ice::Ice(void)
+: AMateria("ice")
 {
-	_type = "AAnimal";
 
-	std::cout << _type << " - AAnimal Default Constructor called" << std::endl;
-	
 	return;
 }
 
 // Copy Constructor
-AAnimal::AAnimal( AAnimal const & src )
+Ice::Ice( Ice const & src )
+: AMateria(src._type)
 {
-	_type = src._type;
-
-	std::cout << _type << " - AAnimal Copy Constructor called" << std::endl;
 
 	return;
 }
 
 // Destructor
-AAnimal::~AAnimal( void )
-{
-	std::cout << _type << " - AAnimal Destructor called" << std::endl;
-	
+Ice::~Ice( void )
+{	
 	return;
 }
 
 // --------------- OPERATOR OVERLOADS ---------------
 
 // Copy Assignment Operator Overload
-AAnimal &	AAnimal::operator=(const AAnimal & rhs)
+Ice &	Ice::operator=(const Ice & rhs)
 {
 
 	if (this != &rhs)
@@ -53,8 +47,6 @@ AAnimal &	AAnimal::operator=(const AAnimal & rhs)
 		_type = rhs._type;
 	}
 	
-	std::cout << _type << " - AAnimal Copy Assignment Operator called" << std::endl;
-
 	return *this;
 }
 
@@ -62,7 +54,17 @@ AAnimal &	AAnimal::operator=(const AAnimal & rhs)
 
 // Member functions
 
-const std::string &	AAnimal::getType(void) const
+std::string const &		Ice::getType(void) const
 {
 	return _type;
+}
+
+Ice*					Ice::clone(void) const
+{
+	return new Ice();
+}
+
+void					Ice::use(ICharacter& target)
+{
+	std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
 }
