@@ -1,55 +1,80 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/17 00:45:45 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/17 02:17:02 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_H
-# define ANIMAL_H
+#ifndef BUREAUCRAT_H
+# define BUREAUCRAT_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
 
-class Animal {
+class Bureaucrat {
 
 	protected:
 
-		std::string		_type;
+		const std::string	_name;
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Animal( void );
+		Bureaucrat( const std::string & name, const size_t grade );
 
 		// Copy Constructor
-		Animal( Animal const & src );
+		Bureaucrat( Bureaucrat const & src );
 	
 		// Destructor
-		virtual ~Animal( void );
+		virtual ~Bureaucrat( void );
 	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Animal &	operator=(const Animal & rhs);
+		Bureaucrat &	operator=(const Bureaucrat & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		const std::string &	getType( void ) const;
-		virtual void				makeSound( void ) const;
+		const std::string &	getName(void) const;
+		size_t				getGrade(void) const;
+		void				incrementGrade(void);
+		void				decrementGrade(void);
 
-		// Static functions
+		// --------------- EXCEPTIONS ---------------
+		
+		class GradeTooHighException: public std::exception {
+			
+			public:
+
+				virtual const char* what(void) const throw()
+				{
+					return ("Grade cannot be higher than 1!");
+				}
+		};
+
+		class GradeTooLowException: public std::exception {
+			
+			public:
+
+				virtual const char* what(void) const throw()
+				{
+					return ("Grade cannot be lower than 150!");
+				}
+		};
 
 };
+
+// Insertion Assignment Operator Overload
+std::ostream &	operator<<( std::ostream & o, Bureaucrat const & rhs );
 
 #endif
