@@ -1,62 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/18 20:42:34 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/18 21:27:50 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_H
-# define FORM_H
+#ifndef SHRUBBERYCREATIONFORM_H
+# define SHRUBBERYCREATIONFORM_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
 
-# include "Bureaucrat.hpp"
+# include "AForm.hpp"
 
-class Form {
+class ShrubberyCreationForm: public AForm {
 
 	private:
 
-		const std::string	_name;
-		bool				_is_signed;
-		const size_t		_grade_to_sign;
-		const size_t		_grade_to_execute;
+		std::string		_target;
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Form( const std::string & name, const size_t grade_to_sign, const size_t grade_to_execute );
+		ShrubberyCreationForm( const std::string & name, const size_t grade_to_sign, const size_t grade_to_execute );
 
 		// Copy Constructor
-		Form( Form const & src );
+		ShrubberyCreationForm( ShrubberyCreationForm const & src );
 	
 		// Destructor
-		virtual ~Form( void );
+		virtual ~ShrubberyCreationForm( void );
 	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Form &	operator=(const Form & rhs);
+		ShrubberyCreationForm &	operator=(const ShrubberyCreationForm & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
-		// Member functions
-		const std::string &	getName(void) const;
-		bool				getIsSigned(void) const;
-		size_t				getGradeToSign(void) const;
-		size_t				getGradeToExecute(void) const;
-		
-		void				beSigned(const Bureaucrat & bcrat);
-		void				signForm(const Bureaucrat & bcrat);
+		// Override pure virtual function
+		void		executeForm(ShrubberyCreationForm const & form) const;
 		
 		// --------------- EXCEPTIONS ---------------
 
@@ -76,12 +67,9 @@ class Form {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade needs to be higher than Form's grade to sign!");
+					return ("EXCEPTION - Grade needs to be higher than ShrubberyCreationForm's grade to sign!");
 				}
 		};
 };
-
-// Insertion Assignment Operator Overload
-std::ostream &	operator<<( std::ostream & o, Form const & rhs );
 
 #endif

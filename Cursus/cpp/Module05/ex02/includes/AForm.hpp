@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/18 20:42:34 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/18 21:27:10 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_H
-# define FORM_H
+#ifndef AFORM_H
+# define AFORM_H
 
 # include <iostream>
 # include <string>
@@ -20,7 +20,7 @@
 
 # include "Bureaucrat.hpp"
 
-class Form {
+class AForm {
 
 	private:
 
@@ -57,6 +57,10 @@ class Form {
 		
 		void				beSigned(const Bureaucrat & bcrat);
 		void				signForm(const Bureaucrat & bcrat);
+
+		// Abstract pure virtual functions
+		virtual void		executeForm(AForm const & form) const = 0;
+		
 		
 		// --------------- EXCEPTIONS ---------------
 

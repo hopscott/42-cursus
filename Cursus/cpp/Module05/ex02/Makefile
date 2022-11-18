@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/11/18 19:55:12 by swillis          ###   ########.fr        #
+#    Updated: 2022/11/18 21:24:55 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := bureaucrats 
+NAME := forms 
 
 # Dirs ==========================================
 
@@ -35,9 +35,13 @@ LDFLAGS ?=
 # Src files ======================================
 
 HEADERS := 	$(INC_DIR)/Bureaucrat.hpp\
+			$(INC_DIR)/AForm.hpp\
+			$(INC_DIR)/ShrubberyCreationForm.hpp\
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
 			$(SRC_DIR)/Bureaucrat.cpp\
+			$(SRC_DIR)/AForm.cpp\
+			$(SRC_DIR)/ShrubberyCreationForm.cpp\
 
 # Make all ========================================
 

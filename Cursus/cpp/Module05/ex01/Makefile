@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/11/17 02:11:21 by swillis          ###   ########.fr        #
+#    Updated: 2022/11/18 19:55:03 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := animals 
+NAME := forms 
 
 # Dirs ==========================================
 
@@ -35,9 +35,11 @@ LDFLAGS ?=
 # Src files ======================================
 
 HEADERS := 	$(INC_DIR)/Bureaucrat.hpp\
+			$(INC_DIR)/Form.hpp\
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
 			$(SRC_DIR)/Bureaucrat.cpp\
+			$(SRC_DIR)/Form.cpp\
 
 # Make all ========================================
 

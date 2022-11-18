@@ -26,6 +26,7 @@
 		"system_error": "cpp",
 		"type_traits": "cpp",
 		"typeinfo": "cpp",
-		"ctime": "cpp"
+		"ctime": "cpp",
+		"numbers": "cpp"
 	}
 }
