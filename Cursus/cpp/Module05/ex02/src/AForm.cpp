@@ -124,6 +124,14 @@ void				AForm::signForm(const Bureaucrat & bcrat)
 
 }
 
+bool				AForm::isExecutable(Bureaucrat const & executor) const
+{
+	if ((_is_signed) && (executor.getGrade() < _grade_to_execute))
+		return true;
+	else
+		return false;
+}
+
 // --------------- PRINTING ---------------
 
 // Insertion Assignment Operator Overload

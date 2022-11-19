@@ -59,24 +59,17 @@ ShrubberyCreationForm &	ShrubberyCreationForm::operator=(const ShrubberyCreation
 
 // --------------- FUNCTIONS ---------
 
+// Créé un fichier <target>_shrubbery dans le répertoire courant, et écrit des arbres ASCII à l’intérieur.
+
 void		ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
 
-	(void)executor;
-
-	// Créé un fichier <target>_shrubbery dans le répertoire courant, et écrit des arbres ASCII à l’intérieur.
-
-	std::string		shrub =
-	"   				,@@@@@@@,                     "
-	"		,,,.   ,@@@@@@/@@,  .oo8888o.             "
-	"		,&%%&%&&%,@@@@@/@@@@@@,8888\\88/8o        "
-	"	,%&\\%&&%&&%,@@@\\@@@/@@@88\\88888/88'        "
-	"	%&&%&%&/%&&%@@\\@@/ /@@@88888\\88888'         "
-	"	%&&%/ %&%%&&@@\\ V /@@' `88\\8 `/88'          "
-	"	`&%\\ ` /%&'    |.|        \\ '|8'            "
-	"		|o|        | |         | |                "
-	"		|.|        | |         | |                "
-	"	_/_ \\/ ._\\//_/__/  ,\\_//__\\/.  \\_//__/_  ";
+	if (!isExecutable(executor))
+	{
+		std::cout << "[ ERROR ]" << std::endl << "Executor: " << executor << " cannot execute Form: " << *this << std::endl << std::endl;
+		throw GradeTooLowException();
+		return;
+	}
 
 	// Output file
 	std::string	filename = _target;
@@ -88,10 +81,20 @@ void		ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 		return;
 	}
 
-	// print into output file
-	// ofs << shrub;
+	std::string		shrub =
+	"               ,@@@@@@@,                         \n"
+	"       ,,,.   ,@@@@@@/@@,  .oo8888o.             \n"
+	"    ,&%%&%&&%,@@@@@/@@@@@@,8888\\88/8o           \n"
+	"  ,%&\\%&&%&&%,@@@\\@@@/@@@88\\88888/88'         \n"
+	"  %&&%&%&/%&&%@@\\@@/ /@@@88888\\88888'          \n"
+	"  %&&%/ %&%%&&@@\\ V /@@' `88\\8 `/88'           \n"
+	"   `&%\\ ` /%&'    |.|        \\ '|8'            \n"
+	"       |o|        | |         | |                \n"
+	"       |.|        | |         | |                \n"
+	" _/_ \\/ ._\\//_/__/  ,\\_//__\\/.  \\_//__/_    \n";
 
-	std::cout << shrub << std::endl;
-
+	// output to output file
+	ofs << std::endl << shrub;
+	// close file
 	ofs.close();
 }
