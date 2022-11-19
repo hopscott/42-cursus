@@ -18,6 +18,9 @@
 # include <cmath>
 # include <limits>
 
+# include <iostream>
+# include <fstream>
+# include <sstream>
 # include "AForm.hpp"
 
 class ShrubberyCreationForm: public AForm {
@@ -31,13 +34,13 @@ class ShrubberyCreationForm: public AForm {
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		ShrubberyCreationForm( const std::string & name, const size_t grade_to_sign, const size_t grade_to_execute );
+		ShrubberyCreationForm( const std::string & target );
 
 		// Copy Constructor
 		ShrubberyCreationForm( ShrubberyCreationForm const & src );
 	
 		// Destructor
-		virtual ~ShrubberyCreationForm( void );
+		~ShrubberyCreationForm( void );
 	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
@@ -47,7 +50,7 @@ class ShrubberyCreationForm: public AForm {
 		// --------------- FUNCTIONS ---------------
 	
 		// Override pure virtual function
-		void		executeForm(ShrubberyCreationForm const & form) const;
+		void		execute(Bureaucrat const & executor) const;
 		
 		// --------------- EXCEPTIONS ---------------
 

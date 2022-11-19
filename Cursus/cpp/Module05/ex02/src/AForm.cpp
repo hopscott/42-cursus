@@ -95,12 +95,12 @@ void				AForm::beSigned(const Bureaucrat & bcrat)
 	if (bcrat.getGrade() < HIGHEST_GRADE)
 		throw GradeTooHighException();
 	else if ((bcrat.getGrade() < LOWEST_GRADE) && (bcrat.getGrade() <= _grade_to_sign))
-			signAForm(bcrat);
+			signForm(bcrat);
 	else
 		throw GradeTooLowException();
 }
 
-void				AForm::signAForm(const Bureaucrat & bcrat)
+void				AForm::signForm(const Bureaucrat & bcrat)
 {
 
 	if (bcrat.getGrade() < HIGHEST_GRADE)

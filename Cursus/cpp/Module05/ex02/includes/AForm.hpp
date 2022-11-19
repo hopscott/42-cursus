@@ -34,18 +34,18 @@ class AForm {
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Form( const std::string & name, const size_t grade_to_sign, const size_t grade_to_execute );
+		AForm( const std::string & name, const size_t grade_to_sign, const size_t grade_to_execute );
 
 		// Copy Constructor
-		Form( Form const & src );
+		AForm( AForm const & src );
 	
 		// Destructor
-		virtual ~Form( void );
+		virtual ~AForm( void );
 	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Form &	operator=(const Form & rhs);
+		AForm &	operator=(const AForm & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
@@ -59,7 +59,7 @@ class AForm {
 		void				signForm(const Bureaucrat & bcrat);
 
 		// Abstract pure virtual functions
-		virtual void		executeForm(AForm const & form) const = 0;
+		virtual void		execute(Bureaucrat const & executor) const = 0;
 		
 		
 		// --------------- EXCEPTIONS ---------------
@@ -86,6 +86,6 @@ class AForm {
 };
 
 // Insertion Assignment Operator Overload
-std::ostream &	operator<<( std::ostream & o, Form const & rhs );
+std::ostream &	operator<<( std::ostream & o, AForm const & rhs );
 
 #endif
