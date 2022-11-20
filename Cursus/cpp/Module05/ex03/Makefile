@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/11/18 21:24:55 by swillis          ###   ########.fr        #
+#    Updated: 2022/11/20 20:50:31 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ HEADERS := 	$(INC_DIR)/Bureaucrat.hpp\
 			$(INC_DIR)/ShrubberyCreationForm.hpp\
 			$(INC_DIR)/RobotomyRequestForm.hpp\
 			$(INC_DIR)/PresidentialPardonForm.hpp\
+			$(INC_DIR)/Intern.hpp\
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
 			$(SRC_DIR)/Bureaucrat.cpp\
@@ -46,6 +47,7 @@ SRCS	:= 	$(SRC_DIR)/main.cpp\
 			$(SRC_DIR)/ShrubberyCreationForm.cpp\
 			$(SRC_DIR)/RobotomyRequestForm.cpp\
 			$(SRC_DIR)/PresidentialPardonForm.cpp\
+			$(SRC_DIR)/Intern.cpp\
 
 # Make all ========================================
 

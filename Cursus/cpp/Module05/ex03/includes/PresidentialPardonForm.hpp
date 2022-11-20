@@ -57,7 +57,7 @@ class PresidentialPardonForm: public AForm {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade cannot be higher than 1!");
+					return ("[GradeTooHighException] - Grade cannot be higher than 1!");
 				}
 		};
 
@@ -67,7 +67,7 @@ class PresidentialPardonForm: public AForm {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade needs to be higher than PresidentialPardonForm's grade to sign!");
+					return ("[GradeTooLowException] - Grade needs to be higher than PresidentialPardonForm's grade to sign!");
 				}
 		};
 };

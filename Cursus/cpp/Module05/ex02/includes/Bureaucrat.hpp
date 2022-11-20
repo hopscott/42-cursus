@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/20 18:24:09 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/20 18:41:52 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class AForm;
 
 class Bureaucrat {
 
-	protected:
+	private:
 
 		const std::string	_name;
 		size_t				_grade;
@@ -43,7 +43,7 @@ class Bureaucrat {
 		Bureaucrat( Bureaucrat const & src );
 	
 		// Destructor
-		virtual ~Bureaucrat( void );
+		~Bureaucrat( void );
 	
 		// --------------- OPERATOR OVERLOADS ---------------
 	

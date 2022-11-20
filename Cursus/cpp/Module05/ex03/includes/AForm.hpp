@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/18 21:27:10 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/20 18:23:53 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <string>
 # include <cmath>
 # include <limits>
+
+class Bureaucrat;
 
 # include "Bureaucrat.hpp"
 
@@ -70,7 +72,7 @@ class AForm {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade cannot be higher than 1!");
+					return ("[GradeTooHighException] - Grade cannot be higher than 1!");
 				}
 		};
 
@@ -80,7 +82,17 @@ class AForm {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade needs to be higher than Form's grade to sign!");
+					return ("[GradeTooLowException] - Grade needs to be higher than Form's grade to sign!");
+				}
+		};
+
+		class ExecutingUnsignedFormException: public std::exception {
+			
+			public:
+
+				virtual const char* what(void) const throw()
+				{
+					return ("[ExecutingUnsignedFormException] - Form needs to be signed in order to execute!");
 				}
 		};
 };

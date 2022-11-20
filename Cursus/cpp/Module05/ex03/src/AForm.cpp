@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/18 21:24:36 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/20 18:16:39 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,31 +105,38 @@ void				AForm::signForm(const Bureaucrat & bcrat)
 
 	if (bcrat.getGrade() < HIGHEST_GRADE)
 	{
-		std::cout << bcrat.getName() << " couldn't sign AForm " << *this << " because grade too high!" << std::endl;
+		std::cout << bcrat << " couldn't sign AForm " << *this << " because grade too high!" << std::endl;
 		throw GradeTooHighException();
 	}
 	else if (bcrat.getGrade() > _grade_to_sign)
 	{
-		std::cout << bcrat.getName() << " couldn't sign AForm " << *this << " because grade too low!" << std::endl;
+		std::cout << bcrat << " couldn't sign AForm " << *this << " because grade too low!" << std::endl;
 		throw GradeTooLowException();
 	}
 	
 	if (_is_signed == false)
 	{
 		_is_signed = true;
-		std::cout << bcrat.getName() << " signed " << *this << std::endl;	
+		std::cout << bcrat << " signed " << *this << std::endl;	
 	}
 	else
-		std::cout << bcrat.getName() << " couldn't sign AForm " << *this << " because already signed!" << std::endl;
+		std::cout << bcrat << " couldn't sign AForm " << *this << " because already signed!" << std::endl;
 
 }
 
 bool				AForm::isExecutable(Bureaucrat const & executor) const
 {
-	if ((_is_signed) && (executor.getGrade() <= _grade_to_execute))
-		return true;
-	else
+	if (_is_signed == false)
+	{
+		throw ExecutingUnsignedFormException();
 		return false;
+	}
+	else if (executor.getGrade() > _grade_to_execute)
+	{
+		throw GradeTooLowException();
+		return false;
+	}
+	return true;
 }
 
 // --------------- PRINTING ---------------
