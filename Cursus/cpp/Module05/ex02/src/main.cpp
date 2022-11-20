@@ -12,16 +12,29 @@
 
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int	main(void)
 {
 
 	std::cout << std::endl << "=== CONSTRUCTORS === " << std::endl << std::endl;
 
-	Bureaucrat					jimmy("Jimmy", 33);
+	Bureaucrat					jimmy("Jimmy", 4);
 	ShrubberyCreationForm		shrub("garden");
+	RobotomyRequestForm			robot("Nigel");
+	PresidentialPardonForm		pres("Smithers");
+
+	std::cout << jimmy << std::endl;
+
+
+	shrub.signForm(jimmy);
+	robot.signForm(jimmy);
+	pres.signForm(jimmy);
 
 	shrub.execute(jimmy);
+	robot.execute(jimmy);
+	pres.execute(jimmy);
 
 	return 0;
 }

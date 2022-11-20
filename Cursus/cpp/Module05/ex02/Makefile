@@ -12,7 +12,7 @@
 
 # Name ==========================================
 
-NAME := forms 
+NAME := fancyforms 
 
 # Dirs ==========================================
 
@@ -37,11 +37,15 @@ LDFLAGS ?=
 HEADERS := 	$(INC_DIR)/Bureaucrat.hpp\
 			$(INC_DIR)/AForm.hpp\
 			$(INC_DIR)/ShrubberyCreationForm.hpp\
+			$(INC_DIR)/RobotomyRequestForm.hpp\
+			$(INC_DIR)/PresidentialPardonForm.hpp\
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
 			$(SRC_DIR)/Bureaucrat.cpp\
 			$(SRC_DIR)/AForm.cpp\
 			$(SRC_DIR)/ShrubberyCreationForm.cpp\
+			$(SRC_DIR)/RobotomyRequestForm.cpp\
+			$(SRC_DIR)/PresidentialPardonForm.cpp\
 
 # Make all ========================================
 

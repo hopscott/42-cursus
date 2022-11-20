@@ -73,7 +73,6 @@ void		RobotomyRequestForm::execute(Bureaucrat const & executor) const
 
 	std::cout << "*DRILLING NOISES*" << std::endl;
 	
-	static const size_t numIdeas = *(&ideas + 1) - ideas;
 	static bool	is_seeded = false;
 
 	if (!is_seeded)
