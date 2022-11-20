@@ -27,6 +27,8 @@
 		"type_traits": "cpp",
 		"typeinfo": "cpp",
 		"ctime": "cpp",
-		"numbers": "cpp"
+		"numbers": "cpp",
+		"fstream": "cpp",
+		"sstream": "cpp"
 	}
 }

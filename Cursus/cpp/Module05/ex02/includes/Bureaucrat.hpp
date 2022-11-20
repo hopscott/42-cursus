@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/18 20:26:39 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/20 18:24:09 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <string>
 # include <cmath>
 # include <limits>
+
+class AForm;
+
+# include "AForm.hpp"
 
 # define HIGHEST_GRADE 1
 # define LOWEST_GRADE 150
@@ -54,7 +58,7 @@ class Bureaucrat {
 		void				incrementGrade(void);
 		void				decrementGrade(void);
 
-		void				executeForm(Form const & form);
+		void				executeForm(AForm const & form);
 		
 		// --------------- EXCEPTIONS ---------------
 
@@ -64,7 +68,7 @@ class Bureaucrat {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade cannot be higher than 1!");
+					return ("[GradeTooHighException] - Grade cannot be higher than 1!");
 				}
 		};
 
@@ -74,7 +78,7 @@ class Bureaucrat {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade cannot be lower than 150!");
+					return ("[GradeTooLowException] - Grade cannot be lower than 150!");
 				}
 		};
 };

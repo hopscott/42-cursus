@@ -60,7 +60,7 @@ class RobotomyRequestForm: public AForm {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade cannot be higher than 1!");
+					return ("[GradeTooHighException] - Grade cannot be higher than 1!");
 				}
 		};
 
@@ -70,7 +70,7 @@ class RobotomyRequestForm: public AForm {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade needs to be higher than RobotomyRequestForm's grade to sign!");
+					return ("[GradeTooLowException] - Grade needs to be higher than RobotomyRequestForm's grade to sign!");
 				}
 		};
 };

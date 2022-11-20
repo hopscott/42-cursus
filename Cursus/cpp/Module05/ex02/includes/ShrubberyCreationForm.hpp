@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/18 21:27:50 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/20 18:24:43 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ class ShrubberyCreationForm: public AForm {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade cannot be higher than 1!");
+					return ("[GradeTooHighException] - Grade cannot be higher than 1!");
 				}
 		};
 
@@ -70,7 +70,7 @@ class ShrubberyCreationForm: public AForm {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade needs to be higher than ShrubberyCreationForm's grade to sign!");
+					return ("[GradeTooLowException] - Grade needs to be higher than ShrubberyCreationForm's grade to sign!");
 				}
 		};
 };

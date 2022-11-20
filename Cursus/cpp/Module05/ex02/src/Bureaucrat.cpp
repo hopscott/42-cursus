@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/18 20:04:59 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/20 17:53:51 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void				Bureaucrat::decrementGrade(void)
 	}
 }
 
-void				executeForm(Form const & form)
+void				Bureaucrat::executeForm(AForm const & form)
 {
 	try
 	{
