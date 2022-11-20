@@ -1,60 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/18 20:26:39 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/18 21:27:10 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUREAUCRAT_H
-# define BUREAUCRAT_H
+#ifndef AFORM_H
+# define AFORM_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
 
-# define HIGHEST_GRADE 1
-# define LOWEST_GRADE 150
+# include "Bureaucrat.hpp"
 
-class Bureaucrat {
+class AForm {
 
-	protected:
+	private:
 
 		const std::string	_name;
-		size_t				_grade;
+		bool				_is_signed;
+		const size_t		_grade_to_sign;
+		const size_t		_grade_to_execute;
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Bureaucrat( const std::string & name, const size_t grade );
+		AForm( const std::string & name, const size_t grade_to_sign, const size_t grade_to_execute );
 
 		// Copy Constructor
-		Bureaucrat( Bureaucrat const & src );
+		AForm( AForm const & src );
 	
 		// Destructor
-		virtual ~Bureaucrat( void );
+		virtual ~AForm( void );
 	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Bureaucrat &	operator=(const Bureaucrat & rhs);
+		AForm &	operator=(const AForm & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
 		const std::string &	getName(void) const;
-		size_t				getGrade(void) const;
-		void				incrementGrade(void);
-		void				decrementGrade(void);
+		bool				getIsSigned(void) const;
+		size_t				getGradeToSign(void) const;
+		size_t				getGradeToExecute(void) const;
+		
+		void				beSigned(const Bureaucrat & bcrat);
+		void				signForm(const Bureaucrat & bcrat);
+		bool				isExecutable(Bureaucrat const & executor) const;
 
-		void				executeForm(Form const & form);
+		// Abstract pure virtual functions
+		virtual void		execute(Bureaucrat const & executor) const = 0;
 		
 		// --------------- EXCEPTIONS ---------------
 
@@ -74,14 +80,12 @@ class Bureaucrat {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade cannot be lower than 150!");
+					return ("EXCEPTION - Grade needs to be higher than Form's grade to sign!");
 				}
 		};
 };
 
 // Insertion Assignment Operator Overload
-std::ostream &	operator<<( std::ostream & o, Bureaucrat const & rhs );
-
-
+std::ostream &	operator<<( std::ostream & o, AForm const & rhs );
 
 #endif

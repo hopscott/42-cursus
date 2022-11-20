@@ -1,60 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/18 20:26:39 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/18 21:27:50 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUREAUCRAT_H
-# define BUREAUCRAT_H
+#ifndef SHRUBBERYCREATIONFORM_H
+# define SHRUBBERYCREATIONFORM_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
 
-# define HIGHEST_GRADE 1
-# define LOWEST_GRADE 150
+# include <iostream>
+# include <fstream>
+# include <sstream>
+# include "AForm.hpp"
 
-class Bureaucrat {
+class ShrubberyCreationForm: public AForm {
 
-	protected:
+	private:
 
-		const std::string	_name;
-		size_t				_grade;
+		std::string		_target;
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Bureaucrat( const std::string & name, const size_t grade );
+		ShrubberyCreationForm( const std::string & target );
 
 		// Copy Constructor
-		Bureaucrat( Bureaucrat const & src );
+		ShrubberyCreationForm( ShrubberyCreationForm const & src );
 	
 		// Destructor
-		virtual ~Bureaucrat( void );
+		~ShrubberyCreationForm( void );
 	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Bureaucrat &	operator=(const Bureaucrat & rhs);
+		ShrubberyCreationForm &	operator=(const ShrubberyCreationForm & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
-		// Member functions
-		const std::string &	getName(void) const;
-		size_t				getGrade(void) const;
-		void				incrementGrade(void);
-		void				decrementGrade(void);
-
-		void				executeForm(Form const & form);
+		// Override pure virtual function
+		void		execute(Bureaucrat const & executor) const;
 		
 		// --------------- EXCEPTIONS ---------------
 
@@ -74,14 +70,9 @@ class Bureaucrat {
 
 				virtual const char* what(void) const throw()
 				{
-					return ("EXCEPTION - Grade cannot be lower than 150!");
+					return ("EXCEPTION - Grade needs to be higher than ShrubberyCreationForm's grade to sign!");
 				}
 		};
 };
-
-// Insertion Assignment Operator Overload
-std::ostream &	operator<<( std::ostream & o, Bureaucrat const & rhs );
-
-
 
 #endif

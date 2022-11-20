@@ -106,19 +106,6 @@ void				Bureaucrat::decrementGrade(void)
 	}
 }
 
-void				executeForm(Form const & form)
-{
-	try
-	{
-		form.execute(*this);
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-
-}
-
 // --------------- PRINTING ---------------
 
 // Insertion Assignment Operator Overload
