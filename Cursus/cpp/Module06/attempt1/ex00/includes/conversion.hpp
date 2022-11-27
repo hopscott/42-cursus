@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/26 16:30:25 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/27 20:29:35 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ enum t_token {
 	NB,	//Int/Double/Float number
 	DT,	//Double/float dot
 	FF,	//inf/float f
+	PO, //+
+	NE, //-
 	TOKEN_NBR
 };
 
@@ -34,6 +36,8 @@ enum t_state {
 
 	START,
 	ERROR,
+	NEGATIVE,
+	POSITIVE,
 	UNPRINTABLE,
 	CHAR,
 	INT,
@@ -49,7 +53,7 @@ const t_token	ascii_tbl[256] = {
 	UN, UN, UN, UN, UN, UN, UN, UN, //24
 	UN, UN, UN, UN, UN, UN, UN, CH, //32
 	CH, CH, CH, CH, CH, CH, CH, CH, //40
-	CH, CH, CH, CH, CH, CH, DT, CH, //48
+	CH, CH, CH, PO, CH, NE, DT, CH, //48
 	NB, NB, NB, NB, NB, NB, NB, NB, //56
 	NB, NB, CH, CH, CH, CH, CH, CH, //64
 	CH, CH, FF, CH, CH, CH, CH, CH, //72

@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/11/27 22:10:41 by swillis          ###   ########.fr        #
+#    Updated: 2022/11/27 23:41:10 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := serialize 
+NAME := iter 
 
 # Dirs ==========================================
 
@@ -34,12 +34,9 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/Data.hpp\
-			$(INC_DIR)/serialize.hpp
+HEADERS := 	$(INC_DIR)/iter.hpp
 
-SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/Data.cpp\
-			$(SRC_DIR)/serialize.cpp
+SRCS	:= 	$(SRC_DIR)/main.cpp
 
 # Make all ========================================
 

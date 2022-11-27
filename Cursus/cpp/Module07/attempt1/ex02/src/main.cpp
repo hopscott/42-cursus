@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions.hpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/27 22:10:47 by swillis          ###   ########.fr       */
+/*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
+/*   Updated: 2022/11/28 00:28:18 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FUNCTIONS_H
-# define FUNCTIONS_H
+#include <iostream>
 
-# include <iostream>
-# include <string>
-# include <cmath>
-# include <limits>
-# include <ctime>
-# include <cstdlib>
-# include <unistd.h>
+int main( void ) {
+	
+	int * a = new int();
+	
+	std::cout << *a << std::endl;
 
-# include "Base.hpp"
-# include "A.hpp"
-# include "B.hpp"
-# include "C.hpp"
-
-Base *	generate(void);
-void	identify(Base* p);
-void	identify(Base& p);
-
-#endif
+	return 0;
+}

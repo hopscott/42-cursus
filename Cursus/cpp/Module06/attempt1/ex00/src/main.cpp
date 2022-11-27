@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/26 16:45:05 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/27 20:34:48 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ int	main( int ac, char **av )
 					case START:
 						state = INT;
 						break;
+					case NEGATIVE:
+						state = INT;
+						break;
+					case POSITIVE:
+						state = INT;
+						break;
 					case INT:
 						state = INT;
 						break;
@@ -144,6 +150,30 @@ int	main( int ac, char **av )
 				}
 				break;
 				
+			case NE:
+				switch(state)
+				{
+					case START:
+						state = NEGATIVE;
+						break;
+					default:
+						state = ERROR;
+						break;
+				}
+				break;
+			
+			case PO:
+				switch(state)
+				{
+					case START:
+						state = POSITIVE;
+						break;
+					default:
+						state = ERROR;
+						break;
+				}
+				break;
+
 			default:
 				state = ERROR;
 				break;
@@ -208,14 +238,15 @@ int	main( int ac, char **av )
 				//Char
 				if (output > std::numeric_limits<char>::max())
 					std::cout << "char: impossible" << std::endl;
+				else if (output < std::numeric_limits<char>::min())
+					std::cout << "char: impossible" << std::endl;
 				else
 				{
-					n = static_cast<size_t>(output);
-					token = ascii_tbl[n];
-					if (token == UN)
-						std::cout << "char: Non displayable" << std::endl;
+					char c = static_cast<char>(output);
+					if (std::isprint(c))
+						std::cout << "char: '" << c << "'" << std::endl;	
 					else
-						std::cout << "char: '" << static_cast<char>(output) << "'" << std::endl;	
+						std::cout << "char: Non displayable" << std::endl;
 				}
 
 				//Int
@@ -243,14 +274,15 @@ int	main( int ac, char **av )
 				//Char
 				if (output > std::numeric_limits<char>::max())
 					std::cout << "char: impossible" << std::endl;
+				else if (output < std::numeric_limits<char>::min())
+					std::cout << "char: impossible" << std::endl;
 				else
 				{
-					n = static_cast<size_t>(output);
-					token = ascii_tbl[n];
-					if (token == UN)
-						std::cout << "char: Non displayable" << std::endl;
+					char c = static_cast<char>(output);
+					if (std::isprint(c))
+						std::cout << "char: '" << c << "'" << std::endl;	
 					else
-						std::cout << "char: '" << static_cast<char>(output) << "'" << std::endl;	
+						std::cout << "char: Non displayable" << std::endl;
 				}
 
 				//Int
@@ -289,14 +321,15 @@ int	main( int ac, char **av )
 				//Char
 				if (output > std::numeric_limits<char>::max())
 					std::cout << "char: impossible" << std::endl;
+				else if (output < std::numeric_limits<char>::min())
+					std::cout << "char: impossible" << std::endl;
 				else
 				{
-					n = static_cast<size_t>(output);
-					token = ascii_tbl[n];
-					if (token == UN)
-						std::cout << "char: Non displayable" << std::endl;
+					char c = static_cast<char>(output);
+					if (std::isprint(c))
+						std::cout << "char: '" << c << "'" << std::endl;	
 					else
-						std::cout << "char: '" << static_cast<char>(output) << "'" << std::endl;	
+						std::cout << "char: Non displayable" << std::endl;
 				}
 
 				//Int
@@ -321,6 +354,46 @@ int	main( int ac, char **av )
 					std::cout << ".0";
 				std::cout << std::endl;
 
+			}
+			break;
+
+		case NEGATIVE:
+			{
+				char	output = static_cast<char>(input[0]);
+				
+				//Char
+				std::cout << "char: '" << static_cast<char>(output) << "'" << std::endl;
+
+				//Int
+				std::cout << "int: " << static_cast<int>(output) << std::endl;
+
+				//Float
+				std::cout << std::setprecision(std::numeric_limits<float>::digits10 + 1);
+				std::cout << "float: " << static_cast<float>(output) << ".0f" << std::endl;
+
+				//Double
+				std::cout << std::setprecision(std::numeric_limits<double>::digits10 + 1);
+				std::cout << "double: " << static_cast<double>(output) << ".0" << std::endl;
+			}
+			break;
+
+		case POSITIVE:
+			{
+				char	output = static_cast<char>(input[0]);
+				
+				//Char
+				std::cout << "char: '" << static_cast<char>(output) << "'" << std::endl;
+
+				//Int
+				std::cout << "int: " << static_cast<int>(output) << std::endl;
+
+				//Float
+				std::cout << std::setprecision(std::numeric_limits<float>::digits10 + 1);
+				std::cout << "float: " << static_cast<float>(output) << ".0f" << std::endl;
+
+				//Double
+				std::cout << std::setprecision(std::numeric_limits<double>::digits10 + 1);
+				std::cout << "double: " << static_cast<double>(output) << ".0" << std::endl;
 			}
 			break;
 
