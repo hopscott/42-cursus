@@ -1,42 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   B.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/23 15:19:52 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/27 19:05:46 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_H
-# define PHONEBOOK_H
+#ifndef B_H
+# define B_H
 
-# include <iostream>
-# include <iomanip>
-# include <stdlib.h>
-# include "Contact.hpp"
+class B: public Base {
 
-class PhoneBook {
-
-public:
-
-	PhoneBook( void );
-	~PhoneBook( void );
-
-	void	addNewContact( void );
-	void	searchContacts( void );
-
-private:
-
-	Contact	_contacts[8];
-
-	void		_setContact( int idx );
-	Contact&	_getContact( int idx );
+	public:
+		
+	private:
 
 };
-
-bool	isInt( std::string& str );
 
 #endif

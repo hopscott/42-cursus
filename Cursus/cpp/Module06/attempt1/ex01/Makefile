@@ -6,17 +6,19 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/08/15 15:43:14 by swillis          ###   ########.fr        #
+#    Updated: 2022/11/26 17:54:04 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := megaphone
+NAME := convert 
 
 # Dirs ==========================================
 
 SRC_DIR := src
+INC_DIR := includes
+OBJ_DIR := build
 LIB_DIR := lib
 BIN_DIR := .
 
@@ -27,35 +29,41 @@ EXE := $(BIN_DIR)/$(NAME)
 # Compilation ====================================
 
 CC := c++
-CPPFLAGS ?= -Wall -Wextra -Werror -std=c++98
+CPPFLAGS ?= -Wall -Wextra -Werror -Wno-unused -Wconversion -I$(INC_DIR) -std=c++98 -g
 LDFLAGS ?=
 
 # Src files ======================================
 
-SRCS	:= 	$(SRC_DIR)/megaphone.cpp
+HEADERS := 	$(INC_DIR)/Data.hpp\
+			$(INC_DIR)/serialize.hpp
+
+SRCS	:= 	$(SRC_DIR)/main.cpp\
+			$(SRC_DIR)/Data.cpp\
+			$(SRC_DIR)/serialize.cpp
 
 # Make all ========================================
 
 all : $(NAME)
 
-%.o: %.c
-	$(CC) -c $(CPPFLAGS) -o $@ $<
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CPPFLAGS) -c $< -o $@
 
 # Objects ========================================
 
-OBJS := $(SRCS:.cpp=.o)
+OBJS := $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 # Libs ==========================================
 
 # Recipes ========================================
 
-megaphone : $(OBJS)
+$(NAME) : $(OBJS)
 	$(CC) $(CPPFLAGS) $^ $(LDFLAGS) -o $(EXE)
 
 # Cleanup ========================================
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(OBJ_DIR)
 
 fclean : clean
 	rm -rf $(EXE)

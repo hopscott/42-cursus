@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 15:23:17 by swillis           #+#    #+#             */
-/*   Updated: 2022/09/21 18:53:01 by swillis          ###   ########.fr       */
+/*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
+/*   Updated: 2022/11/27 20:08:06 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
+#include "functions.hpp"
 
-int	main(int ac, char **av)
+int	main( void )
 {
-	if (ac > 1)
+	Base*	ptr;
+
+	for (int i=0; i<10; ++i)
 	{
-		for (int i=1; i<ac; ++i)
-		{
-			std::string str=av[i];
-			for (std::string::size_type j=0; j<str.length(); ++j)
-				if (std::isprint(str[j]))
-					str[j] = std::toupper(str[j]);
-				else
-					str[j] = ' ';
-					
-			std::cout << str;
-		}
+		ptr = generate();
+
+		identify(ptr);
+		identify(*ptr);
+		
+		std::cout << std::endl;
 	}
-	else
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
-	std::cout << std::endl;
+
+    return 0;
 }

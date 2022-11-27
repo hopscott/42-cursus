@@ -1,54 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Converter.hpp                                      :+:      :+:    :+:   */
+/*   Data.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/21 01:56:31 by swillis          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:04:18 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INTERN_H
-# define INTERN_H
+#ifndef DATA_H
+# define DATA_H
 
 # include <iostream>
 # include <string>
 # include <cmath>
 # include <limits>
+# include <iomanip>
 
-class Converter {
-
-	private:
-
+class Data {
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		Converter( void );
+		Data( void );
+
+		// Parametric Constructor
+		Data( const int a, const int b, const int c );
 
 		// Copy Constructor
-		Converter( Converter const & src );
+		Data( Data const & src );
 	
 		// Destructor
-		~Converter( void );
+		~Data( void );
 	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		Converter &	operator=(const Converter & rhs);
-
-		// Conversions
-		operator float(void);
-		operator int(void);
+		Data &	operator=(const Data & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
+		int		getA(void) const;
+		int		getB(void) const;
+		int		getC(void) const;
+		
+	private:
+
+		int	_a;
+		int	_b;
+		int	_c;
 
 };
+
+// Insertion Assignment Operator Overload
+std::ostream &	operator<<( std::ostream & o, Data const & rhs );
 
 #endif

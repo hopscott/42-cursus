@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/11/21 01:00:52 by swillis          ###   ########.fr        #
+#    Updated: 2022/11/26 16:47:28 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := interns 
+NAME := convert 
 
 # Dirs ==========================================
 
@@ -29,25 +29,14 @@ EXE := $(BIN_DIR)/$(NAME)
 # Compilation ====================================
 
 CC := c++
-CPPFLAGS ?= -Wall -Wextra -Werror -Wno-unused -Wconversion -I$(INC_DIR) -std=c++98
+CPPFLAGS ?= -Wall -Wextra -Werror -Wno-unused -Wconversion -I$(INC_DIR) -std=c++98 -g
 LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/Bureaucrat.hpp\
-			$(INC_DIR)/AForm.hpp\
-			$(INC_DIR)/ShrubberyCreationForm.hpp\
-			$(INC_DIR)/RobotomyRequestForm.hpp\
-			$(INC_DIR)/PresidentialPardonForm.hpp\
-			$(INC_DIR)/Intern.hpp\
+HEADERS := 	$(INC_DIR)/conversion.hpp
 
-SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/Bureaucrat.cpp\
-			$(SRC_DIR)/AForm.cpp\
-			$(SRC_DIR)/ShrubberyCreationForm.cpp\
-			$(SRC_DIR)/RobotomyRequestForm.cpp\
-			$(SRC_DIR)/PresidentialPardonForm.cpp\
-			$(SRC_DIR)/Intern.cpp\
+SRCS	:= 	$(SRC_DIR)/main.cpp
 
 # Make all ========================================
 
