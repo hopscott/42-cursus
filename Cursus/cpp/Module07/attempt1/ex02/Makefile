@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/11/27 23:41:10 by swillis          ###   ########.fr        #
+#    Updated: 2022/11/28 14:53:38 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := iter 
+NAME := array
 
 # Dirs ==========================================
 
@@ -29,12 +29,12 @@ EXE := $(BIN_DIR)/$(NAME)
 # Compilation ====================================
 
 CC := c++
-CPPFLAGS ?= -Wall -Wextra -Werror -Wno-unused -Wconversion -I$(INC_DIR) -std=c++98 -g
+CPPFLAGS ?= -Wall -Wextra -Werror -Wno-unused -I$(INC_DIR) -std=c++98 -g
 LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/iter.hpp
+HEADERS := 	$(INC_DIR)/Array.hpp
 
 SRCS	:= 	$(SRC_DIR)/main.cpp
 
