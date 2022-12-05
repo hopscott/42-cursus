@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/03 21:27:05 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/05 18:09:24 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <limits>
 # include <iomanip>
 # include <algorithm>
-# include <vector>
+# include <stack>
 
 # define RED		"\x1b[31m"
 # define GREEN		"\x1b[32m"
@@ -35,30 +35,62 @@ class MutantStack: public std::stack<T> {
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 
 		// Default Constructor
-		MutantStack( void );
+		MutantStack( void )
+		{
+			return;
+		};
 
 		// Parametric Constructor
 
 		// Copy Constructor
-		MutantStack( MutantStack const & src );
+		MutantStack( MutantStack const & src )
+		{
+			for (size_t i=0; i<src.size(); ++i)
+			{
+				this->push(src[i]);
+			}
+			return;
+		};
 
 		// Destructor
-		~MutantStack( void );
+		~MutantStack( void )
+		{
+			for (size_t i=0; i<this->size(); ++i)
+			{
+				this->pop();
+			}
+			
+			return;
+		};
 
 		// --------------- OPERATOR OVERLOADS ---------------
 
 		// Copy Assignment Operator Overload
-		MutantStack &	operator=(const MutantStack & rhs);
+		MutantStack &	operator=(const MutantStack & rhs)
+		{
+			if (this != &rhs)
+			{
+				for (size_t i=0; i<rhs.size(); ++i)
+				{
+					this->push(rhs[i]);
+				}
+			}
 
+			return (*this);
+		};
+		
 		// --------------- FUNCTIONS ---------------
-		std::stack<T>::container_type::iterator    begin(void)
+		typedef typename std::stack<T>::container_type::iterator	iterator;
+
+		iterator	begin(void)
 		{
-			return c.begin();
-		}
-		std::stack<T>::container_type::iterator    end(void)
+			return this->c.begin();
+		};
+
+		iterator	end(void)
 		{
-			return c.end();
-		}
+			return this->c.end();
+		};
 	
 		// Member functions
 

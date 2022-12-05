@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/12/03 19:31:55 by swillis          ###   ########.fr        #
+#    Updated: 2022/12/05 18:01:27 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := span
+NAME := mutantstack
 
 # Dirs ==========================================
 
@@ -34,10 +34,9 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/Span.hpp
+HEADERS := 	$(INC_DIR)/MutantStack.hpp
 
-SRCS	:= 	$(SRC_DIR)/main.cpp\
-			$(SRC_DIR)/Span.cpp
+SRCS	:= 	$(SRC_DIR)/main.cpp
 
 # Make all ========================================
 
