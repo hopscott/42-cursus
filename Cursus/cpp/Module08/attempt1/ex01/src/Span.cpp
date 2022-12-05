@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/05 18:37:44 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/05 23:44:53 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ size_t		Span::shortestSpan(void)
 	for (std::size_t i=0; i!=v.size()-1; ++i) {
 
 		newRange = v[i+1] - v[i];
-		if (std::less<int>(newRange, range))
+		if (newRange < range)
 			range = newRange;
 	}
 	

@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/05 18:48:34 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/05 23:47:39 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <iomanip>
 # include <algorithm>
 # include <vector>
+# include <functional>
 
 #define RED			"\x1b[31m"
 #define GREEN		"\x1b[32m"
@@ -58,9 +59,9 @@ class Span {
 		size_t		longestSpan(void);
 
 		template <typename T>
-		void		addIterNumbers(typename std::vector<T>::const_iterator begin, typename std::vector<T>::const_iterator end)
+		void		addIterNumbers(const T begin, const T end)
 		{
-			for (typename std::vector<T>::iterator it=begin; it!=end; ++it)
+			for (T it=begin; it!=end; ++it)
 			{
 				addNumber(*it);
 			}
