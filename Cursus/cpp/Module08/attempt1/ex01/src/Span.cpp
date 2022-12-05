@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/05 18:07:05 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/05 18:37:44 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,4 @@ size_t		Span::longestSpan(void)
 	range = v.back() - v.front();
 
 	return range;
-}
-
-template <typename C>
-void		Span::addIterNumbers(typename C::const_iterator& begin, typename C::const_iterator& end)
-{
-	for (typename C::const_iterator& it=begin; it!=end; ++it)
-	{
-		addNumber(*it);
-	}
 }

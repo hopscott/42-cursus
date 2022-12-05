@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/11/28 15:05:00 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/05 23:35:19 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ class Array {
 		{
 			if (n > 0)
 			{
-				_arr = 	new T[_n];
-				for (unsigned int i=0; i<_n; ++i)
-				{
-					_arr[i] = 0;
-				}
+				_arr = 	new T[_n]();
 			}
 
 			return;
@@ -86,6 +82,7 @@ class Array {
 			if (this != &rhs)
 			{
 				_n = rhs._n;
+				delete [] _arr;
 				_arr = 	NULL;
 
 				if (_n > 0)

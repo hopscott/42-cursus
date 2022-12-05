@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/03 20:01:45 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/05 18:48:34 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,15 @@ class Span {
 		size_t		shortestSpan(void);
 		size_t		longestSpan(void);
 
-		template <typename C>
-		void		addIterNumbers(typename C::const_iterator& begin, typename C::const_iterator& end);
+		template <typename T>
+		void		addIterNumbers(typename std::vector<T>::const_iterator begin, typename std::vector<T>::const_iterator end)
+		{
+			for (typename std::vector<T>::iterator it=begin; it!=end; ++it)
+			{
+				addNumber(*it);
+			}
+		};
+
 
 	private:
 
