@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/18 22:55:13 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/18 23:51:03 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ namespace ft
 
 			// === GET_ALLOCATOR ===
 			
-			allocator_type	get_allocator() const
+			allocator_type	get_allocator(void) const
 			{
 				return _allocator;
 			}
