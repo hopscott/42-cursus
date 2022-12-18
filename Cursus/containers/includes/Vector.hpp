@@ -6,29 +6,19 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/18 01:01:26 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/18 22:55:13 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
-# include <iostream>
-# include <cmath>
-
-# include "iterTraits.hpp"
+# include "utils.hpp"
+# include "reverse_iterator.hpp"
 # include "RandomAccessIterator.hpp"
-# include "ReverseIterator.hpp"
-
-#define RED			"\x1b[31m"
-#define GREEN		"\x1b[32m"
-#define YELLOW		"\x1b[33m"
-#define BLUE		"\x1b[34m"
-#define RESET		"\x1b[0m"
 
 // https://www.stroustrup.com/except.pdf
 // https://stackoverflow.com/questions/31358804/whats-the-advantage-of-using-stdallocator-instead-of-new-in-c
-
 
 namespace ft
 {
@@ -62,14 +52,14 @@ namespace ft
 		
 			// Default Constructor
 			Vector<T>( void )
-			: _v(nullptr), _capacity(0), _current(0)
+			: _v(NULL), _capacity(0), _current(0)
 			{
 				return;
 			}
 
 			// Parametric Constructor
 			Vector<T>( const unsigned int n )
-			: _v(nullptr), _capacity(n), _current(0)
+			: _v(NULL), _capacity(n), _current(0)
 			{
 				_v = _allocator.allocate(_capacity, 0);
 				
@@ -78,9 +68,9 @@ namespace ft
 
 			// Copy Constructor
 			Vector<T>( Vector<T> const & src )
-			: _v(nullptr), _capacity(src._capacity), _current(src._current)
+			: _v(NULL), _capacity(src._capacity), _current(src._current)
 			{
-				_v = alloc.allocate(_capacity, 0);
+				_v = _allocator.allocate(_capacity, 0);
 				assign(src.begin(), src.end());
 
 				return;
@@ -89,11 +79,14 @@ namespace ft
 			// Destructor
 			~Vector<T>( void )
 			{
-				for (size_type idx=0; idx<_current; ++idx)
+				if (_v)
 				{
-					_allocator.destroy(_v[idx]);
+					for (size_type idx=0; idx<_current; ++idx)
+					{
+						_allocator.destroy(&_v[idx]);
+					}
+					_allocator.deallocate(_v, _capacity);
 				}
-				_allocator.deallocate(_v, _capacity);
 				
 				return;
 			}
@@ -170,7 +163,7 @@ namespace ft
 
 			reference	operator[](size_type idx)
 			{
-				if (_v == nullptr || idx >= _capacity)
+				if (_v == NULL || idx >= _capacity)
 				{
 					throw std::out_of_range("Index out of range");
 				}
@@ -180,7 +173,7 @@ namespace ft
 			
 			const_reference	operator[](size_type idx) const
 			{
-				if (_v == nullptr || idx >= _capacity)
+				if (_v == NULL || idx >= _capacity)
 				{
 					throw std::out_of_range("Index out of range");
 				}
@@ -291,7 +284,7 @@ namespace ft
 			{
 				if (new_cap > max_size())
 				{
-					throw std::length_error();
+					throw std::length_error("Capacity exceeds max size");
 				}
 				
 				pointer			new_v;
@@ -304,7 +297,7 @@ namespace ft
 				
 				for (size_type idx=0; idx<_current; ++idx)
 				{
-					_alloctor.construct(new_v[idx], _v[idx]);
+					_allocator.construct(new_v[idx], _v[idx]);
 					_allocator.destroy(_v[idx]);
 				}
 				_allocator.deallocate(_v, _capacity);
@@ -335,53 +328,239 @@ namespace ft
 			
 			// === INSERT ===
 			
-			iterator Vector<T>::insert( const_iterator pos, const T& value )
+			iterator	insert( const_iterator pos, const T& value )
 			{
+				size_type	idx = pos - begin();
+
+				if (idx > size())
+				{
+					throw std::out_of_range("Index out of range");
+				}
 				
+				if (size() == _capacity)
+				{
+					resize(_capacity * 2);
+				}
+
+				for (size_type i = _current + 1; i > idx; --i)
+				{
+					(*this)[i] = (*this)[i - 1];
+				}
+
+				(*this)[idx] = value;
+				++_current;
+				
+				return &(*this)[idx];
 			}
 
-			iterator Vector<T>::insert( const_iterator pos, size_type count, const T& value )
+			iterator insert( const_iterator pos, size_type count, const T& value )
 			{
+				size_type	idx = pos - begin();
+
+				if (idx > size())
+				{
+					throw std::out_of_range("Index out of range");
+				}
 				
+				while (size() + count >= _capacity)
+				{
+					resize(_capacity * 2);
+				}
+
+				for (size_type i = _current + count; i > idx; --i)
+				{
+					(*this)[i] = (*this)[i - 1];
+				}
+
+				for (size_type i = 0; i < count; ++i)
+				{
+					(*this)[idx++] = value;
+				}
+				_current += count;
+				
+				return &(*this)[idx];
 			}
 
 			template< class InputIt >
-			iterator Vector<T>::insert( const_iterator pos, InputIt first, InputIt last )
+			iterator insert( const_iterator pos, InputIt first, InputIt last )
 			{
+				size_type	idx = pos - begin();
+				size_type	count = 0;
+
+				if (idx > size())
+				{
+					throw std::out_of_range("Index out of range");
+				}
 				
+				for (InputIt ite = first; ite != last; ++ite)
+				{
+					++count;
+				}
+				while (size() + count >= _capacity)
+				{
+					resize(_capacity * 2);
+				}
+
+				for (size_type i = _current + count; i > idx; --i)
+				{
+					(*this)[i] = (*this)[i - 1];
+				}
+
+				for (InputIt ite = first; ite != last; ++ite)
+				{
+					(*this)[idx++] = *ite;
+				}
+				_current += count;
 				
+				return &(*this)[idx];
 			}
 
-		// 	Vector<T>::erase;
-		// 	Vector<T>::push_back;
-		// 	Vector<T>::pop_back;
-		// 	Vector<T>::resize;
-		// 	Vector<T>::swap;
+			// === ERASE ===
+			
+			iterator	erase( iterator pos )
+			{
+				size_type	idx = pos - begin();
+
+				if (idx > size())
+				{
+					throw std::out_of_range("Index out of range");
+				}
+				
+				for (size_type i = _current; i >= idx; --i)
+				{
+					(*this)[i] = (*this)[i + 1];
+				}
+				--_current;
+				
+				return &(*this)[idx];
+			}
+
+			iterator	erase( iterator first, iterator last )
+			{
+				size_type	idx = first - begin();
+				size_type	count = 0;
+
+				if (idx > size())
+				{
+					throw std::out_of_range("Index out of range");
+				}
+				
+				for (iterator ite = first; ite != last; ++ite)
+				{
+					++count;
+				}
+				
+				for (size_type i = _current; i >= idx - count; --i)
+				{
+					(*this)[i] = (*this)[i + 1];
+				}
+				
+				_current -= count;
+				
+				return &(*this)[idx];
+			}
+			
+			// === PUSH BACK ===
+			
+			void	push_back( const T& value )
+			{
+				insert(_current, value);
+			}
+
+			// === POP BACK ===
+			
+			void	pop_back(void)
+			{
+				erase(_current - 1);
+			}
+		
+			// === RESIZE ===
+			
+			void	resize( size_type count )
+			{
+					pointer			new_v;
+		
+					new_v = _allocator.allocate(count, 0);
+					if (!new_v)
+					{
+						throw std::bad_alloc();
+					}
+					
+					if (_current > count)
+					{
+						_current = count;
+					}
+					
+					for (size_type idx=0; idx<_current; ++idx)
+					{
+						_allocator.construct(new_v[idx], _v[idx]);
+						_allocator.destroy(_v[idx]);
+					}
+					_allocator.deallocate(_v, _capacity);
+					
+					_v = new_v;
+					_capacity = count;
+			}
+		
+			// === SWAP ===
+			
+			void	swap( Vector<T>& other )
+			{
+				pointer			tmp_v;
+				size_type		tmp_capacity;
+				size_type		tmp_current;
+				A				tmp_allocator;
+				
+				tmp_v = _v;
+				tmp_capacity = _capacity;
+				tmp_current = _current;
+				tmp_allocator = _allocator;
+
+				_v = other._v;
+				other._v = tmp_v;
+
+				_capacity = other._capacity;
+				other._capacity = tmp_capacity;
+
+				_current = other._current;
+				other._current = tmp_current;
+
+				_allocator = other._allocator;
+				other._allocator = tmp_allocator;
+			}
 
 			// --------------- NON-MEMBER FUNCTIONS ---------------
 			
-			// bool	Vector<T>::operator==(const Fixed & rhs) const
-			// {
-			// 	return (std::equal(*this->begin(), *this->end(), rhs.begin()));
-			// }
+			bool	operator==(const Vector<T> & rhs) const
+			{
+				return (ft::equal< Vector<T> >(begin(), end(), rhs.begin()));
+			}
 			
-			// bool	Vector<T>::operator!=(const Fixed & rhs) const
-			// {
-			// 	return (!std::equal(*this->begin(), *this->end(), rhs.begin()));
-			// }
+			bool	operator!=(const Vector<T> & rhs) const
+			{
+				return (!ft::equal< Vector<T> >(begin(), end(), rhs.begin()));
+			}
 			
-			// bool	Vector<T>::operator<(const Fixed & rhs) const
-			// {
-			// 	return (std::less(*this->begin(), *this->end(), rhs.begin()));
-			// }
+			bool	operator<(const Vector<T> & rhs) const
+			{
+				return (std::less< Vector<T> >(begin(), end(), rhs.begin()));
+			}
 			
-			// bool	Vector<T>::operator<=(const Fixed & rhs) const;
-			// bool	Vector<T>::operator>(const Fixed & rhs) const;
-			// bool	Vector<T>::operator>=(const Fixed & rhs) const;
+			bool	operator<=(const Vector<T> & rhs) const
+			{
+				return (std::less_equal< Vector<T> >(begin(), end(), rhs.begin()));
+			}
 			
-		// 	// void	swap();
-
-
+			bool	operator>(const Vector<T> & rhs) const
+			{
+				return (std::greater< Vector<T> >(begin(), end(), rhs.begin()));
+			}
+			
+			bool	operator>=(const Vector<T> & rhs) const
+			{
+				return (std::greater_equal< Vector<T> >(begin(), end(), rhs.begin()));
+			}
+			
 		private:
 
 			pointer			_v;

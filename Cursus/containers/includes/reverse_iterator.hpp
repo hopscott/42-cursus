@@ -1,60 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ReverseIterator.hpp                                :+:      :+:    :+:   */
+/*   reverse_iterator.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 22:01:09 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/18 00:34:44 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/18 22:47:12 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef REVERSEITERATOR_H
-# define REVERSEITERATOR_H
+#ifndef REVERSE_ITERATOR_H
+# define REVERSE_ITERATOR_H
 
-# include "iterTraits.hpp"
+# include "utils.hpp"
 
 namespace ft
 {
 	template< typename Iterator >
-	class ReverseIterator:
+	class reverse_iterator
 	{
 		
 		public:
 		
 			// --------------- MEMBER TYPES ---------------
 
-			typedef ft::iterator_traits<Iterator>::value_type			value_type;
-			typedef ft::iterator_traits<Iterator>::pointer				pointer;
-			typedef ft::iterator_traits<Iterator>::reference			reference;
-			typedef ft::iterator_traits<Iterator>::difference_type		difference_type;
-			typedef ft::iterator_traits<Iterator>::iterator_category	iterator_category;
+			typedef typename ft::iterator_traits<Iterator>::value_type			value_type;
+			typedef typename ft::iterator_traits<Iterator>::pointer				pointer;
+			typedef typename ft::iterator_traits<Iterator>::reference			reference;
+			typedef typename ft::iterator_traits<Iterator>::difference_type		difference_type;
+			typedef typename ft::iterator_traits<Iterator>::iterator_category	iterator_category;
 
 			// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 		
 			// Default Constructor
-			ReverseIterator<Iterator>( void )
+			reverse_iterator<Iterator>( void )
 			{
 				return;
 			}
 			
 			// Parametric Constructor
-			ReverseIterator<Iterator>( Iterator ite )
+			reverse_iterator<Iterator>( Iterator ite )
 			: _ite(ite)
 			{
 				return;
 			}
 
 			// Copy Constructor
-			ReverseIterator<Iterator>( ReverseIterator<Iterator> const & src )
+			reverse_iterator<Iterator>( reverse_iterator<Iterator> const & src )
 			: _ite(src._ite)
 			{
 				return;
 			}
 			
 			// Destructor
-			~ReverseIterator<Iterator>( void )
+			~reverse_iterator<Iterator>( void )
 			{
 				return;
 			}
@@ -62,7 +62,7 @@ namespace ft
 			// --------------- OPERATOR OVERLOADS ---------------
 		
 			// Copy Assignment Operator Overload
-			ReverseIterator<Iterator> &	operator=(const ReverseIterator<Iterator> & rhs)
+			reverse_iterator<Iterator> &	operator=(const reverse_iterator<Iterator> & rhs)
 			{
 				if (this != &rhs)
 				{
@@ -86,89 +86,89 @@ namespace ft
 			}
 
 			// Increment and decrement operators
-			ReverseIterator<Iterator>&	operator++()
+			reverse_iterator<Iterator>&	operator++()
 			{ 
 				--_ite;
 				return *this;
 			}
 			
-			ReverseIterator<Iterator>	operator++(int)
+			reverse_iterator<Iterator>	operator++(int)
 			{ 
-				ReverseIterator<Iterator>	tmp(*this); 
+				reverse_iterator<Iterator>	tmp(*this); 
 
 				--_ite; 
 				return tmp; 
 			}
 
-			ReverseIterator<Iterator>& operator--()
+			reverse_iterator<Iterator>& operator--()
 			{ 
 				++_ite; 
 				return *this; 
 			}
 			
-			ReverseIterator<Iterator>	operator--(int)
+			reverse_iterator<Iterator>	operator--(int)
 			{ 
-				ReverseIterator<Iterator>	tmp(*this); 
+				reverse_iterator<Iterator>	tmp(*this); 
 	
 				++_ite; 
 				return tmp; 
 			}
 
 			// Comparison operators
-			bool operator==(const ReverseIterator<Iterator>& rhs) const 
+			bool operator==(const reverse_iterator<Iterator>& rhs) const 
 			{ 
 				return _ite == rhs._ite; 
 			}
 			
-			bool operator!=(const ReverseIterator<Iterator>& rhs) const 
+			bool operator!=(const reverse_iterator<Iterator>& rhs) const 
 			{ 
 				return _ite != rhs._ite;
 			}
 			
-			bool operator<(const ReverseIterator<Iterator>& rhs) const 
+			bool operator<(const reverse_iterator<Iterator>& rhs) const 
 			{ 
 				return _ite > rhs._ite; 
 			}
 			
-			bool operator>(const ReverseIterator<Iterator>& rhs) const 
+			bool operator>(const reverse_iterator<Iterator>& rhs) const 
 			{ 
 				return _ite < rhs._ite; 
 			}
 			
-			bool operator<=(const ReverseIterator<Iterator>& rhs) const 
+			bool operator<=(const reverse_iterator<Iterator>& rhs) const 
 			{ 
 				return _ite >= rhs._ite; 
 			}
 			
-			bool operator>=(const ReverseIterator<Iterator>& rhs) const 
+			bool operator>=(const reverse_iterator<Iterator>& rhs) const 
 			{ 
 				return _ite <= rhs._ite; 
 			}
 
 			// Addition and subtraction operators
-			ReverseIterator<Iterator>	operator+(difference_type n) const 
+			reverse_iterator<Iterator>	operator+(difference_type n) const 
 			{ 
-				return ReverseIterator(_ite - n); 
+				return reverse_iterator(_ite - n); 
 			}
 			
-			ReverseIterator<Iterator>	operator-(difference_type n) const 
+			reverse_iterator<Iterator>	operator-(difference_type n) const 
 			{ 
-				return ReverseIterator(_ite + n); 
+				return reverse_iterator(_ite + n); 
 			}
 			
-			difference_type			operator-(const iterator& rhs) const 
+			difference_type			operator-(const Iterator& rhs) const 
 			{ 
 				return _ite - rhs._ite; 
 			}
 
 			// Compound assignment operators
-			ReverseIterator<Iterator>&	operator+=(difference_type n) 
+			reverse_iterator<Iterator>&	operator+=(difference_type n) 
 			{ 
 				_ite -= n; 
 				return *this; 
 			}
 			
-			ReverseIterator<Iterator>&	operator-=(difference_type n) 
+			reverse_iterator<Iterator>&	operator-=(difference_type n) 
 			{ 
 				_ite += n; 
 				return *this; 

@@ -50,6 +50,7 @@
 		"complex": "cpp",
 		"cstring": "cpp",
 		"sstream": "cpp",
-		"cinttypes": "cpp"
+		"cinttypes": "cpp",
+		"fstream": "cpp"
 	}
 }

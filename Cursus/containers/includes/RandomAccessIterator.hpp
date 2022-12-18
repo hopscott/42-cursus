@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 22:01:09 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/17 23:17:37 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/18 22:47:49 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ namespace ft
 			// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 		
 			// Default Constructor
-			RandomAccessIterator( void )
+			RandomAccessIterator<T>( void )
 			{
 				return;
 			}
@@ -153,7 +153,7 @@ namespace ft
 				return iterator(_ptr - n); 
 			}
 			
-			difference_type			operator-(const iterator& rhs) const 
+			difference_type			operator-(const RandomAccessIterator& rhs) const 
 			{ 
 				return _ptr - rhs._ptr; 
 			}

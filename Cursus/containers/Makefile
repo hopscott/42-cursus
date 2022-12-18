@@ -6,7 +6,7 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2022/12/11 18:06:54 by swillis          ###   ########.fr        #
+#    Updated: 2022/12/18 22:45:07 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,10 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-HEADERS := 	$(INC_DIR)/iter.hpp\
-			$(INC_DIR)/Vector.hpp
+HEADERS := 	$(INC_DIR)/Vector.hpp\
+			$(INC_DIR)/RandomAccessIterator.hpp\
+			$(INC_DIR)/reverse_iterator.hpp\
+			$(INC_DIR)/utilss.hpp\
 
 SRCS	:= 	$(SRC_DIR)/main.cpp
 
