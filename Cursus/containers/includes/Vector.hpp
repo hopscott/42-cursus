@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/11 18:23:57 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/18 01:01:26 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 
 # include <iostream>
 # include <cmath>
-# include "iter.hpp"
+
+# include "iterTraits.hpp"
+# include "RandomAccessIterator.hpp"
+# include "ReverseIterator.hpp"
 
 #define RED			"\x1b[31m"
 #define GREEN		"\x1b[32m"
@@ -45,28 +48,13 @@ namespace ft
 			typedef typename A::pointer								pointer;
 			typedef typename A::const_pointer						const_pointer;
 			
-
 			// https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
-			// https://en.cppreference.com/w/cpp/iterator/iterator
+
+			typedef ft::iterator_traits< RandomAccessIterator<T> >		iterator;
+			typedef const iterator									const_iterator;
 			
-			typedef std::iterator< 
-									typename ft::iterator_traits<value_type>::iterator_category,
-									typename ft::iterator_traits<value_type>::value_type,
-									typename ft::iterator_traits<value_type>::difference_type,
-									typename ft::iterator_traits<value_type>::pointer,
-									typename ft::iterator_traits<value_type>::reference
-									>		iterator;
-			
-			typedef const std::iterator< 
-									typename ft::iterator_traits<value_type>::iterator_category,
-									typename ft::iterator_traits<value_type>::value_type,
-									typename ft::iterator_traits<value_type>::difference_type,
-									typename ft::iterator_traits<value_type>::pointer,
-									typename ft::iterator_traits<value_type>::reference
-									>		const_iterator;
-			
-			// typedef ft::reverse_iterator<iterator>						reverse_iterator;
-			// typedef const ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+			typedef ft::reverse_iterator< iterator >				reverse_iterator;
+			typedef const ft::reverse_iterator< const_iterator >	const_reverse_iterator;
 
 			// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 		
@@ -74,38 +62,25 @@ namespace ft
 		
 			// Default Constructor
 			Vector<T>( void )
-			: _v(NULL), _capacity(1), _current(0)
+			: _v(nullptr), _capacity(0), _current(0)
 			{
-				//Allocator
-				allocator_type	alloc;
-
-				_v = alloc.allocate(_capacity, 0);
-				
 				return;
 			}
 
 			// Parametric Constructor
 			Vector<T>( const unsigned int n )
-			: _v(NULL), _capacity(n), _current(0)
+			: _v(nullptr), _capacity(n), _current(0)
 			{
-				//Allocator
-				allocator_type	alloc;
-
-				_v = alloc.allocate(_capacity, 0);
+				_v = _allocator.allocate(_capacity, 0);
 				
 				return;
 			}
 
 			// Copy Constructor
 			Vector<T>( Vector<T> const & src )
-			: _v(NULL), _capacity(src._capacity), _current(src._current)
+			: _v(nullptr), _capacity(src._capacity), _current(src._current)
 			{
-				//Allocator
-				allocator_type	alloc;
-
 				_v = alloc.allocate(_capacity, 0);
-				
-				//Copy array
 				assign(src.begin(), src.end());
 
 				return;
@@ -114,10 +89,11 @@ namespace ft
 			// Destructor
 			~Vector<T>( void )
 			{
-				//Allocator
-				allocator_type	alloc;
-
-				alloc.deallocate(_v, _capacity);
+				for (size_type idx=0; idx<_current; ++idx)
+				{
+					_allocator.destroy(_v[idx]);
+				}
+				_allocator.deallocate(_v, _capacity);
 				
 				return;
 			}
@@ -129,15 +105,14 @@ namespace ft
 			{
 				if (this != &rhs)
 				{
-					//Allocator
-					allocator_type	alloc;
+					for (size_type idx=0; idx<_current; ++idx)
+					{
+						_allocator.destroy(_v[idx]);
+					}
+					_allocator.deallocate(_v, _capacity);
 
-					alloc.deallocate(_v, _capacity);
-					_v = NULL;
-
-					//Copy array
 					_capacity = rhs._capacity;
-					_current = rhs._current;
+					_v = _allocator.allocate(_capacity, 0);
 					assign(rhs.begin(), rhs.end());
 				}
 
@@ -150,12 +125,11 @@ namespace ft
 
 			void	assign( size_type count, const_reference value )
 			{
-				size_type	idx;
-
 				for (size_type idx=0; idx<count; ++idx)
 				{
 					(*this)[idx] = value;
 				}
+				_current = count;
 			}
 		
 			template< class InputIt >
@@ -168,15 +142,14 @@ namespace ft
 				{
 					(*this)[idx++] = *ite;
 				}
+				_current = idx;
 			}
 
 			// === GET_ALLOCATOR ===
 			
 			allocator_type	get_allocator() const
 			{
-				allocator_type	alloc;
-
-				return alloc;
+				return _allocator;
 			}
 			
 			// --- Element access ---
@@ -197,7 +170,7 @@ namespace ft
 
 			reference	operator[](size_type idx)
 			{
-				if (_v == NULL || idx >= _capacity)
+				if (_v == nullptr || idx >= _capacity)
 				{
 					throw std::out_of_range("Index out of range");
 				}
@@ -207,7 +180,7 @@ namespace ft
 			
 			const_reference	operator[](size_type idx) const
 			{
-				if (_v == NULL || idx >= _capacity)
+				if (_v == nullptr || idx >= _capacity)
 				{
 					throw std::out_of_range("Index out of range");
 				}
@@ -231,12 +204,12 @@ namespace ft
 			
 			reference	back(void)
 			{
-				return (*this)[_current];
+				return (*this)[_current - 1];
 			}
 			
 			const_reference	back(void) const
 			{
-				return (*this)[_current];
+				return (*this)[_current - 1];
 			}
 	
 			// === DATA ===
@@ -262,27 +235,123 @@ namespace ft
 				return ite; 
 			}
 		
+			// === END ===
+			
 			iterator	end(void)
 			{
-				iterator	ite(_v[_current]);
+				iterator	ite(_v[_current - 1]);
 
 				return ite;
 			}
-			// iterator	Vector<T>::rbegin;
-			// iterator	Vector<T>::rend;
+			
+			// === RBEGIN ===
+			
+			iterator	rbegin(void)
+			{
+				reverse_iterator	rite(_v);
+				
+				return rite;
+			}
+			
+			// === REND ===
+			
+			iterator	rend(void)
+			{
+				reverse_iterator	rite(_v[_current - 1]);
+				
+				return rite;
+			}
 
-		// 	// --- Capacity ---
+			// --- Capacity ---
 
-		// 	Vector<T>::empty;
-		// 	Vector<T>::size;
-		// 	Vector<T>::max_size;
-		// 	Vector<T>::reserve;
-		// 	Vector<T>::capacity;
+			// === EMPTY ===
 
-		// 	// --- Modifiers ---
+			bool	empty(void) const
+			{
+				return (begin() == end());	
+			}
+			
+			// === SIZE ===
 
-		// 	Vector<T>::clear;
-		// 	Vector<T>::insert;
+			size_type	size(void) const
+			{
+				return (std::distance(begin(), end()));
+			}
+			
+			// === MAX SIZE ===
+			
+			size_type	max_size(void) const
+			{
+				return (std::numeric_limits<size_type>::max() / sizeof(T));
+			}
+			
+			// === RESERVE ===
+			
+			void	reserve( size_type new_cap )
+			{
+				if (new_cap > max_size())
+				{
+					throw std::length_error();
+				}
+				
+				pointer			new_v;
+	
+				new_v = _allocator.allocate(new_cap, 0);
+				if (!new_v)
+				{
+					throw std::bad_alloc();
+				}
+				
+				for (size_type idx=0; idx<_current; ++idx)
+				{
+					_alloctor.construct(new_v[idx], _v[idx]);
+					_allocator.destroy(_v[idx]);
+				}
+				_allocator.deallocate(_v, _capacity);
+				
+				_v = new_v;
+				_capacity = new_cap;
+			}
+			
+			// === CAPACITY ===
+			
+			size_type capacity(void) const
+			{
+				return _capacity;
+			}
+
+			// --- Modifiers ---
+
+			// === CLEAR ===
+			
+			void	clear(void)
+			{
+				for (size_type idx=0; idx<_current; ++idx)
+				{
+					_allocator.destroy(_v[idx]);
+				}
+				_current = 0;
+			}
+			
+			// === INSERT ===
+			
+			iterator Vector<T>::insert( const_iterator pos, const T& value )
+			{
+				
+			}
+
+			iterator Vector<T>::insert( const_iterator pos, size_type count, const T& value )
+			{
+				
+			}
+
+			template< class InputIt >
+			iterator Vector<T>::insert( const_iterator pos, InputIt first, InputIt last )
+			{
+				
+				
+			}
+
 		// 	Vector<T>::erase;
 		// 	Vector<T>::push_back;
 		// 	Vector<T>::pop_back;
@@ -318,6 +387,7 @@ namespace ft
 			pointer			_v;
 			size_type		_capacity;
 			size_type		_current;
+			A				_allocator;
 		
 	};
 };
