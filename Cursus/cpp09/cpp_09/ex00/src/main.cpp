@@ -5,32 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 16:04:56 by swillis           #+#    #+#             */
-/*   Updated: 2023/03/30 20:07:22 by swillis          ###   ########.fr       */
+/*   Created: 2023/03/29 00:34:34 by swillis           #+#    #+#             */
+/*   Updated: 2023/04/06 18:24:13 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "Contact.hpp"
-# include "PhoneBook.hpp"
+#include "BitcoinExchange.hpp"
 
-int	main( void )
-{
-	std::string	str;
-	PhoneBook	phonebook;
+int main(int ac, char **av) {
+    
+    if (ac != 2) {
+        std::cout << "Error: could not open file." << std::endl;
+        return 1;
+    }
 
-	while (std::cin)
-	{
-		std::cout << "Enter a command [\"ADD\", \"SEARCH\" or \"EXIT\"]: " << std::endl;
-		std::getline (std::cin, str);
-		if (!containsGraph(str) || containsNonPrintables(str))
-			continue;
-		streamClean(str);
-		if (str == "ADD")
-			phonebook.addNewContact();
-		else if (str == "SEARCH")
-			phonebook.searchContacts();
-		else if (str == "EXIT")
-			break;
-	}
-	return (0);
+    BitcoinExchange     btcx;
+    
+    btcx.importDB();
+    btcx.inputCalc(av[1]);
+    
+    return 0;
 }

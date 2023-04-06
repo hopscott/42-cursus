@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 18:04:04 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/18 23:56:57 by swillis          ###   ########.fr       */
+/*   Updated: 2022/12/19 00:09:21 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,45 +46,47 @@ namespace ft
 
 	// === IS INTEGRAL ===
 	
-	template <typename T>
-	struct is_integral : false {};
+	// https://stackoverflow.com/questions/43571962/how-is-stdis-integral-implemented
+	
+	// template <typename T>
+	// struct is_integral 
 
-	template <>
-	struct is_integral<bool> : true {};
-
-	template <>
-	struct is_integral<char> : true {};
-
-	template <>
-	struct is_integral<signed char> : true {};
-
-	template <>
-	struct is_integral<unsigned char> : true {};
-
-	template <>
-	struct is_integral<short> : true {};
-
-	template <>
-	struct is_integral<unsigned short> : true {};
-
-	template <>
-	struct is_integral<int> : true {};
-
-	template <>
-	struct is_integral<unsigned int> : true {};
-
-	template <>
-	struct is_integral<long> : true {};
-
-	template <>
-	struct is_integral<unsigned long> : true {};
-
-	template <>
-	struct is_integral<long long> : true {};
-
-	template <>
-	struct is_integral<unsigned long long> : true {};
-
+	// template <>
+	// struct is_integral<bool>
+	
+	// template <>
+	// struct is_integral<char>;
+	
+	// template <>
+	// struct is_integral<signed char>
+	
+	// template <>
+	// struct is_integral<unsigned char>
+	
+	// template <>
+	// struct is_integral<short>
+	
+	// template <>
+	// struct is_integral<unsigned short>
+	
+	// template <>
+	// struct is_integral<int>
+	
+	// template <>
+	// struct is_integral<unsigned int>
+	
+	// template <>
+	// struct is_integral<long>
+	
+	// template <>
+	// struct is_integral<unsigned long>
+	
+	// template <>
+	// struct is_integral<long long>
+	
+	// template <>
+	// struct is_integral<unsigned long long>
+	
 	// === EQUAL ===
 	
 	template<class InputIt1, class InputIt2>

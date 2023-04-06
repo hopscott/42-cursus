@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 22:01:09 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/18 22:47:49 by swillis          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:16:15 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,12 @@ namespace ft
 			// Addition and subtraction operators
 			RandomAccessIterator<T>	operator+(difference_type n) const 
 			{ 
-				return iterator(_ptr + n); 
+				return RandomAccessIterator<T>(_ptr + n); 
 			}
 			
 			RandomAccessIterator<T>	operator-(difference_type n) const 
 			{ 
-				return iterator(_ptr - n); 
+				return RandomAccessIterator<T>(_ptr - n); 
 			}
 			
 			difference_type			operator-(const RandomAccessIterator& rhs) const 

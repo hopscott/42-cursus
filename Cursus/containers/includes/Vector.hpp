@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:52 by swillis           #+#    #+#             */
-/*   Updated: 2022/12/18 23:51:03 by swillis          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:15:14 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft
 			
 			// https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
 
-			typedef ft::iterator_traits< RandomAccessIterator<T> >		iterator;
+			typedef ft::RandomAccessIterator<T>						iterator;
 			typedef const iterator									const_iterator;
 			
 			typedef ft::reverse_iterator< iterator >				reverse_iterator;
@@ -118,22 +118,41 @@ namespace ft
 
 			void	assign( size_type count, const_reference value )
 			{
+				if (_current + count > _capacity)
+				{
+					resize(_capacity * 2);
+				}
+				
 				for (size_type idx=0; idx<count; ++idx)
 				{
 					(*this)[idx] = value;
+					++_current;
 				}
-				_current = count;
 			}
 		
 			template< class InputIt >
 			void	assign( InputIt first, InputIt last )
 			{
+
+				size_type	count = 0;
+				
+				for (InputIt ite = first; ite != last; ++ite)
+				{
+					++count;
+				}
+
+				if (_current + count > _capacity)
+				{
+					resize(_capacity * 2);
+				}
+
 				size_type	idx;
 
 				idx = 0;
 				for (InputIt ite=first; ite<last; ++ite)
 				{
-					(*this)[idx++] = *ite;
+					(*this)[idx++] = ite;
+					++_current;
 				}
 				_current = idx;
 			}
@@ -223,36 +242,38 @@ namespace ft
 			
 			iterator	begin(void)
 			{
-				iterator	ite(_v);
-
-				return ite; 
+				return iterator(_v); 
 			}
 		
+			const_iterator	begin(void) const
+			{
+				return const_iterator(_v); 
+			}
+			
 			// === END ===
 			
 			iterator	end(void)
 			{
-				iterator	ite(_v[_current - 1]);
-
-				return ite;
+				return iterator(_v + _capacity); 
 			}
-			
+
+			const_iterator	end(void) const
+			{
+				return const_iterator(_v + _capacity); 
+			}
+
 			// === RBEGIN ===
 			
-			iterator	rbegin(void)
+			reverse_iterator	rbegin(void)
 			{
-				reverse_iterator	rite(_v);
-				
-				return rite;
+				return reverse_iterator(_v); 
 			}
 			
 			// === REND ===
 			
-			iterator	rend(void)
+			reverse_iterator	rend(void)
 			{
-				reverse_iterator	rite(_v[_current - 1]);
-				
-				return rite;
+				return reverse_iterator(_v + _capacity); 
 			}
 
 			// --- Capacity ---
@@ -337,7 +358,7 @@ namespace ft
 					throw std::out_of_range("Index out of range");
 				}
 				
-				if (size() == _capacity)
+				if (size() + 1 >= _capacity)
 				{
 					resize(_capacity * 2);
 				}
@@ -493,8 +514,8 @@ namespace ft
 					
 					for (size_type idx=0; idx<_current; ++idx)
 					{
-						_allocator.construct(new_v[idx], _v[idx]);
-						_allocator.destroy(_v[idx]);
+						_allocator.construct(&new_v[idx], _v[idx]);
+						_allocator.destroy(&_v[idx]);
 					}
 					_allocator.deallocate(_v, _capacity);
 					
