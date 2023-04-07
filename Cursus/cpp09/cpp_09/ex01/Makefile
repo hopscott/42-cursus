@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2023/04/05 22:14:41 by swillis          ###   ########.fr        #
+#    Updated: 2023/04/07 18:27:16 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := btc 
+NAME := RPN 
 
 # Dirs ==========================================
 
@@ -34,10 +34,10 @@ LDFLAGS ?=
 
 # Src files ======================================
 
-# HEADERS := 	$(INC_DIR)/BitcoinExchange.hpp
+HEADERS := 	$(INC_DIR)/RPN.hpp
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
-			# $(SRC_DIR)/BitcoinExchange.cpp
+			$(SRC_DIR)/RPN.cpp
 
 # Make all ========================================
 

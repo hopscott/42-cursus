@@ -1,57 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
+/*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 19:22:09 by swillis           #+#    #+#             */
-/*   Updated: 2023/03/30 19:22:19 by swillis          ###   ########.fr       */
+/*   Updated: 2023/04/07 18:30:43 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BITCOINEXCHANGE_H
-# define BITCOINEXCHANGE_H
+#ifndef RPN_H
+# define RPN_H
 
+# include <stack>
 # include <iostream>
 # include <string>
-# include <cmath>
 # include <limits>
 # include <iomanip>
+# include <fstream>
+# include <sstream>
+# include <cctype>
 
-class BitcoinExchange {
+class RPN {
 
 	public:
 
 		// --------------- CONSTRUCTOR / DESTRUCTOR ---------------
 	
 		// Default Constructor
-		BitcoinExchange( void );
+		RPN( void );
 
 		// Parametric Constructor
-		BitcoinExchange( const std::string path );
+		RPN( const std::string& str );
 
 		// Copy Constructor
-		BitcoinExchange( BitcoinExchange const & src );
+		RPN( RPN const & src );
 	
 		// Destructor
-		~BitcoinExchange( void );
+		~RPN( void );
 	
 		// --------------- OPERATOR OVERLOADS ---------------
 	
 		// Copy Assignment Operator Overload
-		BitcoinExchange &	operator=(const BitcoinExchange & rhs);
+		RPN &	operator=(const RPN & rhs);
 
 		// --------------- FUNCTIONS ---------------
 	
 		// Member functions
-		
+		int		str2i(const std::string& str);
+		void	calculate(const std::string& str);
+
 	private:
 
-        std::string     _db_path;
+		std::string		_str;
+		int				_result;
+	
 };
-
-// Insertion Assignment Operator Overload
-std::ostream &	operator<<( std::ostream & o, BitcoinExchange const & rhs );
 
 #endif
