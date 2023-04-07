@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 19:22:04 by swillis           #+#    #+#             */
-/*   Updated: 2023/04/06 18:31:27 by swillis          ###   ########.fr       */
+/*   Updated: 2023/04/07 17:37:00 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ BitcoinExchange &	BitcoinExchange::operator=(const BitcoinExchange & rhs)
 
 	if (this != &rhs)
 	{
-		// _db( rhs._db );
+		_db.clear();
+		_db.insert(rhs._db.begin(), rhs._db.end());
 	}
 
 	return *this;
@@ -224,12 +225,12 @@ void	BitcoinExchange::inputCalc( const std::string& input ) {
             } 
             
 
-            if ( v * f < 0.0 ) {
+            if ( v < 0.0 ) {
 
                 std::cout << "Error: not a positive number." << std::endl;
                 
             } 
-            else if ( v * f > static_cast<float>(std::numeric_limits<int>::max()) ) {
+            else if ( v > 1000.0 ) {
 
                 std::cout << "Error: too large a number." << std::endl;
 
