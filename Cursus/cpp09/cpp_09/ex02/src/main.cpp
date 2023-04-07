@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:49:26 by swillis           #+#    #+#             */
-/*   Updated: 2023/04/06 00:16:47 by swillis          ###   ########.fr       */
+/*   Updated: 2023/04/07 19:21:30 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,82 +15,8 @@
 #include <list>
 #include <chrono>
 
-void merge(std::vector<int>& arr, int left, int mid, int right) {
-    
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
-
-    std::vector<int> L(n1);
-    std::vector<int> R(n2);
-
-    for (int i = 0; i < n1; i++)
-        L[i] = arr[left + i];
-
-    for (int j = 0; j < n2; j++)
-        R[j] = arr[mid + 1 + j];
-
-    int i = 0;
-    int j = 0;
-    int k = left;
-
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            arr[k] = L[i];
-            i++;
-        }
-        else {
-            arr[k] = R[j];
-            j++;
-        }
-        k++;
-    }
-
-    while (i < n1) {
-        arr[k] = L[i];
-        i++;
-        k++;
-    }
-
-    while (j < n2) {
-        arr[k] = R[j];
-        j++;
-        k++;
-    }
-}
-
-void insertion_sort(std::vector<int>& arr, int left, int right) {
-    for (int i = left + 1; i <= right; i++) {
-        int key = arr[i];
-        int j = i - 1;
-
-        while (j >= left && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j--;
-        }
-
-        arr[j + 1] = key;
-    }
-}
-
-void merge_insertion_sort(std::vector<int>& arr, int left, int right) {
-    if (left < right) {
-        int mid = left + (right - left) / 2;
-
-        if (mid - left + 1 <= 32)
-            insertion_sort(arr, left, mid);
-        else
-            merge_insertion_sort(arr, left, mid);
-
-        if (right - mid <= 32)
-            insertion_sort(arr, mid + 1, right);
-        else
-            merge_insertion_sort(arr, mid + 1, right);
-
-        merge(arr, left, mid, right);
-    }
-}
-
 int main(int argc, char* argv[]) {
+    
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " <sequence>" << std::endl;
         return 1;
