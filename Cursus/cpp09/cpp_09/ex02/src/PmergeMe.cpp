@@ -68,7 +68,7 @@ int		PmergeMe::str2i(const std::string& str) {
     return i;
 }
 
-void    PmergeMe::lstmerge(std::list<int>& lst, std::list<int>& llst, std::list<int>& rlst) {
+void    PmergeMe::lstMergeSort(std::list<int>& lst, std::list<int>& llst, std::list<int>& rlst) {
     
     std::list<int>::iterator    itl = llst.begin();
     std::list<int>::iterator    itr = rlst.begin();
@@ -98,30 +98,29 @@ void    PmergeMe::lstmerge(std::list<int>& lst, std::list<int>& llst, std::list<
     }
 }
 
-void insertion_sort(std::list<int>& lst) {
+void PmergeMe::lstInsertionSort(std::list<int>& lst) {
     
     std::list<int>::iterator it = lst.begin();
     ++it;
 
-    for (it; it!=lst.end(); ++it) {
+    while(it!=lst.end()) {
         
-        std::list<int>::iterator    itp = --it;
-        int                         curr = *it;
-        int                         prev= *itp;
+        std::list<int>::iterator    prev = --it;
 
-        while (itp != lst.begin() && prev > curr) {
+        while (prev != lst.begin() && *prev > *it) {
             
-            ++itp = prev;
-            --itp;
+            ++it = *prev;
+            --prev;
         }
 
-        std::next(it_prev) = key;
+        ++prev = *it;
     }
 }
 
-void merge_insertion_sort(std::list<int>& lst) {
+void PmergeMe::lstMergeInsertionSort(std::list<int>& lst) {
 
     if (lst.size() > 1) {
+
         std::list<int> left;
         std::list<int> right;
         auto mid_it = std::next(lst.begin(), lst.size() / 2);
