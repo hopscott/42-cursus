@@ -6,7 +6,7 @@
 /*   By: swillis <swillis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 19:22:04 by swillis           #+#    #+#             */
-/*   Updated: 2023/04/07 20:06:56 by swillis          ###   ########.fr       */
+/*   Updated: 2023/04/09 00:22:42 by swillis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,10 @@ PmergeMe::PmergeMe( void )
 	return;
 }
 
-// Parametric Constructor
-PmergeMe::PmergeMe( const std::string& str )
-: _str( str )
-{
-	return;
-}
-
 // Copy Constructor
 PmergeMe::PmergeMe( PmergeMe const & src )
-: _str( src._str ), _result( src._result )
 {
+    (void)src;
 	return;
 }
 
@@ -45,13 +38,7 @@ PmergeMe::~PmergeMe( void )
 // Copy Assignment Operator Overload
 PmergeMe &	PmergeMe::operator=(const PmergeMe & rhs)
 {
-
-	if (this != &rhs)
-	{
-		_str = rhs._str;
-		_result = rhs._result;
-	}
-
+    (void)rhs;
 	return *this;
 }
 
@@ -68,10 +55,41 @@ int		PmergeMe::str2i(const std::string& str) {
     return i;
 }
 
-void    PmergeMe::lstMergeSort(std::list<int>& lst, std::list<int>& llst, std::list<int>& rlst) {
+// LIST --------------------------------------------------------------------------------------
+
+// https://www.youtube.com/watch?v=JU767SDMDvA&ab_channel=MichaelSambol
+
+void    PmergeMe::lstInsertionSort(std::list<unsigned int>& lst) {
     
-    std::list<int>::iterator    itl = llst.begin();
-    std::list<int>::iterator    itr = rlst.begin();
+    if (lst.size() > 1) {
+        
+        std::list<unsigned int>::iterator    it = lst.begin();
+        ++it;
+
+        while (it != lst.end()) {
+            
+            std::list<unsigned int>::iterator    curr = it;
+            std::list<unsigned int>::iterator    prev = curr;
+            --prev;
+
+            while ((curr != lst.begin()) && (*prev > *curr)) {
+                
+                std::swap(*prev, *curr);
+                --prev;
+                --curr;
+            }
+
+            ++it;
+        }
+    }
+}
+
+// https://www.youtube.com/watch?v=4VqmGXwpLqc&ab_channel=MichaelSambol
+
+void    PmergeMe::lstMerge(std::list<unsigned int>& lst, std::list<unsigned int>& llst, std::list<unsigned int>& rlst) {
+    
+    std::list<unsigned int>::iterator    itl = llst.begin();
+    std::list<unsigned int>::iterator    itr = rlst.begin();
 
     while (itl != llst.end() && itr != rlst.end()) {
         
@@ -98,172 +116,113 @@ void    PmergeMe::lstMergeSort(std::list<int>& lst, std::list<int>& llst, std::l
     }
 }
 
-void PmergeMe::lstInsertionSort(std::list<int>& lst) {
-    
-    std::list<int>::iterator it = lst.begin();
-    ++it;
-
-    while(it!=lst.end()) {
-        
-        std::list<int>::iterator    prev = --it;
-
-        while (prev != lst.begin() && *prev > *it) {
-            
-            ++it = *prev;
-            --prev;
-        }
-
-        ++prev = *it;
-    }
-}
-
-void PmergeMe::lstMergeInsertionSort(std::list<int>& lst) {
+void    PmergeMe::lstMergeInsertionSort(std::list<unsigned int>& lst) {
 
     if (lst.size() > 1) {
 
-        std::list<int> left;
-        std::list<int> right;
-        auto mid_it = std::next(lst.begin(), lst.size() / 2);
+        std::list<unsigned int> llst;
+        std::list<unsigned int> rlst;
+        
+        std::list<unsigned int>::iterator    mid = lst.begin();
+        for (unsigned long i=0; i<lst.size()/2; ++i)
+            ++mid;
 
-        left.splice(left.begin(), lst, lst.begin(), mid_it);
-        right.splice(right.begin(), lst, mid_it, lst.end());
+        llst.splice(llst.begin(), lst, lst.begin(), mid);
+        rlst.splice(rlst.begin(), lst, mid, lst.end());
 
-        if (left.size() > 1)
-            merge_insertion_sort(left);
-        else if (left.size() == 1)
-            lst.splice(lst.begin(), left);
+        if (llst.size() < 25)
+            lstInsertionSort(llst);
+        else
+            lstMergeInsertionSort(llst);
 
-        if (right.size() > 1)
-            merge_insertion_sort(right);
-        else if (right.size() == 1)
-            lst.splice(lst.end(), right);
+        if (rlst.size() < 25)
+            lstInsertionSort(rlst);
+        else
+            lstMergeInsertionSort(rlst);
 
-        merge(lst, left, right);
+        lstMerge(lst, llst, rlst);
     }
 }
 
-void merge(std::vector<int>& arr, int left, int mid, int right) {
+// VECTOR --------------------------------------------------------------------------------------
+
+void    PmergeMe::vecInsertionSort(std::vector<unsigned int>& vec) {
     
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
+    if (vec.size() > 1) {
+        
+        std::vector<unsigned int>::iterator    it = vec.begin();
+        ++it;
 
-    std::vector<int> L(n1);
-    std::vector<int> R(n2);
+        while (it != vec.end()) {
+            
+            std::vector<unsigned int>::iterator    prev = it;
+            --prev;
 
-    for (int i = 0; i < n1; i++)
-        L[i] = arr[left + i];
+            while (((prev+1) != vec.begin()) && (*prev > *(prev+1))) {
+                
+                std::swap(*prev, *(prev+1));
+                --prev;
+            }
 
-    for (int j = 0; j < n2; j++)
-        R[j] = arr[mid + 1 + j];
+            ++it;
+        }
+    }
+}
 
-    int i = 0;
-    int j = 0;
-    int k = left;
+void    PmergeMe::vecMerge(std::vector<unsigned int>& vec, std::vector<unsigned int>& lvec, std::vector<unsigned int>& rvec) {
+    
+    std::vector<unsigned int>::iterator    itl = lvec.begin();
+    std::vector<unsigned int>::iterator    itr = rvec.begin();
 
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            arr[k] = L[i];
-            i++;
+    vec.clear();
+
+    while (itl != lvec.end() && itr != rvec.end()) {
+        
+        if (*itl < *itr) {
+            
+            vec.push_back(*itl);
+            itl++;
         }
         else {
-            arr[k] = R[j];
-            j++;
+
+            vec.push_back(*itr);
+            itr++;
         }
-        k++;
     }
 
-    while (i < n1) {
-        arr[k] = L[i];
-        i++;
-        k++;
+    while (itl != lvec.end()) {
+        vec.push_back(*itl);
+        itl++;
     }
 
-    while (j < n2) {
-        arr[k] = R[j];
-        j++;
-        k++;
+    while (itr != rvec.end()) {
+        vec.push_back(*itr);
+        itr++;
     }
 }
 
-void insertion_sort(std::vector<int>& arr, int left, int right) {
-    
-    for (int i = left + 1; i <= right; i++) {
-        int key = arr[i];
-        int j = i - 1;
+void    PmergeMe::vecMergeInsertionSort(std::vector<unsigned int>& vec) {
 
-        while (j >= left && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j--;
-        }
+    if (vec.size() > 1) {
 
-        arr[j + 1] = key;
-    }
-}
+        std::vector<unsigned int> lvec;
+        std::vector<unsigned int> rvec;
+        
+        std::vector<unsigned int>::iterator    mid = vec.begin() + vec.size() / 2;
 
-void merge_insertion_sort(std::vector<int>& arr, int left, int right) {
-    
-    if (left < right) {
-        int mid = left + (right - left) / 2;
-
-        if (mid - left + 1 <= 32)
-            insertion_sort(arr, left, mid);
+        lvec.insert(lvec.end(), vec.begin(), mid);  
+        rvec.insert(rvec.end(), mid, vec.end());
+        
+        if (lvec.size() < 25)
+            vecInsertionSort(lvec);
         else
-            merge_insertion_sort(arr, left, mid);
+            vecMergeInsertionSort(lvec);
 
-        if (right - mid <= 32)
-            insertion_sort(arr, mid + 1, right);
+        if (rvec.size() < 25)
+            vecInsertionSort(rvec);
         else
-            merge_insertion_sort(arr, mid + 1, right);
+            vecMergeInsertionSort(rvec);
 
-        merge(arr, left, mid, right);
+        vecMerge(vec, lvec, rvec);
     }
-}
-
-int main(int argc, char* argv[]) {
-    
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <sequence>" << std::endl;
-        return 1;
-    }
-
-    std::vector<int> arr;
-	for (int i = 1; i < argc; i++) {
-		int num = std::stoi(argv[i]);
-		arr.push_back(num);
-	}
-
-	std::cout << "Unsorted sequence: ";
-	for (int x : arr)
-		std::cout << x << " ";
-	std::cout << std::endl;
-
-	// Sort using std::vector
-	auto start_time = std::chrono::steady_clock::now();
-	merge_insertion_sort(arr, 0, arr.size() - 1);
-	auto end_time = std::chrono::steady_clock::now();
-	std::chrono::duration<double> elapsed_seconds = end_time - start_time;
-
-	std::cout << "Sorted sequence (using std::vector): ";
-	for (int x : arr)
-		std::cout << x << " ";
-	std::cout << std::endl;
-
-	std::cout << "Time taken (using std::vector): " << elapsed_seconds.count() << " seconds" << std::endl;
-
-	// Sort using std::list
-	std::list<int> lst(arr.begin(), arr.end());
-	start_time = std::chrono::steady_clock::now();
-	lst.sort();
-	end_time = std::chrono::steady_clock::now();
-	elapsed_seconds = end_time - start_time;
-
-	std::cout << "Sorted sequence (using std::list): ";
-	for (int x : lst)
-		std::cout << x << " ";
-	std::cout << std::endl;
-
-	std::cout << "Time taken (using std::list): " << elapsed_seconds.count() << " seconds" << std::endl;
-
-	return 0;
-
 }

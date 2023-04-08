@@ -6,13 +6,13 @@
 #    By: swillis <swillis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 18:15:41 by swillis           #+#    #+#              #
-#    Updated: 2023/04/05 22:14:41 by swillis          ###   ########.fr        #
+#    Updated: 2023/04/08 22:08:01 by swillis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name ==========================================
 
-NAME := btc 
+NAME := PmergeMe 
 
 # Dirs ==========================================
 
@@ -29,15 +29,15 @@ EXE := $(BIN_DIR)/$(NAME)
 # Compilation ====================================
 
 CC := c++
-CPPFLAGS ?= -Wall -Wextra -Werror -Wno-unused -Wconversion -I$(INC_DIR) -std=c++98 -g3
+CPPFLAGS ?= -Wall -Wextra -Werror -Wno-unused -I$(INC_DIR) -std=c++98 -g3
 LDFLAGS ?=
 
 # Src files ======================================
 
-# HEADERS := 	$(INC_DIR)/BitcoinExchange.hpp
+HEADERS := 	$(INC_DIR)/PmergeMe.hpp
 
 SRCS	:= 	$(SRC_DIR)/main.cpp\
-			# $(SRC_DIR)/BitcoinExchange.cpp
+			$(SRC_DIR)/PmergeMe.cpp
 
 # Make all ========================================
 

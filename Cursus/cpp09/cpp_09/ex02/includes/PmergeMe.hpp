@@ -32,9 +32,6 @@ class PmergeMe {
 		// Default Constructor
 		PmergeMe( void );
 
-		// Parametric Constructor
-		PmergeMe( const std::string& str );
-
 		// Copy Constructor
 		PmergeMe( PmergeMe const & src );
 	
@@ -50,13 +47,15 @@ class PmergeMe {
 	
 		// Member functions
 		int		str2i(const std::string& str);
-		void	calculate(const std::string& str);
+		void    lstInsertionSort(std::list<unsigned int>& lst);
+		void    lstMerge(std::list<unsigned int>& lst, std::list<unsigned int>& llst, std::list<unsigned int>& rlst);
+		void    lstMergeInsertionSort(std::list<unsigned int>& lst);
+		void    vecInsertionSort(std::vector<unsigned int>& vec);
+		void    vecMerge(std::vector<unsigned int>& vec, std::vector<unsigned int>& lvec, std::vector<unsigned int>& rvec);
+		void    vecMergeInsertionSort(std::vector<unsigned int>& vec);
 
 	private:
 
-		std::string		_str;
-		int				_result;
-	
 };
 
 #endif
